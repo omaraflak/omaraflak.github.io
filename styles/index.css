@@ -8,9 +8,10 @@
     --color-text-tertiary: #757575;
     --color-text-tertiary-hover: #616161;
 
+    --color-hr: #E0E0E0;
+    --hr-margin: 30px;
     --page-width: 50%;
     --header-margin: 30px;
-    --hr-color: #E0E0E0;
 }
 
 /** ---- **/
@@ -102,8 +103,8 @@
 }
 
 .article-header {
-    border-top: 1px solid var(--hr-color);
-    border-bottom: 1px solid var(--hr-color);
+    border-top: 1px solid var(--color-hr);
+    border-bottom: 1px solid var(--color-hr);
 }
 
 .article-header-content {
@@ -131,6 +132,20 @@
     color: var(--color-text-primary);
     font-size: 1.4rem;
 }
+
+.article-section {
+    color: var(--color-text-primary);
+    font-size: 2rem;
+    border-bottom: 1px solid var(--color-hr);
+    padding-bottom: 10px;
+}
+
+.article-hr {
+    border-bottom: 1px solid var(--color-hr);
+    margin-top: var(--hr-margin);
+    margin-bottom: var(--hr-margin);
+}
+
 
 /** ------ **/
 /** HEADER **/
