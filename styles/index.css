@@ -2,28 +2,32 @@
     --color-text-primary: #333333;
     --color-text-primary-hover: #757575;
 
-    --color-text-secondary: #616161;
-    --color-text-secondary-hover: #BDBDBD;
+    --color-text-secondary: #424242;
+    --color-text-secondary-hover: #9E9E9E;
 
     --color-text-tertiary: #757575;
     --color-text-tertiary-hover: #616161;
+
+    --page-width: 50%;
+    --header-margin: 30px;
+    --hr-color: #E0E0E0;
 }
 
 /** ---- **/
 /** HOME **/
 /** ---- **/
 
-.home-body {
+.home-main {
     width: 85%;
     margin: 100px auto;
 }
 
-.home-body ul {
+.home-main ul {
     padding: 0;
     list-style-type: none;
 }
 
-.home-body li {
+.home-main li {
     margin-bottom: 12px;
 }
 
@@ -47,8 +51,8 @@
 /** ARTICLES **/
 /** -------- **/
 
-.articles-body {
-    width: 50%;
+.articles-main {
+    width: var(--page-width);
     margin: 0 auto;
 }
 
@@ -80,7 +84,7 @@
 .articles-preview-date {
     color: var(--color-text-secondary);
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .articles-preview-description {
@@ -88,12 +92,58 @@
     font-size: 1.3rem;
 }
 
+/** ------- **/
+/** ARTICLE **/
+/** ------- **/
+
+.article-main {
+    width: var(--page-width);
+    margin: 0 auto;
+}
+
+.article-header {
+    border-top: 1px solid var(--hr-color);
+    border-bottom: 1px solid var(--hr-color);
+}
+
+.article-header-content {
+    width: var(--page-width);
+    margin: 50px auto 30px auto;
+}
+
+.article-title {
+    color: var(--color-text-primary);
+    font-size: 3rem;
+}
+
+.article-date {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+}
+
+.article-description {
+    color: var(--color-text-primary);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.article-body {
+    color: var(--color-text-primary);
+    font-size: 1.4rem;
+}
+
 /** ------ **/
 /** HEADER **/
 /** ------ **/
 
+.site-header {
+    width: var(--page-width);
+    margin: 0 auto;
+}
+
 .site-header-content {
-    margin-top: 30px;
+    margin-top: var(--header-margin);
+    margin-bottom: var(--header-margin);
     text-align: left;
 }
 

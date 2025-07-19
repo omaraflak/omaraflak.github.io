@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample Article</title>
+    <title>Sample Article Title</title>
     <link rel="stylesheet" href="../styles/index.css">
     <link rel="stylesheet" href="../styles/fonts.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -12,17 +12,23 @@
 
 <body>
     <div id="header"></div>
-    <article class="article">
-        <h1 class="article-title">Sample Article Title</h1>
-        <p class="article-description">A short description of the article.</p>
-        <p class="article-date">19 JULY 2025</p>
-        <div class="article-body">
-            <p>This is the body of the article. Math example: <span class="katex">\(E = mc^2\)</span></p>
+    <div class="article-header">
+        <div class="article-header-content">
+            <h1 class="article-title">Sample Article Title</h1>
+            <p class="article-description">A short description of the article.</p>
+            <p class="article-date">19 JULY 2025</p>
         </div>
-    </article>
+    </div>
+    <main class="article-main">
+        <article class="article-body">
+            <div>
+                <p>This is the body of the article. Math example: <span class="katex">\(E = mc^2\)</span></p>
+            </div>
+        </article>
+    </main>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-    <script src="common.js"></script>
+    <script src="../scripts/common.js"></script>
 </body>
 
 </html>
