@@ -9,23 +9,23 @@
 }
 
 .home-body li {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .home-title {
     color: #333333;
-    font-size: 2.3rem;
+    font-size: 2.4rem;
 }
 
-.home-link,
-.home-email {
+.home-link {
     color: #333333;
     font-size: 1.5rem;
 }
 
 .home-email {
+    color: #333333;
+    font-size: 1.5rem;
     font-family: 'Courier New', Courier, monospace;
-    font-weight: 400;
 }
 
 .articles-body {
