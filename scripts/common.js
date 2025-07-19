@@ -11,11 +11,11 @@ if (typeof renderMathInElement === 'function') {
 }
 
 // Load header.html into #header if the element exists
-const headerEl = document.getElementById('header');
-if (headerEl) {
+const headerElement = document.getElementById('header');
+if (headerElement) {
   fetch('../header.html')
     .then(response => response.text())
     .then(html => {
-      headerEl.innerHTML = html;
+      headerElement.innerHTML = html;
     });
 } 

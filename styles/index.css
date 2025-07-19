@@ -1,7 +1,12 @@
 :root {
     --color-text-primary: #333333;
     --color-text-primary-hover: #757575;
-    --color-text-primary-secondary: #616161;
+
+    --color-text-secondary: #616161;
+    --color-text-secondary-hover: #BDBDBD;
+
+    --color-text-tertiary: #757575;
+    --color-text-tertiary-hover: #616161;
 }
 
 /** ---- **/
@@ -48,7 +53,7 @@
 }
 
 .articles-list {
-    margin-top: 100px;
+    margin-top: 70px;
 }
 
 .articles-preview {
@@ -62,7 +67,7 @@
 
 .articles-preview-title {
     color: var(--color-text-primary);
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: bold;
     text-decoration: none;
 }
@@ -73,7 +78,7 @@
 }
 
 .articles-preview-date {
-    color: var(--color-text-primary-secondary);
+    color: var(--color-text-secondary);
     font-weight: bold;
     font-size: 1.2rem;
 }
@@ -81,4 +86,23 @@
 .articles-preview-description {
     color: var(--color-text-primary);
     font-size: 1.3rem;
+}
+
+/** ------ **/
+/** HEADER **/
+/** ------ **/
+
+.site-header-content {
+    margin-top: 30px;
+    text-align: left;
+}
+
+.site-header-link {
+    color: var(--color-text-tertiary);
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.site-header-link:hover {
+    color: var(--color-text-tertiary-hover);
 }
