@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../font/Helvetica.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Apply Helvetica globally */
+body,
+* {
+    font-family: 'Helvetica', Arial, sans-serif;
+}
