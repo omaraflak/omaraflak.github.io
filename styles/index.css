@@ -1,93 +1,39 @@
-body {
-    background: #fff;
-    color: #222;
-    margin: 0;
+.home-body {
+    width: 85%;
+    margin: 100px auto;
+}
+
+.home-body ul {
     padding: 0;
-    font-size: 18px;
-    line-height: 1.7;
+    list-style-type: none;
 }
 
-header {
-    padding: 2rem 0 1rem 0;
-    text-align: center;
+.home-body li {
+    margin-bottom: 10px;
 }
 
-.site-header {
-    text-align: left;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #eee;
+.home-title {
+    color: #333333;
+    font-size: 2.3rem;
 }
 
-.articles-list {
-    max-width: 700px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-}
-
-.article-preview {
-    border-bottom: 1px solid #eee;
-    padding: 1.5rem 0;
-}
-
-.article-title {
+.home-link,
+.home-email {
+    color: #333333;
     font-size: 1.5rem;
-    font-weight: bold;
-    color: #222;
-    text-decoration: none;
-    transition: color 0.2s;
 }
 
-.article-title:hover {
-    color: #0077cc;
+.home-email {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 400;
 }
 
-.article-description {
-    color: #555;
-    margin: 0.5rem 0 0.2rem 0;
-}
-
-.article-date {
-    color: #aaa;
-    font-size: 0.9rem;
-}
-
-.article {
-    max-width: 700px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-}
-
-.article-title {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-.article-description {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-}
-
-.article-date {
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
+.articles-body {
+    width: 50%;
+    margin: 0 auto;
 }
 
 .article-body {
-    font-size: 1.1rem;
-}
-
-.main-link {
-    color: #222;
-    text-decoration: none;
-    font-size: 1.1rem;
-    padding: 0.5rem 1.2rem;
-    border-radius: 4px;
-    transition: background 0.2s, color 0.2s;
-}
-
-.main-link:hover {
-    background: #f5f5f5;
-    color: #0077cc;
+    width: 50%;
+    margin: 0 auto;
 }
