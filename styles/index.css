@@ -17,6 +17,7 @@
 
     --quote-margin: 20px;
     --quote-bar-width: 3px;
+    --quote-color: #9E9E9E;
 }
 
 /** ---- **/
@@ -145,7 +146,7 @@
 }
 
 .article-quote {
-    color: var(--color-text-tertiary);
+    color: var(--quote-color);
     font-style: oblique;
     font-size: 1.2rem;
     margin-left: calc(-1 * var(--quote-margin) - var(--quote-bar-width));
