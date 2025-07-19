@@ -10,7 +10,8 @@
 
     --color-hr: #E0E0E0;
     --hr-margin: 30px;
-    --page-width: 50%;
+    --page-width: 40%;
+    --home-width: 85%;
     --header-margin: 30px;
 }
 
@@ -19,7 +20,7 @@
 /** ---- **/
 
 .home-main {
-    width: 85%;
+    width: var(--home-width);
     margin: 100px auto;
 }
 
@@ -123,14 +124,13 @@
 }
 
 .article-description {
-    color: var(--color-text-primary);
-    font-size: 1.5rem;
-    font-weight: bold;
+    color: var(--color-text-tertiary);
+    font-size: 1.4rem;
 }
 
 .article-body {
     color: var(--color-text-primary);
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 .article-section {
