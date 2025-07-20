@@ -15,9 +15,35 @@
     --color-hr: #E0E0E0;
     --hr-margin: 30px;
 
-    --quote-margin: 20px;
+    --quote-vertical-margin: 30px;
+    --quote-bar-margin: 20px;
     --quote-bar-width: 3px;
     --quote-color: #9E9E9E;
+}
+
+/** ------ **/
+/** HEADER **/
+/** ------ **/
+
+.site-header {
+    width: var(--page-width);
+    margin: 0 auto;
+}
+
+.site-header-content {
+    margin-top: var(--header-margin);
+    margin-bottom: var(--header-margin);
+    text-align: left;
+}
+
+.site-header-link {
+    color: var(--color-text-tertiary);
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.site-header-link:hover {
+    color: var(--color-text-tertiary-hover);
 }
 
 /** ---- **/
@@ -145,43 +171,26 @@
     padding-bottom: 10px;
 }
 
+.article-small-section {
+    color: var(--color-text-primary);
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
 .article-quote {
     color: var(--quote-color);
     font-style: oblique;
+    font-weight: 300;
     font-size: 1.2rem;
-    margin-left: calc(-1 * var(--quote-margin) - var(--quote-bar-width));
-    padding-left: var(--quote-margin);
+    margin-left: calc(-1 * var(--quote-bar-margin) - var(--quote-bar-width));
+    padding-left: var(--quote-bar-margin);
     border-left: var(--quote-bar-width) solid black;
+    margin-top: var(--quote-vertical-margin);
+    margin-bottom: var(--quote-vertical-margin);
 }
 
 .article-hr {
     border-bottom: 1px solid var(--color-hr);
     margin-top: var(--hr-margin);
     margin-bottom: var(--hr-margin);
-}
-
-
-/** ------ **/
-/** HEADER **/
-/** ------ **/
-
-.site-header {
-    width: var(--page-width);
-    margin: 0 auto;
-}
-
-.site-header-content {
-    margin-top: var(--header-margin);
-    margin-bottom: var(--header-margin);
-    text-align: left;
-}
-
-.site-header-link {
-    color: var(--color-text-tertiary);
-    text-decoration: none;
-    font-size: 1.2rem;
-}
-
-.site-header-link:hover {
-    color: var(--color-text-tertiary-hover);
 }
