@@ -11,6 +11,7 @@
     --home-width: 85%;
     --page-width: 40%;
     --header-margin: 20px;
+    --footer-margin: 125px;
 
     --color-hr: #E0E0E0;
     --hr-margin: 30px;
@@ -19,6 +20,10 @@
     --quote-bar-margin: 20px;
     --quote-bar-width: 3px;
     --quote-color: #9E9E9E;
+}
+
+body {
+    margin: 0;
 }
 
 /** ------ **/
@@ -33,7 +38,6 @@
 .site-header-content {
     margin-top: var(--header-margin);
     margin-bottom: var(--header-margin);
-    text-align: left;
 }
 
 .site-header-link {
@@ -44,6 +48,22 @@
 
 .site-header-link:hover {
     color: var(--color-text-tertiary-hover);
+}
+
+/** ------ **/
+/** FOOTER **/
+/** ------ **/
+
+.site-footer {
+    width: var(--page-width);
+    margin: 0 auto;
+}
+
+.site-footer-content {
+    color: var(--color-text-tertiary);
+    font-size: 1.2rem;
+    margin-top: var(--footer-margin);
+    margin-bottom: var(--footer-margin);
 }
 
 /** ---- **/
@@ -162,6 +182,7 @@
 .article-body {
     color: var(--color-text-primary);
     font-size: 1.2rem;
+    margin: 50px auto;
 }
 
 .article-bold {
@@ -210,4 +231,13 @@
 
 .article-li {
     margin: 12px auto;
+}
+
+.article-link {
+    color: var(--color-text-primary);
+}
+
+.article-link:hover {
+    color: var(--color-text-primary-hover);
+    text-decoration: none;
 }
