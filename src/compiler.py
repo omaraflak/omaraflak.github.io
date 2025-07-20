@@ -1,3 +1,4 @@
+import re
 import bs4
 import datetime
 import article_pb2
@@ -38,26 +39,43 @@ TEMPLATE = """
 </html>
 """
 
+ITALIC_PATTERN = r"\*(.*)\*"
+BOLD_PATTERN = r"\*\*(.*)\*\*"
+BOLD_ITALIC_PATTERN = r"\*\*\*(.*)\*\*\*"
+
 
 def format_date(date: article_pb2.Date) -> str:
     time = datetime.datetime(date.year, date.month, date.day)
     return time.strftime('%b %d, %Y')
 
 
+def format_text(text: str) -> str:
+    # order matters
+    text = re.sub(BOLD_ITALIC_PATTERN,
+                  r'<span class="article-bold-italic">\1</span>', text)
+    text = re.sub(BOLD_PATTERN, r'<span class="article-bold">\1</span>', text)
+    text = re.sub(ITALIC_PATTERN,
+                  r'<span class="article-italic">\1</span>', text)
+    return text
+
+
 def format_content(contents: list[article_pb2.Content]) -> str:
     all_content = []
     for content in contents:
-        if content.HasField('section'):
+        if content.HasField("section"):
             all_content.append(
                 f'<h2 class="article-section">{content.section}</h2>')
-        if content.HasField('small_section'):
+        elif content.HasField("small_section"):
             all_content.append(
                 f'<h3 class="article-small-section">{content.small_section}</h3>')
-        if content.HasField('paragraph'):
+        elif content.HasField("paragraph"):
             all_content.append(
-                f'<p class="article-paragraph">{content.paragraph}</p>')
-        if content.HasField('quote'):
-            all_content.append(f'<p class="article-quote">{content.quote}</p>')
+                f'<p class="article-paragraph">{format_text(content.paragraph)}</p>')
+        elif content.HasField("quote"):
+            all_content.append(
+                f'<p class="article-quote">{format_text(content.quote)}</p>')
+        elif content.HasField("separator"):
+            all_content.append('<div class="article-hr"></div>')
     return "\n".join(all_content)
 
 

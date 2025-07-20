@@ -35,6 +35,8 @@ def parse(data: str) -> article_pb2.Article:
             content.small_section = line.strip("#").strip()
         elif line.startswith(">"):
             content.quote = line.strip(">").strip()
+        elif line == "---":
+            content.separator = True
         else:
             content.paragraph = line.strip()
         article.contents.append(content)

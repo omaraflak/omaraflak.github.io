@@ -11,7 +11,9 @@ Information is tied to the field of probabilities, and it can be seen as a measu
 
 > Information relates to probabilities in that the realisation of an event with low probability brings a lot of information, and the realisation of an event with high probability brings little information.
 
-For example: the event “It rains in London” is very likely therefore it brings little information. In contrast, the event “It rains in the Sahara Desert” is so unlikely, it brings a lot more information (e.g. it could more realistically help you pin-point the day of the event).
+---
+
+For example: the event *“It rains in London”* is **very** likely ***therefore it brings little information***. In contrast, the event “It rains in the Sahara Desert” is so unlikely, it brings a lot more information (e.g. it could more realistically help you pin-point the day of the event).
 
 ## Theorem
 

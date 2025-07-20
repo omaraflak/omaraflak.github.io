@@ -164,6 +164,19 @@
     font-size: 1.2rem;
 }
 
+.article-bold {
+    font-weight: bold;
+}
+
+.article-italic {
+    font-style: oblique;
+}
+
+.article-bold-italic {
+    font-weight: bold;
+    font-style: oblique;
+}
+
 .article-section {
     color: var(--color-text-primary);
     font-size: 2rem;

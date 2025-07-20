@@ -24,5 +24,6 @@ message Content {
     string small_section = 2;
     string paragraph = 3;
     string quote = 4;
+    bool separator = 5;
   }
 }
