@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package articles;
+
+message Article {
+  string title = 1;
+
+  string description = 2;
+
+  Date date = 3;
+
+  repeated Content contents = 4;
+}
+
+message Date {
+  int32 year = 1;
+  int32 month = 2;
+  int32 day = 3;
+}
+
+message Content {
+  oneof content {
+    string section = 1;
+    string small_section = 2;
+    string paragraph = 3;
+    string quote = 4;
+  }
+}
