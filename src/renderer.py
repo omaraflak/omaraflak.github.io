@@ -15,6 +15,7 @@ TEMPLATE = """
     <link rel="stylesheet" href="../styles/index.css">
     <link rel="stylesheet" href="../styles/fonts.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/github.min.css">
 </head>
 
 <body>
@@ -35,6 +36,8 @@ TEMPLATE = """
     <div id="footer"></div>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
     <script src="../scripts/common.js"></script>
 </body>
 
@@ -122,6 +125,13 @@ def parse_element(element: marko.block.Element, metadata: dict[str, str]) -> str
         return "<p></p>"
     elif isinstance(element, marko.inline.LineBreak):
         return "</br>"
+    elif isinstance(element, marko.inline.CodeSpan):
+        return f'<code class="article-code-inline">{element.children}</code>'
+    elif isinstance(element, marko.block.FencedCode):
+        code = parse_elements(element.children, metadata)
+        return f'<pre class="article-code-block"><code>{code}</code></pre>'
+    elif isinstance(element, marko.block.HTMLBlock):
+        return element.body
     else:
         print(f"{element.get_type()} is not supported!")
     return ""

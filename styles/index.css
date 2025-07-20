@@ -22,6 +22,7 @@
     --quote-color: #9E9E9E;
 
     --image-margin: 20px;
+    --code-background-color: #F5F5F5;
 }
 
 body {
@@ -247,4 +248,18 @@ body {
 .article-image {
     margin-top: var(--image-margin);
     margin-bottom: var(--image-margin);
+}
+
+.article-code-inline {
+    background-color: var(--code-background-color);
+    font-family: 'Courier New', Courier, monospace;
+    padding: 3px 5px;
+    border-radius: 5px;
+}
+
+.article-code-block * {
+    background-color: var(--code-background-color) !important;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 3px 5px;
+    border-radius: 5px;
 }

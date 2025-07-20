@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Title</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/fonts.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/github.min.css">
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="article-header">
+        <div class="article-header-content">
+            <h1 class="article-title">Article Title</h1>
+            <p class="article-description">This is a short description of the article content.</p>
+            <p class="article-date">Jul 20, 2025</p>
+        </div>
+    </div>
+    <main class="article-main">
+        <article class="article-body">
+            These are the different formatting options of this blog.<p></p><h2 id=this-is-a-title class="article-section">This is a title</h2><p></p>This is a function in python: <code class="article-code-inline">def main()</code>.<p></p>This is a normal paragraph. This is a normal paragraph. This is a normal paragraph. This is a normal paragraph. This is a normal paragraph. This is a normal paragraph. This is a normal paragraph. This is a normal paragraph. This is a normal paragraph. This is a normal paragraph. This is a normal paragraph. This is a normal paragraph. This is a normal paragraph.<p></p><div class="article-quote">You can also write quotes. You can also write quotes. You can also write quotes. You can also write quotes. You can also write quotes. You can also write quotes. You can also write quotes. You can also write quotes. You can also write quotes. You can also write quotes. You can also write quotes. You can also write quotes. You can also write quotes. You can also write quotes.</div><p></p><h3 id=this-is-a-secondary-title class="article-small-section">This is a secondary title</h3><p></p>Text can be formatted as <span class="article-italic">italic</span> (<code class="article-code-inline">*text*</code>), <span class="article-bold">bold</span> (<code class="article-code-inline">**text**</code>), or <span class="article-italic"><span class="article-bold">italic and bold !</span></span> (<code class="article-code-inline">***text***</code>)<p></p>You can create lists:<p></p><ul><li class="article-li">One</li><li class="article-li">Two</li><li class="article-li">Three</li></ul><p></p>You can include <a class="article-link" href="#this-is-a-title">links</a> to sections of the document.<p></p>When you need to have a separator use the <code class="article-code-inline">---</code> placeholder on one line, it will have the following effect:<p></p><div class="article-hr"></div><p></p>You can also include image!<p></p><center><img class="article-image" height="" width="200" src="../md/image.webp" alt="image"></center><p></p>And even code blocks:<p></p><pre class="article-code-block"><code>def multiply(a: int, b: int) -> int:
+    return a * b
+
+print(multiply(5, 8))
+</code></pre><p></p><h2 id=$\latex$ class="article-section">$\LaTeX$</h2><p></p>Last, but not least, you can render $\LaTeX$ formulas directly in the document.<p></p><center>$(a + b)^n = \sum_{i=0}^n {n \choose k} a^k b^{n-k}$</center>
+        </article>
+    </main>
+    <div class="article-hr"></div>
+    <div id="footer"></div>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <script src="../scripts/common.js"></script>
+</body>
+
+</html>
