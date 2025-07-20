@@ -1,16 +1,14 @@
 import os
 import fire
-import parser
-import compiler
+import renderer
 
 
 class Cli:
-    def generate_one(self, md_input: str, html_output: str):
-        with open(md_input, "r") as fin:
-            md = fin.read()
-            article = parser.parse(md)
+    def generate_one(self, markdown_input: str, html_output: str):
+        with open(markdown_input, "r") as fin:
+            markdown = fin.read()
             with open(html_output, "w") as fout:
-                html = compiler.compile(article)
+                html = renderer.to_html(markdown)
                 fout.write(html)
 
     def generate_many(self, md_inputs: str, html_outputs: str):

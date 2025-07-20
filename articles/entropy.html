@@ -1,72 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Entropy &amp; Information
-  </title>
-  <link href="../styles/index.css" rel="stylesheet"/>
-  <link href="../styles/fonts.css" rel="stylesheet"/>
-  <link href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" rel="stylesheet"/>
- </head>
- <body>
-  <div id="header">
-  </div>
-  <div class="article-header">
-   <div class="article-header-content">
-    <h1 class="article-title">
-     Entropy &amp; Information
-    </h1>
-    <p class="article-description">
-     What is information and how is it measured? What is entropy? Cross entropy? Relative entropy (aka KL Divergence)?
-    </p>
-    <p class="article-date">
-     Feb 21, 2025
-    </p>
-   </div>
-  </div>
-  <main class="article-main">
-   <article class="article-body">
-    <h2 class="article-section">
-     Information
-    </h2>
-    <p class="article-paragraph">
-     Information is tied to the field of probabilities, and it can be seen as a measure of uncertainty. To avoid extrapolation and misuse of this concept, you need to remember that it only makes sense to talk about information (in the mathematical sense) when you are studying a probabilistic event.
-    </p>
-    <p class="article-quote">
-     Information relates to probabilities in that the realisation of an event with low probability brings a lot of information, and the realisation of an event with high probability brings little information.
-    </p>
-    <div class="article-hr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entropy & Information</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/fonts.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="article-header">
+        <div class="article-header-content">
+            <h1 class="article-title">Entropy & Information</h1>
+            <p class="article-description">What is information and how is it measured? What is entropy? Cross entropy? Relative entropy (aka KL Divergence)?</p>
+            <p class="article-date">Feb 21, 2025</p>
+        </div>
     </div>
-    <p class="article-paragraph">
-     For example: the event
-     <span class="article-italic">
-      “It rains in London”
-     </span>
-     is
-     <span class="article-bold">
-      very
-     </span>
-     likely
-     <span class="article-bold-italic">
-      therefore it brings little information
-     </span>
-     . In contrast, the event “It rains in the Sahara Desert” is so unlikely, it brings a lot more information (e.g. it could more realistically help you pin-point the day of the event).
-    </p>
-    <h2 class="article-section">
-     Theorem
-    </h2>
-    <p class="article-paragraph">
-     $E=mc^2$
-    </p>
-   </article>
-  </main>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js">
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js">
-  </script>
-  <script src="../scripts/common.js">
-  </script>
- </body>
+    <main class="article-main">
+        <article class="article-body">
+            <h2 class="article-section">Information</h2><p></p>Information is tied to the field of <span class="article-bold">probabilities</span>, and it can be seen as a measure of <span class="article-bold">uncertainty</span>. To avoid extrapolation and misuse of this concept, you need to remember that it only makes sense to talk about information (in the mathematical sense) when you are studying a <span class="article-bold">probabilistic event</span>.<p></p><div class="article-quote">Information relates to probabilities in that the realisation of an event with low probability brings a lot of information, and the realisation of an <span class="article-bold">event</span> with high probability brings little information.<ul><li class="article-li">one</li><li class="article-li">two</li><li class="article-li">$E=mc^2$</li></ul><p></p>hello</div><p></p>So information relates to probability, but how <span class="article-italic"><span class="article-bold">exactly</span></span>?<p></p><div class="article-hr"></div><p></p>Let's explore the properties we would like such a mapping to have:<p></p><ul><li class="article-li">Low probability ⇒ high information (already established)</li><li class="article-li">High probability ⇒ low information (already established)</li><li class="article-li">Probability = 1 ⇒ Information = 0 (derived from 2 — that’s because if an event is certain to be realised, then knowing about it doesn’t bring about any information)</li><li class="article-li">Probability → 0 ⇒ Information → +inf (the opposite of 3 must be true)</li><li class="article-li">Information should be additive for independent events, i.e. learning about two independent events should give you the amount of information equal to the sum of the information gained from each event separately:</li></ul><p></p>For example: the event <span class="article-italic">“It rains in London”</span> is very <span class="article-italic"><span class="article-bold">likely</span></span> therefore it brings <span class="article-italic"><span class="article-bold">little</span></span> information. In contrast, the event <span class="article-italic">“It rains in the Sahara Desert”</span> is so <span class="article-italic"><span class="article-bold">unlikely</span></span>, it brings a lot <span class="article-italic"><span class="article-bold">more</span></span> information (e.g. it could more realistically help you pin-point the day of the event).<p></p><h3 class="article-small-section">Theorem</h3><p></p>$E=mc^2$
+        </article>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="../scripts/common.js"></script>
+</body>
+
 </html>

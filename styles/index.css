@@ -207,3 +207,7 @@
     margin-top: var(--hr-margin);
     margin-bottom: var(--hr-margin);
 }
+
+.article-li {
+    margin: 12px auto;
+}
