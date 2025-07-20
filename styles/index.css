@@ -20,6 +20,8 @@
     --quote-bar-margin: 20px;
     --quote-bar-width: 3px;
     --quote-color: #9E9E9E;
+
+    --image-margin: 20px;
 }
 
 body {
@@ -240,4 +242,9 @@ body {
 .article-link:hover {
     color: var(--color-text-primary-hover);
     text-decoration: none;
+}
+
+.article-image {
+    margin-top: var(--image-margin);
+    margin-bottom: var(--image-margin);
 }

@@ -56,6 +56,12 @@ def make_tag(title: str) -> str:
     return title.lower().replace(" ", "-")
 
 
+def parse_image_size(location: str) -> tuple[str, str, str]:
+    parts = location.split(";")
+    mapping = dict(part.split("=") for part in parts[1:])
+    return parts[0], mapping.get("h", ""), mapping.get("w", "")
+
+
 def format_date(year: int, month: int, day: int) -> str:
     date = datetime.datetime(year, month, day)
     return date.strftime("%b %d, %Y")
@@ -108,6 +114,10 @@ def parse_element(element: marko.block.Element, metadata: dict[str, str]) -> str
     elif isinstance(element, marko.inline.Link):
         title = parse_elements(element.children, metadata)
         return f'<a class="article-link" href="{element.dest}">{title}</a>'
+    elif isinstance(element, marko.inline.Image):
+        alt = parse_elements(element.children, metadata)
+        url, height, width = parse_image_size(element.dest)
+        return f'<center><img class="article-image" height="{height}" width="{width}" src="{url}" alt="{alt}"></center>'
     elif isinstance(element, marko.block.BlankLine):
         return "<p></p>"
     elif isinstance(element, marko.inline.LineBreak):

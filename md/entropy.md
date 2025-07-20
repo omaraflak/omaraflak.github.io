@@ -26,3 +26,9 @@ Let’s explore the properties we would like such a mapping to have:
 information(event1 and event2) = information(event1) + information(event2)
 
 [this is a link](#information)
+
+And this is an image:
+
+![image](../md/image.webp;w=100%)
+
+cool!!
