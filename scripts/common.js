@@ -1,15 +1,3 @@
-// KaTeX auto-render
-if (typeof renderMathInElement === 'function') {
-  renderMathInElement(document.body, {
-    delimiters: [
-      { left: "$", right: "$", display: false },
-      { left: "$$", right: "$$", display: true },
-      { left: "\\(", right: "\\)", display: false },
-      { left: "\\[", right: "\\]", display: true }
-    ]
-  });
-}
-
 // Load header.html into #header if the element exists
 const headerElement = document.getElementById('header');
 if (headerElement) {

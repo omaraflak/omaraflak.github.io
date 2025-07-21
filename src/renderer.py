@@ -35,7 +35,12 @@ TEMPLATE = """
     <div class="article-hr"></div>
     <div id="footer"></div>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+        delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+        ]
+    });"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
     <script src="../scripts/common.js"></script>
@@ -129,7 +134,7 @@ def parse_element(element: marko.block.Element, metadata: dict[str, str]) -> str
         return f'<code class="article-code-inline">{element.children}</code>'
     elif isinstance(element, marko.block.FencedCode):
         code = parse_elements(element.children, metadata)
-        return f'<pre class="article-code-block"><code>{code}</code></pre>'
+        return f'<pre class="article-code-block {element.lang}"><code>{code}</code></pre>'
     elif isinstance(element, marko.block.HTMLBlock):
         return element.body
     else:
