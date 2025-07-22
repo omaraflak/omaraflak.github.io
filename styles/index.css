@@ -22,11 +22,12 @@
     --quote-color: #9E9E9E;
 
     --image-margin: 20px;
-    --code-background-color: #F5F5F5;
+    --code-background-color: #EEEEEE;
 }
 
 body {
     margin: 0;
+    background-color: #FAFAFA;
 }
 
 /** ------ **/
