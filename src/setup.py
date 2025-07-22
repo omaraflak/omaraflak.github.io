@@ -7,5 +7,6 @@ setuptools.setup(
     install_requires=[
         "fire",
         "marko",
+        "link_preview"
     ],
 )

@@ -1,7 +1,9 @@
 import re
+import link_preview.link_preview
 import marko
 import marko.inline
 import datetime
+import link_preview
 
 
 METADATA_PATTERN = r"^:(.+):(.+)$"
@@ -81,7 +83,19 @@ def _render_element(element: marko.block.Element, metadata: dict[str, str]) -> s
         return f'<span class="article-bold">{text}</span>'
     elif isinstance(element, marko.inline.Link):
         title = _render_elements(element.children, metadata)
-        return f'<a class="article-link" href="{element.dest}">{title}</a>'
+        if title:
+            return f'<a class="article-link" target="_blank" href="{element.dest}">{title}</a>'
+        else:
+            preview = link_preview.link_preview.generate_dict(element.dest)
+            return f'''
+                <a class="article-link-preview-link" target="_blank" href="{element.dest}">
+                    <div class="article-link-preview-container">
+                        <p class="article-link-preview-title">{preview["title"]}</p>
+                        <p class="article-link-preview-description">{preview["description"]}</p>
+                        <p class="article-link-preview-website">{preview["website"]}</p>
+                    </div>
+                </a>
+            '''
     elif isinstance(element, marko.inline.Image):
         alt = _render_elements(element.children, metadata)
         url, height, width = _parse_image_size(element.dest)
