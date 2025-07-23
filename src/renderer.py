@@ -6,9 +6,6 @@ import unicodedata
 import link_preview.link_preview
 
 
-METADATA_PATTERN = r"^:(.+):(.+)$"
-
-
 def _read_template() -> str:
     with open("article.html", "r") as file:
         return file.read()
@@ -16,12 +13,12 @@ def _read_template() -> str:
 
 def _make_tag(title: str) -> str:
     s = title.lower()
-    s = unicodedata.normalize('NFKD', s).encode(
-        'ascii', 'ignore').decode('utf-8')
-    s = re.sub(r'[^a-z0-9\s-]', '', s)
-    s = re.sub(r'\s+', '-', s)
-    s = re.sub(r'-+', '-', s)
-    s = s.strip('-')
+    s = unicodedata.normalize("NFKD", s).encode(
+        "ascii", "ignore").decode("utf-8")
+    s = re.sub(r"[^a-z0-9\s-]", "", s)
+    s = re.sub(r"\s+", "-", s)
+    s = re.sub(r"-+", "-", s)
+    s = s.strip("-")
     return s
 
 
@@ -36,22 +33,12 @@ def _parse_image_data(location: str) -> tuple[str, str, str]:
     return parts[0], mapping.get("h", ""), mapping.get("w", "")
 
 
-def _parse_metadata(text: str, metadata: dict[str, str]) -> bool:
-    search = re.findall(METADATA_PATTERN, text)
-    if search:
-        key, value = search[0]
-        metadata[key] = value.strip()
-        return True
-    return False
-
-
-def _parse_and_strip_metadata(text: str) -> tuple[str, dict[str, str]]:
-    lines = text.splitlines()
-    metadata = dict()
-    for i, line in enumerate(lines):
-        if not _parse_metadata(line, metadata):
-            return "\n".join(lines[i:]).strip(), metadata
-    return text, metadata
+def _parse_and_strip_metadata(text: str, keys: list[str]) -> tuple[str, dict[str, str]]:
+    keys_joined = "|".join(keys)
+    pattern = fr"\n?:({keys_joined}):(.+)\n"
+    new_text = re.sub(pattern, "", text).strip()
+    kv = {k.strip(): v.strip() for k, v in re.findall(pattern, text)}
+    return new_text, kv
 
 
 def _render_elements(elements: list[marko.block.Element]) -> str:
@@ -131,7 +118,8 @@ def _render_element(element: marko.block.Element) -> str:
 
 
 def to_html(markdown: str) -> str:
-    text, metadata = _parse_and_strip_metadata(markdown)
+    keys = ["title", "description", "year", "month", "day"]
+    text, metadata = _parse_and_strip_metadata(markdown, keys)
     generated_html = _render_elements(marko.parse(text).children)
     date = _format_date(
         int(metadata["year"]),
