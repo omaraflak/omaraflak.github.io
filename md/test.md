@@ -28,6 +28,10 @@ Links are defined as: `[placeholder](https://example.com)`
 
 Visit my [GitHub](https://github.com/omaraflak)!
 
+If no placeholder is given, i.e. `[](https://example.com)`, then the link is displayed in preview mode:
+
+[](https://github.com/omaraflak)
+
 You can link to *sections* of the document by using the special url `#this-is-a-title`: [first section](#this-is-a-title).
 
 When you need to have a separator use the `---` placeholder on one line, it will have the following effect:

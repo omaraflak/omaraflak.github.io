@@ -23,6 +23,10 @@
 
     --image-margin: 20px;
     --code-background-color: #EEEEEE;
+
+    --preview-link-margin: 40px;
+    --preview-link-padding: 20px;
+    --preview-link-border-color: #E0E0E0;
 }
 
 body {
@@ -245,6 +249,39 @@ body {
     color: var(--color-text-primary-hover);
     text-decoration: none;
 }
+
+.article-link-preview-container {
+    border: 1px solid var(--preview-link-border-color);
+    padding-left: var(--preview-link-padding);
+    padding-right: var(--preview-link-padding);
+    margin-top: var(--preview-link-margin);
+    margin-bottom: var(--preview-link-margin);
+    font-size: 1.1rem;
+}
+
+.article-link-preview-link {
+    height: 100%;
+    width: 100%;
+    display: block;
+    text-decoration: none;
+    color: var(--color-text-primary);
+}
+
+.article-link-preview-title {
+    font-weight: bold;
+}
+
+.article-link-preview-description {
+    color: var(--color-text-tertiary);
+    font-size: 1rem;
+}
+
+.article-link-preview-website {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+
 
 .article-image {
     margin-top: var(--image-margin);
