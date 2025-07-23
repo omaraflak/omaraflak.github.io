@@ -34,47 +34,13 @@
     return a * b
 
 print(multiply(5, 8))
-</code></pre><p>Code blocks are displayed by surrounding your code with 3 backticks: <code class="article-code-inline">```</code>. You can specify the code language after the opening back ticks for syntax highlighting. If you don't specify anything, the language will be detected automatically on best effort.</p><h2 id=$\latex$ class="article-section">$\LaTeX$</h2><p>Last, but not least, you can render $\LaTeX$ formulas directly in the document. Either surround the text with <code class="article-code-inline">$</code> for inline mode like $E=mc^2$, or use triple back ticks with "latext" language for display mode.</p><p>For example this:</p><pre class="article-code-block "><code>```latex
+</code></pre><p>Code blocks are displayed by surrounding your code with 3 backticks: <code class="article-code-inline">```</code>. You can specify the code language after the opening back ticks for syntax highlighting. If you don't specify anything, the language will be detected automatically on best effort.</p><h2 id=latex class="article-section">$\LaTeX$</h2><p>Last, but not least, you can render $\LaTeX$ formulas directly in the document. Either surround the text with <code class="article-code-inline">$</code> for inline mode like $E=mc^2$, or use triple back ticks with "latext" language for display mode.</p><p>For example this:</p><pre class="article-code-block "><code>```latex
 (a + b)^n = \sum_{i=0}^n {n \choose k} a^k b^{n-k}
 ```
 </code></pre><p>Will render like this:</p><div class="article-latex">$$(a + b)^n = \sum_{i=0}^n {n \choose k} a^k b^{n-k}
-$$</div><div class="article-hr"></div><p><canvas id="canvas" style="width: 100%; background-color: black"></canvas></p><script src="../canvas/canvas.js"></script>
-<script src="../canvas/matrix.js"></script>
-<script>
-    const create_donut = (donut_radius, ring_radius) => {
-        const circle = create_matrix_by_columns(60, (i) => {
-            const theta = 2 * Math.PI * i / 60
-            return [
-                ring_radius * Math.cos(theta) + donut_radius,
-                ring_radius * Math.sin(theta),
-                0
-            ]
-        })
-
-        let donut = [[], [], []]
-        for (var i=0; i<150; i++) {
-            const theta = 2 * Math.PI * i / 150
-            donut = matrix_concat_columns(donut, matrix_rotate_y(circle, theta))
-        }
-
-        return matrix_add_columns(donut, CENTER3)
-    }
-
-    const rotation = rotation_matrix_xyz(Math.PI / 200, Math.PI / 100, Math.PI / 60)
-
-    let donut = create_donut(100, 60)
-
-    const update = () => {
-        clear_canvas()
-        for (let p of columnsOf(donut)) {
-            draw_rectangle(p[0], p[1], 1, 1, "white")
-        } 
-        donut = matrix_add_columns(matrix_dot(rotation, matrix_sub_columns(donut, CENTER3)), CENTER3)
-        requestAnimationFrame(update)
-    }
-
-    update()
-</script>
+$$</div><div class="article-hr"></div><p><canvas id="canvas" style="width: 100%; background-color: black"></canvas></p><script src="../scripts/canvas.js"></script>
+<script src="../scripts/matrix.js"></script>
+<script src="../scripts/donut.js"></script>
         </article>
     </main>
     <div class="article-hr"></div>
@@ -88,7 +54,7 @@ $$</div><div class="article-hr"></div><p><canvas id="canvas" style="width: 100%;
     });"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
-    <script src="../scripts/common.js"></script>
+    <script src="../scripts/html.js"></script>
 </body>
 
 </html>

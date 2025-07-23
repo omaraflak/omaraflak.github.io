@@ -33,8 +33,8 @@ R_y(\theta) =
 \end{bmatrix}
 ```
 
-This will get you points on the donut surface. You can now multiply these points by a rotation matrix that rotates around all three axes.
+This will get you points on the donut surface. You can now multiply these points by a rotation matrix that rotates around all three axes to get the animation.
 
-<script src="../canvas/canvas.js"></script>
-<script src="../canvas/matrix.js"></script>
-<script src="../canvas/donut.js"></script>
+<script src="../scripts/canvas.js"></script>
+<script src="../scripts/matrix.js"></script>
+<script src="../scripts/donut.js"></script>

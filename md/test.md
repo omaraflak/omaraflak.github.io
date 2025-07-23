@@ -81,6 +81,6 @@ Will render like this:
 ---
 
 <canvas id="canvas" style="width: 100%; background-color: black"></canvas>
-<script src="../canvas/canvas.js"></script>
-<script src="../canvas/matrix.js"></script>
-<script src="../canvas/donut.js"></script>
+<script src="../scripts/canvas.js"></script>
+<script src="../scripts/matrix.js"></script>
+<script src="../scripts/donut.js"></script>

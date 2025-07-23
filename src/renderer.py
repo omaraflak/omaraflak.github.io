@@ -2,6 +2,7 @@ import re
 import marko
 import marko.inline
 import datetime
+import unicodedata
 import link_preview.link_preview
 
 
@@ -14,7 +15,14 @@ def _read_template() -> str:
 
 
 def _make_tag(title: str) -> str:
-    return title.lower().replace(" ", "-")
+    s = title.lower()
+    s = unicodedata.normalize('NFKD', s).encode(
+        'ascii', 'ignore').decode('utf-8')
+    s = re.sub(r'[^a-z0-9\s-]', '', s)
+    s = re.sub(r'\s+', '-', s)
+    s = re.sub(r'-+', '-', s)
+    s = s.strip('-')
+    return s
 
 
 def _format_date(year: int, month: int, day: int) -> str:
@@ -22,7 +30,7 @@ def _format_date(year: int, month: int, day: int) -> str:
     return date.strftime("%b %d, %Y")
 
 
-def _parse_image_size(location: str) -> tuple[str, str, str]:
+def _parse_image_data(location: str) -> tuple[str, str, str]:
     parts = location.split(";")
     mapping = dict(part.split("=") for part in parts[1:])
     return parts[0], mapping.get("h", ""), mapping.get("w", "")
@@ -97,7 +105,7 @@ def _render_element(element: marko.block.Element) -> str:
             '''
     elif isinstance(element, marko.inline.Image):
         alt = _render_elements(element.children)
-        url, height, width = _parse_image_size(element.dest)
+        url, height, width = _parse_image_data(element.dest)
         return f'<center><img class="article-image" height="{height}" width="{width}" src="{url}" alt="{alt}"></center>'
     elif isinstance(element, marko.block.BlankLine):
         return ""
