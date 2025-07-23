@@ -58,18 +58,29 @@ def multiply(a: int, b: int) -> int:
 print(multiply(5, 8))
 ```
 
-Code blocks are displayed by surrounding your code with 3 backticks: `` ``` ``.
+Code blocks are displayed by surrounding your code with 3 backticks: `` ``` ``. You can specify the code language after the opening back ticks for syntax highlighting. If you don't specify anything, the language will be detected automatically on best effort.
 
 # $\LaTeX$
 
-Last, but not least, you can render $\LaTeX$ formulas directly in the document. Either surround the text with `$` for inline mode like $E=mc^2$, or with `$$` for display mode.
+Last, but not least, you can render $\LaTeX$ formulas directly in the document. Either surround the text with `$` for inline mode like $E=mc^2$, or use triple back ticks with "latext" language for display mode.
 
 For example this:
 
+````
+```latex
+(a + b)^n = \sum_{i=0}^n {n \choose k} a^k b^{n-k}
 ```
-$$(a + b)^n = \sum_{i=0}^n {n \choose k} a^k b^{n-k}$$
-```
+````
 
 Will render like this:
 
-$$(a + b)^n = \sum_{i=0}^n {n \choose k} a^k b^{n-k}$$
+```latex
+(a + b)^n = \sum_{i=0}^n {n \choose k} a^k b^{n-k}
+```
+
+---
+
+<canvas id="canvas" style="width: 100%; background-color: black"></canvas>
+<script src="../canvas/canvas.js"></script>
+<script src="../canvas/matrix.js"></script>
+<script src="../canvas/donut.js"></script>

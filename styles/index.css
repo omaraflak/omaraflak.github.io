@@ -34,6 +34,10 @@ body {
     background-color: #FAFAFA;
 }
 
+p {
+    line-height: 1.3;
+}
+
 /** ------ **/
 /** HEADER **/
 /** ------ **/
@@ -282,7 +286,6 @@ body {
     font-weight: 300;
 }
 
-
 .article-image {
     margin-top: var(--image-margin);
     margin-bottom: var(--image-margin);
@@ -301,4 +304,8 @@ body {
     font-size: 1rem !important;
     padding: 3px 5px;
     border-radius: 5px;
+}
+
+.article-latex {
+    margin: 30px 0px;
 }

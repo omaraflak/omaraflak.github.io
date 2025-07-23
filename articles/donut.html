@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donut</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/fonts.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/github.min.css">
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="article-header">
+        <div class="article-header-content">
+            <h1 class="article-title">Donut</h1>
+            <p class="article-description">How to create a spinning donut with math.</p>
+            <p class="article-date">Oct 08, 2022</p>
+        </div>
+    </div>
+    <main class="article-main">
+        <article class="article-body">
+            <p>Although this spinning donut is pretty impressive, it is quite easy to obtain using basic linear algebra. I'm going to show you how.</p><center><canvas id="canvas" style="width: 200px; height: 200px; background-color: black; margin: 30px 0px;"></canvas></center>
+<p>The first step is to sample points from the surface of a 3D donut. We can do this by rotating a circle sitting on the plane $(x, y)$ centered at $(c,0,0)$ around the $y$ axis.</p><p>Sampling the circle points can be done using polar coordinates:</p><div class="article-latex">$$\left\{
+\begin{array}{ll}
+    x = r cos(\theta) + c, \quad \theta \in [0, 2 \pi] \\
+    y = r sin(\theta) \\
+    z = 0
+\end{array}
+\right.
+$$</div><p>Once we have the circle, we can rotate it around the $y$ axis using a 3D rotation matrix:</p><div class="article-latex">$$R_y(\theta) =
+\begin{bmatrix}
+    cos(\theta) & 0 & sin(\theta) \\
+    0 & 1 & 0 \\
+    -sin(\theta) & 0 & cos(\theta)
+\end{bmatrix}
+$$</div><p>This will get you points on the donut surface. You can now multiply these points by a rotation matrix that rotates around all three axes.</p><script src="../canvas/canvas.js"></script>
+<script src="../canvas/matrix.js"></script>
+<script src="../scripts/donut.js"></script>
+        </article>
+    </main>
+    <div class="article-hr"></div>
+    <div id="footer"></div>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+        delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+        ]
+    });"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <script src="../scripts/common.js"></script>
+</body>
+
+</html>
