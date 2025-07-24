@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donut</title>
+    <title>Sand Cellular Automata</title>
     <link rel="stylesheet" href="../styles/index.css">
     <link rel="stylesheet" href="../styles/fonts.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -20,30 +20,15 @@
     </div>
     <div class="article-header">
         <div class="article-header-content">
-            <h1 class="article-title">Donut</h1>
-            <p class="article-description">How to create a spinning donut with math.</p>
-            <p class="article-date">Oct 08, 2022</p>
+            <h1 class="article-title">Sand Cellular Automata</h1>
+            <p class="article-description">A sand simulation using a cellular automata.</p>
+            <p class="article-date">Jan 25, 2024</p>
         </div>
     </div>
     <main class="article-main">
         <article class="article-body">
-            <p>Although this spinning donut is pretty impressive, it is quite easy to obtain using basic linear algebra. I'm going to show you how.</p><center><canvas class="article-canvas" id="canvas" style="width: 200px; height: 200px;"></canvas></center>
-<p>The first step is to sample points from the surface of a 3D donut. We can do this by rotating a circle sitting on the plane $(x, y)$ centered at $(c,0,0)$ around the $y$ axis.</p><p>Sampling the circle points can be done using polar coordinates:</p><div class="article-latex">$$\left\{
-\begin{array}{ll}
-    x = r cos(\theta) + c, \quad \theta \in [0, 2 \pi] \\
-    y = r sin(\theta) \\
-    z = 0
-\end{array}
-\right.
-$$</div><p>Once we have the circle, we can rotate it around the $y$ axis using a 3D rotation matrix:</p><div class="article-latex">$$R_y(\theta) =
-\begin{bmatrix}
-    cos(\theta) & 0 & sin(\theta) \\
-    0 & 1 & 0 \\
-    -sin(\theta) & 0 & cos(\theta)
-\end{bmatrix}
-$$</div><p>This will get you points on the donut surface. You can now multiply these points by a rotation matrix that rotates around all three axes to get the animation.</p><script src="../scripts/canvas.js"></script>
-<script src="../scripts/matrix.js"></script>
-<script src="../scripts/donut.js"></script>
+            <p>This is a sand simulation based on a cellular automata. Each grain of sand is updated according to the value of its direct three bottom adjacent neighbors.</p><ul><li class="article-li"><p>If the immediate bottom cell is empty, then the grain of sand falls in it.</p></li><li class="article-li"><p>If the bottom cell contains another grain of sand, then the grain of sand will either stay where it is, or fall on either side of that other grain of sand if any of the two cells are empty.</p></li></ul><p><canvas class="article-canvas" id="canvas"></canvas></p><script src="../scripts/canvas.js"></script>
+<script src="../scripts/sand.js"></script>
         </article>
     </main>
     <div class="article-hr"></div>

@@ -310,3 +310,9 @@ p {
 .article-latex {
     margin: 30px 0px;
 }
+
+.article-canvas {
+    width: 100%;
+    margin: 30px 0px;
+    background-color: black;
+}

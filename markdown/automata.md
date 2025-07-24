@@ -1,4 +1,4 @@
-:title: Cellular Automata
+:title: Wolfram Cellular Automata
 :description: A demo of Wolfram's elementary cellular automata.
 :year: 2024
 :month: 1
@@ -18,7 +18,7 @@ You can read more about this simple cellular automata on Wolfram's website:
 
 Below is a simulation of the above rule, and somehow this very simple rule creates those intricate patterns that seem regular but also chaotic! Enter a rule number below to see them all!
 
-<canvas id="canvas" style="width: 100%; background-color: black;"></canvas>
+<canvas class="article-canvas" id="canvas"></canvas>
 <center>
 <div>
     <span class="text">Rule: </span>

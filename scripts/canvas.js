@@ -47,3 +47,19 @@ const rgba = (r, g, b, a = 1) => `rgba(${r}, ${g}, ${b}, ${a})`
 const random_rgba = (alpha = Math.random()) => rgba(random_int(255), random_int(255), random_int(255), alpha)
 
 const clear_canvas = (color = "black") => draw_rectangle(0, 0, WIDTH, HEIGHT, color)
+
+const map_mouse = (x, y) => {
+    const rect = canvas.getBoundingClientRect()
+    return {
+        'x': Math.floor((x - rect.left) * WIDTH / rect.width),
+        'y': Math.floor((y - rect.top) * HEIGHT / rect.height)
+    }
+}
+
+const map_mouse_with_scale = (x, y, factor) => {
+    const rect = canvas.getBoundingClientRect()
+    return {
+        'x': Math.floor((x - rect.left) * WIDTH / factor / rect.width),
+        'y': Math.floor((y - rect.top) * HEIGHT / factor / rect.height)
+    }
+}

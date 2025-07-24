@@ -53,7 +53,7 @@ This is the process of natural selection.
 
 So, next time you see a Samara flying in the wind and wonder how smart nature is to develop these beautiful structures that optimize seed propagation; keep in mind, those who can't compete... ***will die***.
 
-<center><canvas id="canvas" style="width: 50%; background-color: black; margin: 30px 0px;"></canvas></center>
+<center><canvas class="article-canvas" id="canvas" style="width: 50%;"></canvas></center>
 <center>Epoch: <span id="status"></span></center>
 <div id="population_size" style="width: 100%; height: 250px; margin: 30px 0px;"></div>
 <div id="survival_ratio" style="width: 100%; height: 250px; margin: 30px 0px;"></div>
