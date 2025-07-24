@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravity</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/fonts.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/github.min.css">
+</head>
+
+<body>
+    <div class="site-header">
+        <div class="site-header-content">
+            <a href="/index.html" class="site-header-link">Home</a>
+            <a href="/articles.html" class="site-header-link">Blog</a>
+        </div>
+    </div>
+    <div class="article-header">
+        <div class="article-header-content">
+            <h1 class="article-title">Gravity</h1>
+            <p class="article-description">Simulation of gravity with moving particles.</p>
+            <p class="article-date">Oct 08, 2022</p>
+        </div>
+    </div>
+    <main class="article-main">
+        <article class="article-body">
+            <p>This is a simulation of gravity using Newton's law of motion:</p><div class="article-latex">$$\sum{\overrightarrow{F}} = m\overrightarrow{a}
+$$</div><p>and Newton's law of gravity:</p><div class="article-latex">$$\overrightarrow{F_{a \rightarrow b}} = G \frac{m_a m_b}{d_{ab}^2} \overrightarrow{u_{ba}}
+$$</div><p>To make things interesting, I've set the particles to repulse themselves if they come too close together. You can play with that parameter using the slider below.</p><center><canvas class="article-canvas" id="canvas" style="width: 50%;"></canvas></center>
+<div>
+    <div style="display: flex;">
+        <span>Number of particles: </span>
+        <input type="range" min="100" max="1000" value="500" id="total_particles">
+        <span id="total_particles_placeholder">500</span>
+    </div>
+    <div style="display: flex;">
+        <span>Repulsion distance: </span>
+        <input type="range" min="0" max="200" value="50" id="min_distance">
+        <span id="min_distance_placeholder">50</span>
+    </div>
+</div>
+<script src="../scripts/canvas.js"></script>
+<script src="../scripts/matrix.js"></script>
+<script src="../scripts/gravity.js"></script>
+        </article>
+    </main>
+    <div class="article-hr"></div>
+    <div class="site-footer">
+        <div class="site-footer-content"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+        delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+        ]
+    });"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</body>
+
+</html>
