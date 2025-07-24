@@ -3,6 +3,7 @@ import marko
 import marko.inline
 import metadata
 import datetime
+import templates
 import unicodedata
 import link_preview.link_preview
 
@@ -115,7 +116,7 @@ def make_article(markdown: str) -> str:
         int(meta["month"]),
         int(meta["day"])
     )
-    html = open("article.html", "r").read()
+    html = templates.ARTICLE
     html = html.replace("{{title}}", meta["title"])
     html = html.replace("{{description}}", meta["description"])
     html = html.replace("{{date}}", date)
@@ -132,7 +133,7 @@ def make_article_entry(markdown: str, filename: str) -> str:
         int(meta["month"]),
         int(meta["day"])
     )
-    html = open("entry.html", "r").read()
+    html = templates.ENTRY
     html = html.replace("{{filename}}", filename)
     html = html.replace("{{title}}", meta["title"])
     html = html.replace("{{description}}", meta["description"])

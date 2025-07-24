@@ -4,18 +4,14 @@ My personal blogging website.
 
 # Dev
 
-1) Enter the source directory
-2) Compile the ProtoBuffer classes
-3) Create a Python virtual environment
-4) Enter the virtual environment
-5) Install the Python requirements
-6) Parse the Markdown and generate the Html files
+1) Create a Python virtual environment
+2) Enter the virtual environment
+3) Install the Python requirements
+4) Render Markdown to HTML
 
 ```
-cd src/
-make
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
-pip install -e .
-python cli.py generate_all ../md/ ../articles/
+pip install -e src
+python3 src/cli.py markdown articles
 ```

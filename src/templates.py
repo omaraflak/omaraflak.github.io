@@ -1,3 +1,4 @@
+ARTICLE = """
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,3 +49,12 @@
 </body>
 
 </html>
+"""
+
+ENTRY = """
+<article class="articles-preview">
+    <a href="articles/{{filename}}" class="articles-preview-title">{{title}}</a>
+    <p class="articles-preview-date">{{date}}</p>
+    <p class="articles-preview-description">{{description}}</p>
+</article>
+"""

@@ -1,5 +1,5 @@
-:title: Article Title
-:description: This is a short description of the article content.
+:title: Demo
+:description: A summary of all available commands and formattings for this blog.
 :year: 2025
 :month: 7
 :day: 20
