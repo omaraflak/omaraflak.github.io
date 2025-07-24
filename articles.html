@@ -12,20 +12,13 @@
 <body>
     <div id="header"></div>
     <main class="articles-main">
-        <section class="articles-list">
-            <article class="articles-preview">
-                <a href="articles/test.html" class="articles-preview-title">Sample Article Title</a>
-                <p class="articles-preview-date">19 JULY 2025</p>
-                <p class="articles-preview-description">A short description of the article.</p>
-            </article>
-            <article class="articles-preview">
-                <a href="articles/entropy.html" class="articles-preview-title">Sample Article Title</a>
-                <p class="articles-preview-date">19 JULY 2025</p>
-                <p class="articles-preview-description">A short description of the article.</p>
-            </article>
-        </section>
+        <section id="articles" class="articles-list"></section>
     </main>
     <script src="scripts/html.js"></script>
+    <script>
+        loadFileInElement("header.html", "header");
+        loadFileInElement("articles/all.html", "articles");
+    </script>
 </body>
 
 </html>

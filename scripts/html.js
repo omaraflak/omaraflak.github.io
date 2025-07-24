@@ -1,19 +1,10 @@
-// Load header.html into #header if the element exists
-const headerElement = document.getElementById('header');
-if (headerElement) {
-  fetch('../header.html')
-    .then(response => response.text())
-    .then(html => {
-      headerElement.innerHTML = html;
-    });
+const loadFileInElement = (fileLocation, elementId) => {
+  const element = document.getElementById(elementId);
+  if (element) {
+    fetch(fileLocation)
+      .then(response => response.text())
+      .then(html => {
+        element.innerHTML = html;
+      });
+  }
 }
-
-// Load footer.html into #footer if the element exists
-const footerElement = document.getElementById('footer');
-if (footerElement) {
-  fetch('../footer.html')
-    .then(response => response.text())
-    .then(html => {
-      footerElement.innerHTML = html;
-    });
-} 
