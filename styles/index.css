@@ -29,7 +29,8 @@
     --preview-link-border-color: #E0E0E0;
 }
 
-@media only screen and (max-width: 480px) {
+@media (hover:none),
+(hover:on-demand) {
     :root {
         --page-width: 95%;
     }
