@@ -12,7 +12,12 @@
 </head>
 
 <body>
-    <div id="header"></div>
+    <div class="site-header">
+        <div class="site-header-content">
+            <a href="/index.html" class="site-header-link">Home</a>
+            <a href="/articles.html" class="site-header-link">Blog</a>
+        </div>
+    </div>
     <div class="article-header">
         <div class="article-header-content">
             <h1 class="article-title">Entropy & Information</h1>
@@ -26,7 +31,9 @@
         </article>
     </main>
     <div class="article-hr"></div>
-    <div id="footer"></div>
+    <div class="site-footer">
+        <div class="site-footer-content"></div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
         delimiters: [
@@ -35,9 +42,8 @@
         ]
     });"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-    <script src="scripts/html.js"></script>
+    <script src="../scripts/html.js"></script>
     <script>
-        loadFileInElement("../header.html", "header");
         hljs.highlightAll();
     </script>
 </body>

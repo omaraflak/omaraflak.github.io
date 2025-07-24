@@ -10,13 +10,16 @@
 </head>
 
 <body>
-    <div id="header"></div>
+    <div class="site-header">
+        <div class="site-header-content">
+            <a href="/index.html" class="site-header-link">Home</a>
+        </div>
+    </div>
     <main class="articles-main">
         <section id="articles" class="articles-list"></section>
     </main>
     <script src="scripts/html.js"></script>
     <script>
-        loadFileInElement("header.html", "header");
         loadFileInElement("articles/all.html", "articles");
     </script>
 </body>

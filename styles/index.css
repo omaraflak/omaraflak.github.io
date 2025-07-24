@@ -56,6 +56,7 @@ p {
     color: var(--color-text-tertiary);
     text-decoration: none;
     font-size: 1.2rem;
+    margin-right: 10px;
 }
 
 .site-header-link:hover {
