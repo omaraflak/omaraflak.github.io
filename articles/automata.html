@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cellular Automata</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/fonts.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/github.min.css">
+</head>
+
+<body>
+    <div class="site-header">
+        <div class="site-header-content">
+            <a href="/index.html" class="site-header-link">Home</a>
+            <a href="/articles.html" class="site-header-link">Blog</a>
+        </div>
+    </div>
+    <div class="article-header">
+        <div class="article-header-content">
+            <h1 class="article-title">Cellular Automata</h1>
+            <p class="article-description">A demo of Wolfram's elementary cellular automata.</p>
+            <p class="article-date">Jan 27, 2024</p>
+        </div>
+    </div>
+    <main class="article-main">
+        <article class="article-body">
+            <p>Wolfram elementary cellular automata are a fascinating piece of mathematics. We start with a grid of cells, where all cells are in an <span class="article-italic"><span class="article-bold">off</span></span> state, except the middle cell of the first row, which is <span class="article-italic"><span class="article-bold">on</span></span>. Then, we proceed and apply the following rule to compute the state of all cells below the first row.</p><p><center><img class="article-image" height="" width="" src="../markdown/automata.svg" alt="rules"></center></p><p>This is saying that for a given cell, we look at the three adjacent cells above it, and depending on their state the current cell will be either <span class="article-italic">on</span> or <span class="article-italic">off</span>.</p><p>As you can see, the three adjacent top cells can be in $2^3=8$ possible configurations. Therefore there is $2^8=256$ possible <span class="article-italic"><span class="article-bold">rules</span></span> that we could apply. This is just one of them. It's called rule 30, because $30 = (00011110)_2$.</p><p>You can read more about this simple cellular automata on Wolfram's website:</p><p>
+                <a class="article-link-preview-link" target="_blank" href="https://mathworld.wolfram.com/ElementaryCellularAutomaton.html">
+                    <div class="article-link-preview-container">
+                        <p class="article-link-preview-title">Elementary Cellular Automaton -- from Wolfram MathWorld</p>
+                        <p class="article-link-preview-description">The simplest class of one-dimensional cellular automata. Elementary cellular automata have two possible values for each cell (0 or 1), and rules that depend only on nearest neighbor values. As a result, the evolution of an elementary cellular automaton can completely be described by a table specifying the state a given cell will have in the next generation based on the value of the cell to its left, the value the cell itself, and the value of the cell to its right. Since there are...</p>
+                        <p class="article-link-preview-website">mathworld.wolfram.com</p>
+                    </div>
+                </a>
+            </p><p>Below is a simulation of the above rule, and somehow this very simple rule creates those intricate patterns that seem regular but also chaotic! Enter a rule number below to see them all!</p><p><canvas id="canvas" style="width: 100%; background-color: black;"></canvas></p><center>
+<div>
+    <span class="text">Rule: </span>
+    <input type="number" min="0" max="255" value="30" id="rule">
+</div>
+</center>
+<script src="../scripts/canvas.js"></script>
+<script src="../scripts/automata.js"></script>
+        </article>
+    </main>
+    <div class="article-hr"></div>
+    <div class="site-footer">
+        <div class="site-footer-content"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+        delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+        ]
+    });"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</body>
+
+</html>
