@@ -3,24 +3,33 @@ import fire
 import renderer
 
 
-class Cli:
-    def generate_one(self, markdown_input: str, html_output: str):
-        with open(markdown_input, "r") as fin:
+def generate(markdown_input_dir: str, html_output_dir: str):
+    files = [file for file in os.listdir(
+        markdown_input_dir) if file.endswith(".md")]
+
+    entries = []
+
+    for file in files:
+        input_path = os.path.join(markdown_input_dir, file)
+        filename = file.replace(".md", ".html")
+        output_path = os.path.join(html_output_dir, filename)
+
+        with open(input_path, "r") as fin:
             markdown = fin.read()
-            with open(html_output, "w") as fout:
-                html = renderer.to_html(markdown)
+            entries.append(renderer.make_article_entry(markdown, filename))
+            with open(output_path, "w") as fout:
+                html = renderer.make_article(markdown)
                 fout.write(html)
 
-    def generate_many(self, md_inputs: str, html_outputs: str):
-        files = [file for file in os.listdir(
-            md_inputs) if file.endswith(".md")]
-        for file in files:
-            input_path = os.path.join(md_inputs, file)
-            output_path = os.path.join(
-                html_outputs, file.replace(".md", ".html"))
-            print(input_path, "->", output_path)
-            self.generate_one(input_path, output_path)
+        print(input_path, "->", output_path)
+
+    entries_html = "\n".join(entries)
+    entries_path = os.path.join(html_output_dir, "all.html")
+    with open(entries_path, "w") as fout:
+        fout.write(entries_html)
+
+    print(entries_path)
 
 
 if __name__ == "__main__":
-    fire.Fire(Cli)
+    fire.Fire(generate)

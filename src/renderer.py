@@ -1,14 +1,10 @@
 import re
 import marko
 import marko.inline
+import metadata
 import datetime
 import unicodedata
 import link_preview.link_preview
-
-
-def _read_template() -> str:
-    with open("article.html", "r") as file:
-        return file.read()
 
 
 def _make_tag(title: str) -> str:
@@ -31,14 +27,6 @@ def _parse_image_data(location: str) -> tuple[str, str, str]:
     parts = location.split(";")
     mapping = dict(part.split("=") for part in parts[1:])
     return parts[0], mapping.get("h", ""), mapping.get("w", "")
-
-
-def _parse_and_strip_metadata(text: str, keys: list[str]) -> tuple[str, dict[str, str]]:
-    keys_joined = "|".join(keys)
-    pattern = fr"\n?:({keys_joined}):(.+)\n"
-    new_text = re.sub(pattern, "", text).strip()
-    kv = {k.strip(): v.strip() for k, v in re.findall(pattern, text)}
-    return new_text, kv
 
 
 def _render_elements(elements: list[marko.block.Element]) -> str:
@@ -117,19 +105,37 @@ def _render_element(element: marko.block.Element) -> str:
     return ""
 
 
-def to_html(markdown: str) -> str:
+def make_article(markdown: str) -> str:
     keys = ["title", "description", "year", "month", "day"]
-    text, metadata = _parse_and_strip_metadata(markdown, keys)
+    meta = metadata.parse_metadata(markdown, keys)
+    text = metadata.strip_metadata(markdown, keys)
     generated_html = _render_elements(marko.parse(text).children)
     date = _format_date(
-        int(metadata["year"]),
-        int(metadata["month"]),
-        int(metadata["day"])
+        int(meta["year"]),
+        int(meta["month"]),
+        int(meta["day"])
     )
-    html = _read_template()
-    html = html.replace("{{title}}", metadata["title"])
-    html = html.replace("{{description}}", metadata["description"])
+    html = open("article.html", "r").read()
+    html = html.replace("{{title}}", meta["title"])
+    html = html.replace("{{description}}", meta["description"])
     html = html.replace("{{date}}", date)
     html = html.replace("{{content}}", generated_html)
+    html = html.strip()
+    return html
+
+
+def make_article_entry(markdown: str, filename: str) -> str:
+    keys = ["title", "description", "year", "month", "day"]
+    meta = metadata.parse_metadata(markdown, keys)
+    date = _format_date(
+        int(meta["year"]),
+        int(meta["month"]),
+        int(meta["day"])
+    )
+    html = open("entry.html", "r").read()
+    html = html.replace("{{filename}}", filename)
+    html = html.replace("{{title}}", meta["title"])
+    html = html.replace("{{description}}", meta["description"])
+    html = html.replace("{{date}}", date)
     html = html.strip()
     return html
