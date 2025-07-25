@@ -6,7 +6,7 @@
 
 These particles are born in the left half of the screen, and are left to wander around... After some number of iterations, those who are in the right half of the canvas, **survive**, the others, are **killed**. Admittedly it's a rough world to live in, but that's life.
 
-Each particle has a small neural network brain that takes 4 inputs: the distance from the particle to each wall. The neural network outputs 4 numbers that we use to compute a displacement in the x axis $dx$ and a displacement in the y axis $dy$.
+Each particle has a small neural network brain that takes 4 inputs: the distance from the particle to each wall. The neural network outputs 4 numbers that we use to compute a displacement in the x axis `$dx$` and a displacement in the y axis `$dy$`.
 
 ```latex
 \tanh \left(
@@ -43,7 +43,7 @@ The displacements are computed arbitrarily as:
 \right.
 ```
 
-When particles survive the death round, they are paired in groups of 2 to produce a child particle. The child particle's brain (*aka* neural network) is built by mixing the neural network parameters from each of its parents. More precisely, the neural network of the child inherits half the $W$ parameters matrix from each of its parents. The parents and the child are then taken to the next round.
+When particles survive the death round, they are paired in groups of 2 to produce a child particle. The child particle's brain (*aka* neural network) is built by mixing the neural network parameters from each of its parents. More precisely, the neural network of the child inherits half the `$W$` parameters matrix from each of its parents. The parents and the child are then taken to the next round.
 
 Interestingly, the parameters of each particle's brain are never trained per-se (for example with [gradient descent](https://en.wikipedia.org/wiki/Gradient_descent)), but simply built out of the parents brains. Another interesting fact is that particles are never told to go right; they don't even know how the output of their brain is being used. They have essentially *zero feedback* from the environment. However, since we only ever keep the particles that behaved in a certain way, i.e. went right, we end up with a population that has the sought-after characteristics.
 

@@ -63,7 +63,7 @@ p {
     color: var(--color-text-tertiary);
     text-decoration: none;
     font-size: 1.2rem;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 .site-header-link:hover {
@@ -315,6 +315,10 @@ p {
 }
 
 .article-latex {
+    margin: 30px auto;
+}
+
+.article-graphviz {
     margin: 30px auto;
 }
 

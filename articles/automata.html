@@ -7,8 +7,8 @@
     <title>Wolfram Cellular Automata</title>
     <link rel="stylesheet" href="../styles/index.css">
     <link rel="stylesheet" href="../styles/fonts.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/github.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css" integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -27,7 +27,7 @@
     </div>
     <main class="article-main">
         <article class="article-body">
-            <p>Wolfram elementary cellular automata are a fascinating piece of mathematics. We start with a grid of cells, where all cells are in an <span class="article-italic"><span class="article-bold">off</span></span> state, except the middle cell of the first row, which is <span class="article-italic"><span class="article-bold">on</span></span>. Then, we proceed and apply the following rule to compute the state of all cells below the first row.</p><p><center><img class="article-image" height="" width="" src="../markdown/automata.svg" alt="rules"></center></p><p>This is saying that for a given cell, we look at the three adjacent cells above it, and depending on their state the current cell will be either <span class="article-italic">on</span> or <span class="article-italic">off</span>.</p><p>As you can see, the three adjacent top cells can be in $2^3=8$ possible configurations. Therefore there is $2^8=256$ possible <span class="article-italic"><span class="article-bold">rules</span></span> that we could apply. This is just one of them. It's called rule 30, because $30 = (00011110)_2$.</p><p>You can read more about this simple cellular automata on Wolfram's website:</p><p>
+            <p>Wolfram elementary cellular automata are a fascinating piece of mathematics. We start with a grid of cells, where all cells are in an <span class="article-italic"><span class="article-bold">off</span></span> state, except the middle cell of the first row, which is <span class="article-italic"><span class="article-bold">on</span></span>. Then, we proceed and apply the following rule to compute the state of all cells below the first row.</p><p><center><img class="article-image" height="" width="" src="../markdown/automata.svg" alt="rules"></center></p><p>This is saying that for a given cell, we look at the three adjacent cells above it, and depending on their state the current cell will be either <span class="article-italic">on</span> or <span class="article-italic">off</span>.</p><p>As you can see, the three adjacent top cells can be in [begin-latex-inline]2^3=8[end-latex-inline] possible configurations. Therefore there is [begin-latex-inline]2^8=256[end-latex-inline] possible <span class="article-italic"><span class="article-bold">rules</span></span> that we could apply. This is just one of them. It's called rule 30, because [begin-latex-inline](00011110)_{2} = (30)_{10}[end-latex-inline].</p><p>You can read more about this simple cellular automata on Wolfram's website:</p><p>
                 <a class="article-link-preview-link" target="_blank" href="https://mathworld.wolfram.com/ElementaryCellularAutomaton.html">
                     <div class="article-link-preview-container">
                         <p class="article-link-preview-title">Elementary Cellular Automaton -- from Wolfram MathWorld</p>
@@ -49,17 +49,35 @@
     <div class="site-footer">
         <div class="site-footer-content"></div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" integrity="sha512-LQNxIMR5rXv7o+b1l8+N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r+EFLLCyA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" integrity="sha512-iWiuBS5nt6r60fCz26Nd0Zqe0nbk1ZTIQbl3Kv7kYsX+yKMUFHzjaH2+AnM6vp2Xs+gNmaBAVWJjSmuPw76Efg==" crossorigin="anonymous" referrerpolicy="no-referrer" onload="renderMathInElement(document.body, {
         delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false},
+            {left: '[begin-latex]', right: '[end-latex]', display: true},
+            {left: '[begin-latex-inline]', right: '[end-latex-inline]', display: false},
         ]
     });"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-    <script>
-        hljs.highlightAll();
-    </script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" integrity="sha512-EBLzUL8XLl+va/zAsmXwS7Z2B1F9HUHkZwyS/VKwh3S7T/U0nF4BaU29EP/ZSf6zgiIxYAnKLu6bJ8dqpmX5uw==" crossorigin="anonymous" referrerpolicy="no-referrer" onload="hljs.highlightAll();"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/viz.js" integrity="sha512-vnRdmX8ZxbU+IhA2gLhZqXkX1neJISG10xy0iP0WauuClu3AIMknxyDjYHEpEhi8fTZPyOCWgqUCnEafDB/jVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/lite.render.js" integrity="sha512-uAHj1knkgGpl0fJcyjbcVY0f9j252eWzEeBxE4s4AQkPJkp/+U+rlfoOXlwreSzPhndCT+5YR00/QSD/nPqb+g==" crossorigin="anonymous" referrerpolicy="no-referrer" onload="
+        const viz = new Viz();
+        document.querySelectorAll('.article-graphviz').forEach(element => {
+            const content = element.textContent;
+            try {
+                viz.renderSVGElement(content)
+                    .then(svg => {
+                        element.textContent = '';
+                        element.appendChild(svg);
+                    })
+                    .catch(error => {
+                        console.error('Error rendering Graphviz SVG:', error);
+                        element.textContent = 'Error rendering graph. Check console for details.';
+                    });
+            } catch (error) {
+                console.error('Error with Viz.js rendering process:', error);
+                element.textContent = 'Error during graph rendering setup.';
+            }
+        });
+    "></script>
 </body>
 
 </html>

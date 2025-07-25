@@ -10,7 +10,7 @@ Wolfram elementary cellular automata are a fascinating piece of mathematics. We 
 
 This is saying that for a given cell, we look at the three adjacent cells above it, and depending on their state the current cell will be either *on* or *off*.
 
-As you can see, the three adjacent top cells can be in $2^3=8$ possible configurations. Therefore there is $2^8=256$ possible ***rules*** that we could apply. This is just one of them. It's called rule 30, because $30 = (00011110)_2$.
+As you can see, the three adjacent top cells can be in `$2^3=8$` possible configurations. Therefore there is `$2^8=256$` possible ***rules*** that we could apply. This is just one of them. It's called rule 30, because `$(00011110)_{2} = (30)_{10}$`.
 
 You can read more about this simple cellular automata on Wolfram's website:
 

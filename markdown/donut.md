@@ -8,7 +8,7 @@ Although this spinning donut is pretty impressive, it is quite easy to obtain us
 
 <center><canvas class="article-canvas" id="canvas" style="width: 200px; height: 200px;"></canvas></center>
 
-The first step is to sample points from the surface of a 3D donut. We can do this by rotating a circle sitting on the plane $(x, y)$ centered at $(c,0,0)$ around the $y$ axis.
+The first step is to sample points from the surface of a 3D donut. We can do this by rotating a circle sitting on the plane `$(x, y)$` centered at `$(c,0,0)$` around the `$y$` axis.
 
 Sampling the circle points can be done using polar coordinates:
 
@@ -22,7 +22,7 @@ Sampling the circle points can be done using polar coordinates:
 \right.
 ```
 
-Once we have the circle, we can rotate it around the $y$ axis using a 3D rotation matrix:
+Once we have the circle, we can rotate it around the `$y$` axis using a 3D rotation matrix:
 
 ```latex
 R_y(\theta) =

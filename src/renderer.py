@@ -88,11 +88,17 @@ def _render_element(element: marko.block.Element) -> str:
     elif isinstance(element, marko.inline.LineBreak):
         return "</br>"
     elif isinstance(element, marko.inline.CodeSpan):
-        return f'<code class="article-code-inline">{element.children}</code>'
+        code = element.children
+        if code.startswith('$') and code.endswith('$'):
+            return f'[begin-latex-inline]{code[1:-1]}[end-latex-inline]'
+        else:
+            return f'<code class="article-code-inline">{code}</code>'
     elif isinstance(element, marko.block.FencedCode):
         code = _render_elements(element.children)
         if element.lang == "latex":
-            return f'<div class="article-latex">$${code}$$</div>'
+            return f'<div class="article-latex">[begin-latex]{code}[end-latex]</div>'
+        if element.lang == "dot":
+            return f'<center><div class="article-graphviz">{code}</div></center>'
         else:
             return f'<pre class="article-code-block {element.lang}"><code>{code}</code></pre>'
     elif isinstance(element, marko.block.HTMLBlock):
