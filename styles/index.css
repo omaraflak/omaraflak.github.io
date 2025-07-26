@@ -120,6 +120,19 @@ p {
     font-size: 2.4rem;
 }
 
+.home-title img {
+    width: 12px;
+    height: auto;
+    margin-left: 24px;
+    vertical-align: baseline;
+
+    /* non selectable */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
 .home-link {
     color: var(--color-text-primary);
     font-size: 1.5rem;
