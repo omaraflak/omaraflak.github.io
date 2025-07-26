@@ -95,3 +95,11 @@ digraph G {
     NodeF -> NodeA [label="Retry" color="#8B4513" style=dotted]; // Saddle brown, dotted
 }
 ```
+
+## Custom HTML & JS
+
+You can put HTML tags and render something completely custom too.
+
+<div id="plotDiv" style="width: 100%"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.33.1/plotly.min.js" integrity="sha512-V0j9LhrK9IMNdFYZqh+IqU4cjo7wdxyHNyH+L0td4HryBuZ7Oq6QxP2/CWr6TituX31+gv5PnolvERuTbz8UNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="../scripts/demo.js"></script>
