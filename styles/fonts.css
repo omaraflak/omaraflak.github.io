@@ -1,41 +1,41 @@
 @font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/Helvetica.ttf') format('truetype');
+    src: url('../fonts/Helvetica.woff2') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/Helvetica-Bold.ttf') format('truetype');
+    src: url('../fonts/Helvetica-Bold.woff2') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/Helvetica-Oblique.ttf') format('truetype');
+    src: url('../fonts/Helvetica-Oblique.woff2') format('truetype');
     font-weight: normal;
     font-style: italic;
 }
 
 @font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/Helvetica-Bold-Oblique.ttf') format('truetype');
+    src: url('../fonts/Helvetica-Bold-Oblique.woff2') format('truetype');
     font-weight: bold;
     font-style: italic;
 }
 
 @font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/Helvetica-Light.ttf') format('truetype');
+    src: url('../fonts/Helvetica-Light.woff2') format('truetype');
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/Helvetica-Light-Oblique.ttf') format('truetype');
+    src: url('../fonts/Helvetica-Light-Oblique.woff2') format('truetype');
     font-weight: 300;
     font-style: italic;
 }

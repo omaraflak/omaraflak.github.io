@@ -8,6 +8,10 @@ This is a demo file for all features available.
 
 # This is a title
 
+Text can be *italic* (`*text*`), **bold** (`**text**`), or ***both*** (`***text***`)!
+
+Inline code such as `this` is displayed by surround your text with a single back tick on each side `` `text` ``.
+
 You can have inline code such as `def main()`. If you surround the inner code by '$' signs on both side then it renders `$\LaTeX$`. This formula `$E=mc^2$` relates the energy contained by an object with its mass.
 
 ## This is a secondary title
@@ -33,6 +37,10 @@ The height and/or width of the image can be specified in pixels or percentage us
 Use `---` for a horizontal line.
 
 ---
+
+> Quotes need to start with `>`. It can extend multiple lines.
+> Quotes need to start with `>`. It can extend multiple lines.
+> Quotes need to start with `>`. It can extend multiple lines.
 
 You can display code blocks by surround your code with 3 back ticks `` ``` `` before and after the code. Specify a language after the opening backticks to change the code highlighting.
 
