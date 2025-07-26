@@ -22,12 +22,13 @@ def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = N
             if filename != "demo.html":
                 entries.append(renderer.make_article_entry(markdown, filename))
 
-            if only and file != only:
+            if not only or file == only:
                 with open(output_path, "w") as fout:
                     html = renderer.make_article(markdown)
                     fout.write(html)
 
-        print(input_path, "->", output_path)
+        if not only or file == only:
+            print(input_path, "->", output_path)
 
     entries_html = "\n".join(entries)
     entries_path = os.path.join(html_output_dir, "all.html")
