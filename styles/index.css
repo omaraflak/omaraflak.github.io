@@ -9,9 +9,15 @@
     --color-text-tertiary-hover: #616161;
 
     --home-width: 85%;
-    --page-width: 40%;
     --header-margin: 20px;
-    --footer-margin: 125px;
+
+    --footer-margin-desktop: 125px;
+    --footer-margin-mobile: 25px;
+    --footer-margin: var(--footer-margin-desktop);
+
+    --page-width-desktop: 40%;
+    --page-width-mobile: 95%;
+    --page-width: var(--page-width-desktop);
 
     --color-hr: #E0E0E0;
     --hr-margin: 30px;
@@ -20,6 +26,9 @@
     --quote-bar-margin: 20px;
     --quote-bar-width: 3px;
     --quote-color: #9E9E9E;
+    --quote-margin-left-desktop: calc(-1 * var(--quote-bar-margin) - var(--quote-bar-width));
+    --quote-margin-left-mobile: 0px;
+    --quote-margin-left: var(--quote-margin-left-desktop);
 
     --image-margin: 20px;
     --code-background-color: #EEEEEE;
@@ -32,7 +41,9 @@
 @media (hover:none),
 (hover:on-demand) {
     :root {
-        --page-width: 95%;
+        --page-width: var(--page-width-mobile);
+        --quote-margin-left: var(--quote-margin-left-mobile);
+        --footer-margin: var(--footer-margin-mobile);
     }
 }
 
@@ -236,7 +247,7 @@ p {
     font-style: oblique;
     font-weight: 300;
     font-size: 1.2rem;
-    margin-left: calc(-1 * var(--quote-bar-margin) - var(--quote-bar-width));
+    margin-left: var(--quote-margin-left);
     padding-left: var(--quote-bar-margin);
     border-left: var(--quote-bar-width) solid black;
     margin-top: var(--quote-vertical-margin);
