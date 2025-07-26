@@ -40,6 +40,13 @@
     font-style: italic;
 }
 
+@font-face {
+    font-family: 'Menlo';
+    src: url('../fonts/Menlo-Regular.woff2') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     font-family: 'Helvetica', Arial, sans-serif;
 }

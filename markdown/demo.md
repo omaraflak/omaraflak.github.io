@@ -96,6 +96,36 @@ digraph G {
 }
 ```
 
+# GitHub
+
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+N = 100         # in how much sub pieces we should break a 1sec interval
+T = 15          # total duration of the simulation
+dt = 1 / N      # dt
+g = 9.81        # acceleration of gravity
+L = 1           # pendulum rope length
+k = 0.8         # air resistance coefficient
+m = 1           # mass of the pendulum
+
+theta = [np.pi / 2]     # initial angle
+theta_dot = [0]         # initial angular velocity
+t = [0]
+
+for i in range(N * T):
+    theta_dot.append(theta_dot[-1] - theta_dot[-1] * dt * k / m - np.sin(theta[-1]) * dt * g / L)
+    theta.append(theta_dot[-1] * dt + theta[-1])
+    t.append((i + 1) * dt)
+
+plt.plot(t, theta, label='theta')
+plt.plot(t, theta_dot, label='theta dot')
+plt.legend()
+plt.show()
+```
+
 ## Custom HTML & JS
 
 You can put HTML tags and render something completely custom too.
