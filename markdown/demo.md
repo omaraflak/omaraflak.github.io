@@ -52,6 +52,14 @@ The renderer also supports Graphviz! Juse use `` ```dot `` for the opening code 
 ```dot
 digraph {
     bgcolor="transparent";
-    hello -> world;
+    graph [rankdir="LR"]
+    node [shape="circle"]
+    a [label=<<i>A</i>>, color="red"]
+    b [label=<<b>B</b>>, color="green"]
+    a -> b [label="1"]
+    b -> c:name [label="2"]
+    subgraph cluster_1 {
+        c [label=<<table><tr><td port="name">C</td></tr></table>>]
+    }
 }
 ```

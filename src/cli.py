@@ -16,7 +16,9 @@ def generate(markdown_input_dir: str, html_output_dir: str):
 
         with open(input_path, "r") as fin:
             markdown = fin.read()
-            entries.append(renderer.make_article_entry(markdown, filename))
+            if filename != "demo.html":
+                entries.append(renderer.make_article_entry(markdown, filename))
+
             with open(output_path, "w") as fout:
                 html = renderer.make_article(markdown)
                 fout.write(html)
