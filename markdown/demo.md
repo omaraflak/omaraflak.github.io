@@ -45,8 +45,30 @@ Use `---` for a horizontal line.
 You can display code blocks by surround your code with 3 back ticks `` ``` `` before and after the code. Specify a language after the opening backticks to change the code highlighting.
 
 ```python
-def multiply(a: int, b: int) -> int:
-    return a * b
+import numpy as np
+import matplotlib.pyplot as plt
+
+N = 100         # in how much sub pieces we should break a 1sec interval
+T = 15          # total duration of the simulation
+dt = 1 / N      # dt
+g = 9.81        # acceleration of gravity
+L = 1           # pendulum rope length
+k = 0.8         # air resistance coefficient
+m = 1           # mass of the pendulum
+
+theta = [np.pi / 2]     # initial angle
+theta_dot = [0]         # initial angular velocity
+t = [0]
+
+for i in range(N * T):
+    theta_dot.append(theta_dot[-1] - theta_dot[-1] * dt * k / m - np.sin(theta[-1]) * dt * g / L)
+    theta.append(theta_dot[-1] * dt + theta[-1])
+    t.append((i + 1) * dt)
+
+plt.plot(t, theta, label='theta')
+plt.plot(t, theta_dot, label='theta dot')
+plt.legend()
+plt.show()
 ```
 
 If the language specified is `latex`, i.e. `` ```latex ``, then the renderer will show `$\LaTeX$` in display mode.
@@ -94,36 +116,6 @@ digraph G {
     NodeE -> NodeA [label="Loop Back" color="#FF4500" arrowhead=vee]; // Orange red, vee arrowhead
     NodeF -> NodeA [label="Retry" color="#8B4513" style=dotted]; // Saddle brown, dotted
 }
-```
-
-# GitHub
-
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-N = 100         # in how much sub pieces we should break a 1sec interval
-T = 15          # total duration of the simulation
-dt = 1 / N      # dt
-g = 9.81        # acceleration of gravity
-L = 1           # pendulum rope length
-k = 0.8         # air resistance coefficient
-m = 1           # mass of the pendulum
-
-theta = [np.pi / 2]     # initial angle
-theta_dot = [0]         # initial angular velocity
-t = [0]
-
-for i in range(N * T):
-    theta_dot.append(theta_dot[-1] - theta_dot[-1] * dt * k / m - np.sin(theta[-1]) * dt * g / L)
-    theta.append(theta_dot[-1] * dt + theta[-1])
-    t.append((i + 1) * dt)
-
-plt.plot(t, theta, label='theta')
-plt.plot(t, theta_dot, label='theta dot')
-plt.legend()
-plt.show()
 ```
 
 ## Custom HTML & JS
