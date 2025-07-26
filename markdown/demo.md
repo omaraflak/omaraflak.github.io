@@ -24,7 +24,7 @@ If no title is provided, then the link will be in preview mode `[](https://examp
 
 You can include images as well with `![alt](/image/path)`:
 
-![svg](../markdown/automata.svg)
+![svg](../images/automata.svg)
 
 The height and/or width of the image can be specified in pixels or percentage using the following syntax:
 
