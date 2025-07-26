@@ -172,7 +172,7 @@ And we can keep reading and decoding a long string of bits that way.
 
 > Why not use even less bits?
 
-Example 3 ❌
+## Example 3 ❌
 
 Consider this final encoder:
 

@@ -39,8 +39,30 @@
             </p><p>You can include images as well with <code class="article-code-inline">![alt](/image/path)</code>:</p><p><center><img class="article-image" height="" width="" src="../images/automata.svg" alt="svg"></center></p><p>The height and/or width of the image can be specified in pixels or percentage using the following syntax:</p><pre class="article-code-block md"><code>![alt](/image/path;h=100) # height is 100px
 ![alt](/image/path;w=50%) # width is 50% of the page
 ![alt](/image/path;h=200;w=200) # height is 200px and width is 200px
-</code></pre><p>Use <code class="article-code-inline">---</code> for a horizontal line.</p><div class="article-hr"></div><div class="article-quote"><p>Quotes need to start with <code class="article-code-inline">></code>. It can extend multiple lines.</br>Quotes need to start with <code class="article-code-inline">></code>. It can extend multiple lines.</br>Quotes need to start with <code class="article-code-inline">></code>. It can extend multiple lines.</p></div><p>You can display code blocks by surround your code with 3 back ticks <code class="article-code-inline">```</code> before and after the code. Specify a language after the opening backticks to change the code highlighting.</p><pre class="article-code-block python"><code>def multiply(a: int, b: int) -> int:
-    return a * b
+</code></pre><p>Use <code class="article-code-inline">---</code> for a horizontal line.</p><div class="article-hr"></div><div class="article-quote"><p>Quotes need to start with <code class="article-code-inline">></code>. It can extend multiple lines.</br>Quotes need to start with <code class="article-code-inline">></code>. It can extend multiple lines.</br>Quotes need to start with <code class="article-code-inline">></code>. It can extend multiple lines.</p></div><p>You can display code blocks by surround your code with 3 back ticks <code class="article-code-inline">```</code> before and after the code. Specify a language after the opening backticks to change the code highlighting.</p><pre class="article-code-block python"><code>import numpy as np
+import matplotlib.pyplot as plt
+
+N = 100         # in how much sub pieces we should break a 1sec interval
+T = 15          # total duration of the simulation
+dt = 1 / N      # dt
+g = 9.81        # acceleration of gravity
+L = 1           # pendulum rope length
+k = 0.8         # air resistance coefficient
+m = 1           # mass of the pendulum
+
+theta = [np.pi / 2]     # initial angle
+theta_dot = [0]         # initial angular velocity
+t = [0]
+
+for i in range(N * T):
+    theta_dot.append(theta_dot[-1] - theta_dot[-1] * dt * k / m - np.sin(theta[-1]) * dt * g / L)
+    theta.append(theta_dot[-1] * dt + theta[-1])
+    t.append((i + 1) * dt)
+
+plt.plot(t, theta, label='theta')
+plt.plot(t, theta_dot, label='theta dot')
+plt.legend()
+plt.show()
 </code></pre><p>If the language specified is <code class="article-code-inline">latex</code>, i.e. <code class="article-code-inline">```latex</code>, then the renderer will show [begin-latex-inline]\LaTeX[end-latex-inline] in display mode.</p><div class="article-latex">[begin-latex](a+b)^n = \sum_{i=0}^n {n \choose k} a^k b^{n-k}
 [end-latex]</div><p>The renderer also supports Graphviz! Juse use <code class="article-code-inline">```dot</code> for the opening code block.</p><center><div class="article-graphviz">digraph G {
     bgcolor="transparent"; // Keep background transparent
@@ -78,31 +100,7 @@
     NodeE -> NodeA [label="Loop Back" color="#FF4500" arrowhead=vee]; // Orange red, vee arrowhead
     NodeF -> NodeA [label="Retry" color="#8B4513" style=dotted]; // Saddle brown, dotted
 }
-</div></center><h2 id=github class="article-section">GitHub</h2><pre class="article-code-block python"><code>import numpy as np
-import matplotlib.pyplot as plt
-
-N = 100         # in how much sub pieces we should break a 1sec interval
-T = 15          # total duration of the simulation
-dt = 1 / N      # dt
-g = 9.81        # acceleration of gravity
-L = 1           # pendulum rope length
-k = 0.8         # air resistance coefficient
-m = 1           # mass of the pendulum
-
-theta = [np.pi / 2]     # initial angle
-theta_dot = [0]         # initial angular velocity
-t = [0]
-
-for i in range(N * T):
-    theta_dot.append(theta_dot[-1] - theta_dot[-1] * dt * k / m - np.sin(theta[-1]) * dt * g / L)
-    theta.append(theta_dot[-1] * dt + theta[-1])
-    t.append((i + 1) * dt)
-
-plt.plot(t, theta, label='theta')
-plt.plot(t, theta_dot, label='theta dot')
-plt.legend()
-plt.show()
-</code></pre><h3 id=custom-html-js class="article-small-section">Custom HTML & JS</h3><p>You can put HTML tags and render something completely custom too.</p><div id="plotDiv" style="width: 100%"></div>
+</div></center><h3 id=custom-html-js class="article-small-section">Custom HTML & JS</h3><p>You can put HTML tags and render something completely custom too.</p><div id="plotDiv" style="width: 100%"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.33.1/plotly.min.js" integrity="sha512-V0j9LhrK9IMNdFYZqh+IqU4cjo7wdxyHNyH+L0td4HryBuZ7Oq6QxP2/CWr6TituX31+gv5PnolvERuTbz8UNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="../scripts/demo.js"></script>
         </article>
