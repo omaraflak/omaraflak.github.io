@@ -3,9 +3,12 @@ import fire
 import renderer
 
 
-def generate(markdown_input_dir: str, html_output_dir: str):
-    files = [file for file in os.listdir(
-        markdown_input_dir) if file.endswith(".md")]
+def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = None):
+    files = [
+        file
+        for file in os.listdir(markdown_input_dir)
+        if file.endswith(".md")
+    ]
 
     entries = []
 
@@ -19,9 +22,10 @@ def generate(markdown_input_dir: str, html_output_dir: str):
             if filename != "demo.html":
                 entries.append(renderer.make_article_entry(markdown, filename))
 
-            with open(output_path, "w") as fout:
-                html = renderer.make_article(markdown)
-                fout.write(html)
+            if only and file != only:
+                with open(output_path, "w") as fout:
+                    html = renderer.make_article(markdown)
+                    fout.write(html)
 
         print(input_path, "->", output_path)
 
