@@ -50,16 +50,40 @@ If the language specified is `latex`, i.e. `` ```latex ``, then the renderer wil
 The renderer also supports Graphviz! Juse use `` ```dot `` for the opening code block.
 
 ```dot
-digraph {
-    bgcolor="transparent";
-    graph [rankdir="LR"]
-    node [shape="circle"]
-    a [label=<<i>A</i>>, color="red"]
-    b [label=<<b>B</b>>, color="green"]
-    a -> b [label="1"]
-    b -> c:name [label="2"]
-    subgraph cluster_1 {
-        c [label=<<table><tr><td port="name">C</td></tr></table>>]
-    }
+digraph G {
+    bgcolor="transparent"; // Keep background transparent
+
+    // Graph attributes
+    graph [
+        labelloc="t" // Label at top
+        fontname="Courier"
+        fontsize=20
+        rankdir="LR" // Left to Right layout
+    ];
+
+    // Node styles
+    node [
+        shape=box
+        style=filled
+        fontname="Courier"
+        fontsize=12
+    ];
+
+    // Nodes with specific colors
+    NodeA [label="Start Process" fillcolor="#FFDDC1" color="#FFA07A" fontcolor="#8B0000"]; // Light peach, salmon border, dark red text
+    NodeB [label="Data Input" fillcolor="#D1FFD1" color="#3CB371" fontcolor="#006400"]; // Light green, medium sea green border, dark green text
+    NodeC [label="Processing" fillcolor="#C1D1FF" color="#6A5ACD" fontcolor="#191970"]; // Light blue, slate blue border, midnight blue text
+    NodeD [label="Validation" fillcolor="#FFFFC1" color="#FFD700" fontcolor="#B8860B"]; // Light yellow, gold border, dark goldenrod text
+    NodeE [label="Output Result" fillcolor="#FFC1FF" color="#DA70D6" fontcolor="#800080"]; // Light magenta, orchid border, purple text
+    NodeF [label="Error Handling" fillcolor="#FFC1C1" color="#DC143C" fontcolor="#8B0000" shape=ellipse]; // Light red, crimson border, dark red text, ellipse shape
+
+    // Edges with specific colors and styles
+    NodeA -> NodeB [label="Initialize" color="#4682B4" penwidth=2]; // Steel blue
+    NodeB -> NodeC [label="Process Data" color="#2E8B57" style=dashed]; // Sea green, dashed
+    NodeC -> NodeD [label="Validate" color="#8A2BE2" penwidth=1.5]; // Blue violet
+    NodeD -> NodeE [label="Success" color="#008000" style=bold]; // Green, bold
+    NodeD -> NodeF [label="Failure" color="#FF0000" style=dotted]; // Red, dotted
+    NodeE -> NodeA [label="Loop Back" color="#FF4500" arrowhead=vee]; // Orange red, vee arrowhead
+    NodeF -> NodeA [label="Retry" color="#8B4513" style=dotted]; // Saddle brown, dotted
 }
 ```

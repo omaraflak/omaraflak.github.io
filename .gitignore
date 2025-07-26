@@ -2,4 +2,3 @@ __pycache__
 .venv
 blog.egg-info
 Makefile
-demo.html

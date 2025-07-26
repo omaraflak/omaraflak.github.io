@@ -316,10 +316,16 @@ p {
 
 .article-latex {
     margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .article-graphviz {
     margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .article-canvas {

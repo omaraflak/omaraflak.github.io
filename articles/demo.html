@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/fonts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css" integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="site-header">
+        <div class="site-header-content">
+            <a href="/index.html" class="site-header-link">Home</a>
+            <a href="/articles.html" class="site-header-link">Blog</a>
+        </div>
+    </div>
+    <div class="article-header">
+        <div class="article-header-content">
+            <h1 class="article-title">Demo</h1>
+            <p class="article-description">Demo of all editing features of the blosg</p>
+            <p class="article-date">Jul 26, 2025</p>
+        </div>
+    </div>
+    <main class="article-main">
+        <article class="article-body">
+            <p>This is a demo file for all features available.</p><h2 id=this-is-a-title class="article-section">This is a title</h2><p>You can have inline code such as <code class="article-code-inline">def main()</code>. If you surround the inner code by '$' signs on both side then it renders [begin-latex-inline]\LaTeX[end-latex-inline]. This formula [begin-latex-inline]E=mc^2[end-latex-inline] relates the energy contained by an object with its mass.</p><h3 id=this-is-a-secondary-title class="article-small-section">This is a secondary title</h3><p>Links are also supported. Check out my <a class="article-link" target="_blank" href="https://github.com/omaraflak">github</a>. Use the following formatting <code class="article-code-inline">[title](https://example.com)</code>.</p><p>If no title is provided, then the link will be in preview mode <code class="article-code-inline">[](https://example.com)</code>:</p><p>
+                <a class="article-link-preview-link" target="_blank" href="https://github.com/omaraflak">
+                    <div class="article-link-preview-container">
+                        <p class="article-link-preview-title">omaraflak - Overview</p>
+                        <p class="article-link-preview-description">Keep learning . omaraflak has 123 repositories available. Follow their code on GitHub.</p>
+                        <p class="article-link-preview-website">github.com</p>
+                    </div>
+                </a>
+            </p><p>You can include images as well with <code class="article-code-inline">![alt](/image/path)</code>:</p><p><center><img class="article-image" height="" width="" src="../markdown/automata.svg" alt="svg"></center></p><p>The height and/or width of the image can be specified in pixels or percentage using the following syntax:</p><pre class="article-code-block md"><code>![alt](/image/path;h=100) # height is 100px
+![alt](/image/path;w=50%) # width is 50% of the page
+![alt](/image/path;h=200;w=200) # height is 200px and width is 200px
+</code></pre><p>Use <code class="article-code-inline">---</code> for a horizontal line.</p><div class="article-hr"></div><p>You can display code blocks by surround your code with 3 back ticks <code class="article-code-inline">```</code> before and after the code. Specify a language after the opening backticks to change the code highlighting.</p><pre class="article-code-block python"><code>def multiply(a: int, b: int) -> int:
+    return a * b
+</code></pre><p>If the language specified is <code class="article-code-inline">latex</code>, i.e. <code class="article-code-inline">```latex</code>, then the renderer will show [begin-latex-inline]\LaTeX[end-latex-inline] in display mode.</p><div class="article-latex">[begin-latex](a+b)^n = \sum_{i=0}^n {n \choose k} a^k b^{n-k}
+[end-latex]</div><p>The renderer also supports Graphviz! Juse use <code class="article-code-inline">```dot</code> for the opening code block.</p><center><div class="article-graphviz">digraph G {
+    bgcolor="transparent"; // Keep background transparent
+
+    // Graph attributes
+    graph [
+        labelloc="t" // Label at top
+        fontname="Courier"
+        fontsize=20
+        rankdir="LR" // Left to Right layout
+    ];
+
+    // Node styles
+    node [
+        shape=box
+        style=filled
+        fontname="Courier"
+        fontsize=12
+    ];
+
+    // Nodes with specific colors
+    NodeA [label="Start Process" fillcolor="#FFDDC1" color="#FFA07A" fontcolor="#8B0000"]; // Light peach, salmon border, dark red text
+    NodeB [label="Data Input" fillcolor="#D1FFD1" color="#3CB371" fontcolor="#006400"]; // Light green, medium sea green border, dark green text
+    NodeC [label="Processing" fillcolor="#C1D1FF" color="#6A5ACD" fontcolor="#191970"]; // Light blue, slate blue border, midnight blue text
+    NodeD [label="Validation" fillcolor="#FFFFC1" color="#FFD700" fontcolor="#B8860B"]; // Light yellow, gold border, dark goldenrod text
+    NodeE [label="Output Result" fillcolor="#FFC1FF" color="#DA70D6" fontcolor="#800080"]; // Light magenta, orchid border, purple text
+    NodeF [label="Error Handling" fillcolor="#FFC1C1" color="#DC143C" fontcolor="#8B0000" shape=ellipse]; // Light red, crimson border, dark red text, ellipse shape
+
+    // Edges with specific colors and styles
+    NodeA -> NodeB [label="Initialize" color="#4682B4" penwidth=2]; // Steel blue
+    NodeB -> NodeC [label="Process Data" color="#2E8B57" style=dashed]; // Sea green, dashed
+    NodeC -> NodeD [label="Validate" color="#8A2BE2" penwidth=1.5]; // Blue violet
+    NodeD -> NodeE [label="Success" color="#008000" style=bold]; // Green, bold
+    NodeD -> NodeF [label="Failure" color="#FF0000" style=dotted]; // Red, dotted
+    NodeE -> NodeA [label="Loop Back" color="#FF4500" arrowhead=vee]; // Orange red, vee arrowhead
+    NodeF -> NodeA [label="Retry" color="#8B4513" style=dotted]; // Saddle brown, tapered edge
+}
+</div></center>
+        </article>
+    </main>
+    <div class="article-hr"></div>
+    <div class="site-footer">
+        <div class="site-footer-content"></div>
+    </div>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" integrity="sha512-LQNxIMR5rXv7o+b1l8+N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r+EFLLCyA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" integrity="sha512-iWiuBS5nt6r60fCz26Nd0Zqe0nbk1ZTIQbl3Kv7kYsX+yKMUFHzjaH2+AnM6vp2Xs+gNmaBAVWJjSmuPw76Efg==" crossorigin="anonymous" referrerpolicy="no-referrer" onload="renderMathInElement(document.body, {
+        delimiters: [
+            {left: '[begin-latex]', right: '[end-latex]', display: true},
+            {left: '[begin-latex-inline]', right: '[end-latex-inline]', display: false},
+        ]
+    });"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" integrity="sha512-EBLzUL8XLl+va/zAsmXwS7Z2B1F9HUHkZwyS/VKwh3S7T/U0nF4BaU29EP/ZSf6zgiIxYAnKLu6bJ8dqpmX5uw==" crossorigin="anonymous" referrerpolicy="no-referrer" onload="hljs.highlightAll();"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/viz.js" integrity="sha512-vnRdmX8ZxbU+IhA2gLhZqXkX1neJISG10xy0iP0WauuClu3AIMknxyDjYHEpEhi8fTZPyOCWgqUCnEafDB/jVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/lite.render.js" integrity="sha512-uAHj1knkgGpl0fJcyjbcVY0f9j252eWzEeBxE4s4AQkPJkp/+U+rlfoOXlwreSzPhndCT+5YR00/QSD/nPqb+g==" crossorigin="anonymous" referrerpolicy="no-referrer" onload="
+        const viz = new Viz();
+        document.querySelectorAll('.article-graphviz').forEach(element => {
+            const content = element.textContent;
+            try {
+                viz.renderSVGElement(content)
+                    .then(svg => {
+                        element.textContent = '';
+                        element.appendChild(svg);
+                    })
+                    .catch(error => {
+                        console.error('Error rendering Graphviz SVG:', error);
+                        element.textContent = 'Error rendering graph. Check console for details.';
+                    });
+            } catch (error) {
+                console.error('Error with Viz.js rendering process:', error);
+                element.textContent = 'Error during graph rendering setup.';
+            }
+        });
+    "></script>
+</body>
+
+</html>
