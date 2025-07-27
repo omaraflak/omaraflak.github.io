@@ -1,6 +1,7 @@
 import os
 import fire
 import renderer
+import metadata
 
 
 def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = None):
@@ -10,7 +11,7 @@ def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = N
         if file.endswith(".md")
     ]
 
-    entries = []
+    entries: list[tuple[str, metadata.Metadata]] = []
 
     for file in files:
         input_path = os.path.join(markdown_input_dir, file)
@@ -20,7 +21,9 @@ def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = N
         with open(input_path, "r") as fin:
             markdown = fin.read()
             if filename != "demo.html":
-                entries.append(renderer.make_article_entry(markdown, filename))
+                entry = renderer.make_article_entry(markdown, filename)
+                meta = metadata.parse_metadata(markdown)
+                entries.append((entry, meta))
 
             if not only or file == only:
                 with open(output_path, "w") as fout:
@@ -30,6 +33,8 @@ def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = N
         if not only or file == only:
             print(input_path, "->", output_path)
 
+    entries.sort(key=lambda x: x[1].date, reverse=True)
+    entries = [entry for entry, _ in entries]
     entries_html = "\n".join(entries)
     entries_path = os.path.join(html_output_dir, "all.html")
     with open(entries_path, "w") as fout:

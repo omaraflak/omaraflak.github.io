@@ -2,7 +2,6 @@ import re
 import marko
 import marko.inline
 import metadata
-import datetime
 import templates
 import unicodedata
 import link_preview.link_preview
@@ -19,9 +18,8 @@ def _make_tag(title: str) -> str:
     return s
 
 
-def _format_date(year: int, month: int, day: int) -> str:
-    date = datetime.datetime(year, month, day)
-    return date.strftime("%b %d, %Y")
+def _format_date(meta: metadata.Metadata) -> str:
+    return meta.date.strftime("%b %d, %Y")
 
 
 def _parse_image_data(location: str) -> tuple[str, str, str]:
@@ -113,36 +111,24 @@ def _render_element(element: marko.block.Element) -> str:
 
 
 def make_article(markdown: str) -> str:
-    keys = ["title", "description", "year", "month", "day"]
-    meta = metadata.parse_metadata(markdown, keys)
-    text = metadata.strip_metadata(markdown, keys)
+    meta = metadata.parse_metadata(markdown)
+    text = metadata.strip_metadata(markdown)
     generated_html = _render_elements(marko.parse(text).children)
-    date = _format_date(
-        int(meta["year"]),
-        int(meta["month"]),
-        int(meta["day"])
-    )
     html = templates.ARTICLE
-    html = html.replace("{{title}}", meta["title"])
-    html = html.replace("{{description}}", meta["description"])
-    html = html.replace("{{date}}", date)
+    html = html.replace("{{title}}", meta.title)
+    html = html.replace("{{description}}", meta.description)
+    html = html.replace("{{date}}", _format_date(meta))
     html = html.replace("{{content}}", generated_html)
     html = html.strip()
     return html
 
 
 def make_article_entry(markdown: str, filename: str) -> str:
-    keys = ["title", "description", "year", "month", "day"]
-    meta = metadata.parse_metadata(markdown, keys)
-    date = _format_date(
-        int(meta["year"]),
-        int(meta["month"]),
-        int(meta["day"])
-    )
+    meta = metadata.parse_metadata(markdown)
     html = templates.ENTRY
     html = html.replace("{{filename}}", filename)
-    html = html.replace("{{title}}", meta["title"])
-    html = html.replace("{{description}}", meta["description"])
-    html = html.replace("{{date}}", date)
+    html = html.replace("{{title}}", meta.title)
+    html = html.replace("{{description}}", meta.description)
+    html = html.replace("{{date}}", _format_date(meta))
     html = html.strip()
     return html
