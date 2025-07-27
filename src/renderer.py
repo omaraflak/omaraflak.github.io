@@ -123,8 +123,7 @@ def make_article(markdown: str) -> str:
     return html
 
 
-def make_article_entry(markdown: str, filename: str) -> str:
-    meta = metadata.parse_metadata(markdown)
+def make_article_entry(meta: metadata.Metadata, filename: str) -> str:
     html = templates.ENTRY
     html = html.replace("{{filename}}", filename)
     html = html.replace("{{title}}", meta.title)

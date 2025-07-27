@@ -21,8 +21,8 @@ def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = N
         with open(input_path, "r") as fin:
             markdown = fin.read()
             if filename != "demo.html":
-                entry = renderer.make_article_entry(markdown, filename)
                 meta = metadata.parse_metadata(markdown)
+                entry = renderer.make_article_entry(meta, filename)
                 entries.append((entry, meta))
 
             if not only or file == only:
