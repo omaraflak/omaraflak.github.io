@@ -55,11 +55,15 @@ So, next time you see a Samara flying in the wind and wonder how smart nature is
 
 <center><canvas class="article-canvas" id="canvas" style="width: 50%;"></canvas></center>
 <center>Epoch: <span id="status"></span></center>
-<div id="population_size" style="width: 100%; height: 250px; margin: 30px 0px;"></div>
-<div id="survival_ratio" style="width: 100%; height: 250px; margin: 30px 0px;"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.33.1/plotly.min.js" integrity="sha512-V0j9LhrK9IMNdFYZqh+IqU4cjo7wdxyHNyH+L0td4HryBuZ7Oq6QxP2/CWr6TituX31+gv5PnolvERuTbz8UNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+## Population Size
+<center><div id="population_size" style="width: 100%; height: 250px; margin: 30px 0px;"></div></center>
 
+## Survival Ratio
+<center><div id="survival_ratio" style="width: 100%; height: 250px; margin: 30px 0px;"></div></center>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="../scripts/canvas.js"></script>
+<script src="../scripts/plot.js"></script>
 <script src="../scripts/matrix.js"></script>
 <script src="../scripts/genetic.js"></script>

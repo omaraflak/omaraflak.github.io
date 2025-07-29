@@ -105,11 +105,8 @@ const reproduce_particles = (particles, max_population) => {
     return new_generation
 }
 
-const population_size_plot = document.getElementById("population_size")
-Plotly.newPlot(population_size_plot, [{ y: [], type: "scatter" }], { title: "Population size" })
-
-const survival_ratio_plot = document.getElementById("survival_ratio")
-Plotly.newPlot(survival_ratio_plot, [{ y: [], type: "scatter" }], { title: "Survival ratio" })
+const population_size_plot = new LinePlot('population_size');
+const survival_ratio_plot = new LinePlot('survival_ratio');
 
 const statusText = document.getElementById("status")
 
@@ -127,9 +124,6 @@ const initial_population = 100
 const iterations_per_epoch = 200
 const total_epochs = 15
 const max_population_size = 15000
-
-const population_size = [initial_population]
-const survival_ratio = []
 
 let particles = Array.from(Array(initial_population), new_particle)
 let current_iteration = 1
@@ -155,12 +149,10 @@ const update = () => {
     if (current_iteration % iterations_per_epoch == 0) {
         const sizeBefore = particles.length
         particles = filter_survivors(particles)
-        survival_ratio.push(particles.length / sizeBefore)
-        Plotly.update(survival_ratio_plot, { y: [survival_ratio] })
+        survival_ratio_plot.addData(particles.length / sizeBefore)
 
         particles = reproduce_particles(particles, max_population_size)
-        population_size.push(particles.length)
-        Plotly.update(population_size_plot, { y: [population_size] })
+        population_size_plot.addData(particles.length)
 
         current_epoch++
         if (current_epoch - 1 == total_epochs) {

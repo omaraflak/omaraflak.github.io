@@ -1,5 +1,5 @@
 const particles = []
-const mean_squared_displacement_plot = new SimplePlot('mean_squared_displacement');
+const mean_squared_displacement_plot = new LinePlot('mean_squared_displacement');
 
 const makeParticles = (n) => {
     for (let i = 0; i < n; i++) {

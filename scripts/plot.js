@@ -1,15 +1,15 @@
 /**
- * SimplePlot.js - A lightweight D3.js line plotting library
+ * LinePlot.js - A lightweight D3.js line plotting library
  * 
  * Usage:
- * const plot = new SimplePlot('myDiv');
+ * const plot = new LinePlot('myDiv');
  * plot.plot([1, 2, 3, 4, 5]); // y-only data
  * plot.plot([1, 2, 3], [10, 20, 15]); // x, y data
  * plot.addData(6); // add single y point
  * plot.addData(4, 25); // add x, y point
  */
 
-class SimplePlot {
+class LinePlot {
     constructor(elementId, options = {}) {
         this.elementId = elementId;
         this.container = d3.select(`#${elementId}`);
@@ -315,9 +315,9 @@ class SimplePlot {
 
 // Export for different module systems
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = SimplePlot;
+    module.exports = LinePlot;
 } else if (typeof define === 'function' && define.amd) {
-    define([], function () { return SimplePlot; });
+    define([], function () { return LinePlot; });
 } else {
-    window.SimplePlot = SimplePlot;
+    window.LinePlot = LinePlot;
 }
