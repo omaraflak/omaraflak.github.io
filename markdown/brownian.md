@@ -23,7 +23,7 @@ These particles are following a random walk, or brownian motion. At each time st
 This is the [mean squared displacement](https://en.wikipedia.org/wiki/Mean_squared_displacement) over time. It is the average distance of a particle to its initial starting point (here, the center of the canvas).
 
 ```latex
-MSD = \frac{1}{n} \sum_{x,y} = (x - c_x)^2 + (y - c_y)^2
+MSD = \frac{1}{n} \sum_{x,y} = (x_t - x_0)^2 + (y_t - y_0)^2
 ```
 
 <center><div id="mean_squared_displacement" style="width: 100%; margin: 30px 0px;"></div></center>
