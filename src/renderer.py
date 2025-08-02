@@ -4,7 +4,10 @@ import marko.inline
 import metadata
 import templates
 import unicodedata
-import link_preview.link_preview
+import links
+
+
+_LINKS = links.LinkPreview()
 
 
 def _make_tag(title: str) -> str:
@@ -68,18 +71,18 @@ def _render_element(element: marko.block.Element) -> str:
         if title:
             return f'<a class="article-link" target="_blank" href="{url}">{title}</a>'
         else:
-            try:
-                preview = link_preview.link_preview.generate_dict(url)
+            preview = _LINKS.get_link_preview(url)
+            if preview:
                 return f'''
                     <a class="article-link-preview-link" target="_blank" href="{url}">
                         <div class="article-link-preview-container">
-                            <p class="article-link-preview-title">{preview["title"]}</p>
-                            <p class="article-link-preview-description">{preview["description"]}</p>
-                            <p class="article-link-preview-website">{preview["website"]}</p>
+                            <p class="article-link-preview-title">{preview.title}</p>
+                            <p class="article-link-preview-description">{preview.description}</p>
+                            <p class="article-link-preview-website">{preview.website}</p>
                         </div>
                     </a>
                 '''
-            except:
+            else:
                 print("Could not fetch link preview: ", url)
                 title = '<span style="color:red;">ERROR NO INTERNET TO FETCH LINK PREVIEW</span>'
                 return f'<a class="article-link" target="_blank" href="{url}">{title}</a>'

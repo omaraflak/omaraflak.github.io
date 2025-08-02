@@ -7,6 +7,7 @@ setuptools.setup(
     install_requires=[
         "fire",
         "marko",
-        "link_preview"
+        "link_preview",
+        "dataclasses_json"
     ],
 )
