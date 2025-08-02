@@ -1,5 +1,4 @@
 __pycache__
 .venv
 blog.egg-info
-Makefile
 .DS_Store

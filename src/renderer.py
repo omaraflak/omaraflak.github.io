@@ -64,19 +64,25 @@ def _render_element(element: marko.block.Element) -> str:
         return f'<span class="article-bold">{text}</span>'
     elif isinstance(element, marko.inline.Link):
         title = _render_elements(element.children)
+        url = element.dest
         if title:
-            return f'<a class="article-link" target="_blank" href="{element.dest}">{title}</a>'
+            return f'<a class="article-link" target="_blank" href="{url}">{title}</a>'
         else:
-            preview = link_preview.link_preview.generate_dict(element.dest)
-            return f'''
-                <a class="article-link-preview-link" target="_blank" href="{element.dest}">
-                    <div class="article-link-preview-container">
-                        <p class="article-link-preview-title">{preview["title"]}</p>
-                        <p class="article-link-preview-description">{preview["description"]}</p>
-                        <p class="article-link-preview-website">{preview["website"]}</p>
-                    </div>
-                </a>
-            '''
+            try:
+                preview = link_preview.link_preview.generate_dict(url)
+                return f'''
+                    <a class="article-link-preview-link" target="_blank" href="{url}">
+                        <div class="article-link-preview-container">
+                            <p class="article-link-preview-title">{preview["title"]}</p>
+                            <p class="article-link-preview-description">{preview["description"]}</p>
+                            <p class="article-link-preview-website">{preview["website"]}</p>
+                        </div>
+                    </a>
+                '''
+            except:
+                print("Could not fetch link preview: ", url)
+                title = '<span style="color:red;">ERROR NO INTERNET TO FETCH LINK PREVIEW</span>'
+                return f'<a class="article-link" target="_blank" href="{url}">{title}</a>'
     elif isinstance(element, marko.inline.Image):
         alt = _render_elements(element.children)
         url, height, width = _parse_image_data(element.dest)

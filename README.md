@@ -12,6 +12,6 @@ My personal blogging website.
 ```
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -e src
-python3 src/cli.py markdown articles
+make install
+make
 ```
