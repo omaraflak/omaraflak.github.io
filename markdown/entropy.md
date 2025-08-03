@@ -283,4 +283,24 @@ Where `$P$` is the distribution of the **data**, and `$Q$` is the distribution o
 Interestingly, in the context of LLMs (Large Language Models), when we minimise the cross entropy and therefore minimise the relative entropy, the loss we end up with after training is an approximation (as KL goes to 0) of the entropy of the data distribution, that is, the entropy of language.
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/function-plot/1.25.1/function-plot.min.js" integrity="sha512-fsvE52IC5bx7NhuaGLoNE+Sq3EKFQ+fcvaJPE5hGemvMwQudqQuNXC4eG/8CjU2a90P88NzYPRl77iOcXerCHg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="../scripts/entropy.js"></script>
+<script>
+functionPlot({
+    target: '#negative-log',
+    xAxis: {
+        label: 'x',
+        domain: [-3, 6]
+    },
+    yAxis: {
+        label: 'y=-log(x)',
+        domain: [-2, 3.5]
+    },
+    annotations: [
+        {
+            x: 1,
+            text: 'x = 1'
+        }
+    ],
+    grid: true,
+    data: [{ fn: '-log(x)' }]
+})
+</script>
