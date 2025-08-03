@@ -286,7 +286,7 @@ If the prediction was perfect, then we'd have `$-log(1)=0$`.
 To implement the cross-entropy loss we still need to compute the output gradient:
 
 ```latex
-\frac{\partial E}{\partial y_i} = -\frac{{y_i}^*}{y_i}
+\frac{\partial E}{\partial y_i} = -\frac{y^*_i}{y_i}
 ```
 
 Therefore, `$\frac{\partial E}{\partial Y} = -Y^* \oslash Y$`, where `$\oslash$` is element-wise division.
