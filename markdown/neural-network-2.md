@@ -54,15 +54,17 @@ The first method turns out to work very poorly in practice, and models tend to d
 
 So the solution will be to go with 2. However, we want the output to be a probability distribution, i.e. all numbers should sum up to 1, such that we can interpret each number as the probability that the model detected the corresponding digit.
 
-For example, `$[0, 0.2, 0, 0.7, 0, 0, 0.1, 0, 0, 0]$` is a valid output which says:
+For example, `$[0, 0.2, 0, 0.7, 0, 0, 0.1, 0, 0, 0]$` is a valid output which reads:
 
 - `20%` chance to be `1`
 - `70%` chance to be `3`
 - `10%` chance to be `6`
 
-However, there is currently no reason for the neural network to output a set of 10 numbers that sum up to one (in part 1, the last layer was `$tanh(x)$`). This is what Softmax solves.
+However, there is currently no reason for the neural network to output a set of 10 numbers that sum up to one (in part 1, the last layer was `$tanh(x)$`).
 
-> Sofmax will rescale a vector `$x \in \R^n$` into a probability distribution, i.e. `$x_i \in [0, 1]$`, `$\sum_i x_i = 1$`, and the relative importance/order of `$x_i$` is conserved.
+This is what Softmax solves.
+
+> Sofmax will rescale a vector `$x \in \R^n$` into a probability distribution, i.e. `$x_i \in [0, 1]$`, `$\sum_i x_i = 1$`, and preserve the relative importance/order of `$x_i$`.
 
 ## Forward Propagation
 
@@ -234,7 +236,7 @@ y_1 & y_2 & \cdots & y_n
 
 # Softmax Code
 
-The implementation is straightforward and we can take advantage of NumPy broadcasting to avoid building `$M$` ourselves.
+The implementation is straightforward and we can take advantage of NumPy's broadcasting to avoid building `$M$` ourselves.
 
 ```python
 class Softmax(Module):
@@ -267,9 +269,9 @@ Whenever we have **classification** tasks, i.e. the network outputs a probabilit
 
 # Cross-Entropy
 
-The cross-entropy loss is a way to measure the difference between two probability distributions. We are exactly in that case, where the network outputs a certain distribution due to Softmax, but we want to compare that against the actual distribution which is our labels formatted as columns vectors of size 10.
+The cross-entropy loss is a way to measure the difference between two probability distributions. We are exactly in that case, where the network outputs a certain distribution due to Softmax, but we want to compare that against the actual distribution which is our labels.
 
-If `$P$` is the ***true*** ditribution, and `$Q$` is the ***predicted*** distribution, then the cross-entropy loss is:
+If `$y^*$` is the ***true*** ditribution, and `$y$` is the ***predicted*** distribution, then the cross-entropy loss is:
 
 ```latex
 E = - \sum_i {y_i}^* log(y_i)
@@ -304,11 +306,11 @@ class CrossEntropy(Loss):
         return -y_true / y_pred
 ```
 
-We are now ready to build or MNIST solver!
+We are now ready to train on MNIST!
 
 # MNIST Solver
 
-Because we have inputs of shape `$28 \times 28$`, and currently we only support column vectors, we will flatten our images to vectors of size `$28 \times 28=784$`. It's also a good practice to normalize the inputs; since pixel values are in `$[0, 255]$`, we just divide by `$255$`.
+Because we have inputs of shape `$28 \times 28$`, and we currently only support column vectors, we will flatten our images to vectors of size `$28 \times 28=784$`. It's also a good practice to normalize the inputs; since pixel values are in `$[0, 255]$`, we just divide by `$255$`.
 
 ```python
 def one_hot_encoding(y: np.ndarray, num_classes: int = None) -> np.ndarray:

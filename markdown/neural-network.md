@@ -872,6 +872,8 @@ The model has been trained successfully!
 
 I am sure this is not a satisfying result after going through all that math. So let's solve some more interesting problems with our library... in **part 2**!
 
+[](https://omaraflak.github.io/articles/neural-network-2.html)
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/function-plot/1.25.1/function-plot.min.js" integrity="sha512-fsvE52IC5bx7NhuaGLoNE+Sq3EKFQ+fcvaJPE5hGemvMwQudqQuNXC4eG/8CjU2a90P88NzYPRl77iOcXerCHg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 functionPlot({
