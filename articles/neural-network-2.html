@@ -211,7 +211,7 @@ array([0.00473036, 0.25826895, 0.0349529 , 0.70204779])
 
     def loss_prime(self, y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:
         return -y_true / y_pred
-</code></pre><p>We are now ready to build or MNIST solver!</p><h2 id=mnist-solver class="article-section">MNIST Solver</h2><p>Because we have inputs of shape [begin-latex-inline]28 \times 28[end-latex-inline], and currently we only support column vectors, we will flatten our images to vectors of size [begin-latex-inline]28 \times 28=784[end-latex-inline]. It's also a good practice to normalize the inputs; since pixel values are in [begin-latex-inline][0, 255][end-latex-inline], we just divide by [begin-latex-inline]255[end-latex-inline].</p><pre class="article-code-block python"><code>def one_hot_encoding(y: np.ndarray, num_classes: int = None) -> np.ndarray:
+</code></pre><p>We are now ready to train on MNIST!</p><h2 id=mnist-solver class="article-section">MNIST Solver</h2><p>Because we have inputs of shape [begin-latex-inline]28 \times 28[end-latex-inline], and we currently only support column vectors, we will flatten our images to vectors of size [begin-latex-inline]28 \times 28=784[end-latex-inline]. It's also a good practice to normalize the inputs; since pixel values are in [begin-latex-inline][0, 255][end-latex-inline], we just divide by [begin-latex-inline]255[end-latex-inline].</p><pre class="article-code-block python"><code>def one_hot_encoding(y: np.ndarray, num_classes: int = None) -> np.ndarray:
     y = np.array(y, dtype='int').ravel()
     num_classes = num_classes or np.max(y) + 1
     n = y.shape[0]
