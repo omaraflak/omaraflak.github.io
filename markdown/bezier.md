@@ -1,5 +1,5 @@
 :title: Bézier Curve
-:description: Understand the mathematics of Bézier curves
+:description: Understand the mathematics of Bézier curves.
 :year: 2020
 :month: 5
 :day: 2
