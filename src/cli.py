@@ -31,7 +31,7 @@ def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = N
                     fout.write(html)
 
         if not only or file == only:
-            print(input_path, "->", output_path)
+            print(">", output_path)
 
     entries.sort(key=lambda x: (x[1].pinned, x[1].date), reverse=True)
     entries = [entry for entry, _ in entries]
@@ -40,7 +40,7 @@ def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = N
     with open(entries_path, "w") as fout:
         fout.write(entries_html)
 
-    print(entries_path)
+    print(">", entries_path)
 
 
 if __name__ == "__main__":
