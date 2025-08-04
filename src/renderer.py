@@ -127,15 +127,15 @@ def make_article(markdown: str) -> str:
     meta = metadata.parse_metadata(markdown)
     text = metadata.strip_metadata(markdown)
     generated_html = _render_elements(marko.parse(text).children)
+    updated_date_html = (
+        templates.UPDATED_DATE.replace("{{date}}", _format_updated_date(meta))
+        if meta.updated_date
+        else ""
+    )
     html = templates.ARTICLE
     html = html.replace("{{title}}", meta.title)
     html = html.replace("{{description}}", meta.description)
     html = html.replace("{{date}}", _format_date(meta))
-    if meta.updated_date is not None:
-        updated_date_html = templates.UPDATED_DATE.replace(
-            "{{date}}", _format_updated_date(meta))
-    else:
-        updated_date_html = ""
     html = html.replace("{{updated_date}}", updated_date_html)
     html = html.replace("{{content}}", generated_html)
     html = html.strip()
