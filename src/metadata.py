@@ -15,7 +15,8 @@ class Metadata:
         # Optional
         "updated_year",
         "updated_month",
-        "updated_day"
+        "updated_day",
+        "pinned"
     ]
 
     metadata: dict[str, str]
@@ -61,6 +62,10 @@ class Metadata:
         if self.updated_year is None:
             return None
         return datetime.date(self.updated_year, self.updated_month, self.updated_day)
+
+    @property
+    def pinned(self) -> bool:
+        return self.metadata.get("pinned", "false").lower() in ["true", "1"]
 
 
 def _int_or_none(s: str | None) -> int | None:

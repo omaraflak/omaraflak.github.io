@@ -33,7 +33,7 @@ def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = N
         if not only or file == only:
             print(input_path, "->", output_path)
 
-    entries.sort(key=lambda x: x[1].date, reverse=True)
+    entries.sort(key=lambda x: (x[1].pinned, x[1].date), reverse=True)
     entries = [entry for entry, _ in entries]
     entries_html = "\n".join(entries)
     entries_path = os.path.join(html_output_dir, "all.html")

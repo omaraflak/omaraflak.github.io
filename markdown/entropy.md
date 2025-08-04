@@ -3,6 +3,7 @@
 :year: 2025
 :month: 2
 :day: 21
+:pinned: true
 
 # Information
 

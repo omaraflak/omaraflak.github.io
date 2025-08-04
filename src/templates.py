@@ -24,7 +24,8 @@ ARTICLE = """
         <div class="article-header-content">
             <h1 class="article-title">{{title}}</h1>
             <p class="article-description">{{description}}</p>
-            <p class="article-date">{{date}}</p>{{updated_date}}
+            <p class="article-date">{{date}}</p>
+            {{updated_date}}
         </div>
     </div>
     <main class="article-main">
@@ -70,12 +71,17 @@ ARTICLE = """
 </html>
 """
 
+UPDATED_DATE = """<span class="article-updated-date">Updated on {{date}}</span>"""
+
 ENTRY = """
 <article class="articles-preview">
-    <a href="articles/{{filename}}" class="articles-preview-title">{{title}}</a>
+    <div class="articles-preview-title-container">
+        <a href="articles/{{filename}}" class="articles-preview-title">{{title}}</a>
+        {{pin}}
+    </div>
     <p class="articles-preview-date">{{date}}</p>
     <p class="articles-preview-description">{{description}}</p>
 </article>
 """
 
-UPDATED_DATE = """<span class="article-updated-date">Updated on {{date}}</span>"""
+PIN = """<img src="/images/pin.svg" class="articles-preview-pin"></img>"""

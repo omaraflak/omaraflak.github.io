@@ -148,5 +148,6 @@ def make_article_entry(meta: metadata.Metadata, filename: str) -> str:
     html = html.replace("{{title}}", meta.title)
     html = html.replace("{{description}}", meta.description)
     html = html.replace("{{date}}", _format_date(meta))
+    html = html.replace("{{pin}}", templates.PIN if meta.pinned else "")
     html = html.strip()
     return html
