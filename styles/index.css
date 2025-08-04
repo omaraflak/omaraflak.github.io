@@ -187,6 +187,13 @@ p {
     font-size: 1.1rem;
 }
 
+.article-updated-date {
+    color: #9E9E9E;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+    padding: 5px;
+}
+
 .articles-preview-description {
     color: var(--color-text-primary);
     font-size: 1.3rem;

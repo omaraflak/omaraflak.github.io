@@ -24,7 +24,7 @@ ARTICLE = """
         <div class="article-header-content">
             <h1 class="article-title">{{title}}</h1>
             <p class="article-description">{{description}}</p>
-            <p class="article-date">{{date}}</p>
+            <p class="article-date">{{date}}</p>{{updated_date}}
         </div>
     </div>
     <main class="article-main">
@@ -77,3 +77,5 @@ ENTRY = """
     <p class="articles-preview-description">{{description}}</p>
 </article>
 """
+
+UPDATED_DATE = """<span class="article-updated-date">Updated on {{date}}</span>"""

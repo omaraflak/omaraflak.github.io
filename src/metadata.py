@@ -42,15 +42,15 @@ class Metadata:
 
     @property
     def updated_year(self) -> int | None:
-        return int(self.metadata.get("updated_year"))
+        return _int_or_none(self.metadata.get("updated_year"))
 
     @property
     def updated_month(self) -> int | None:
-        return int(self.metadata.get("updated_month"))
+        return _int_or_none(self.metadata.get("updated_month"))
 
     @property
     def updated_day(self) -> int | None:
-        return int(self.metadata.get("updated_day"))
+        return _int_or_none(self.metadata.get("updated_day"))
 
     @property
     def date(self) -> datetime.date:
@@ -58,9 +58,16 @@ class Metadata:
 
     @property
     def updated_date(self) -> datetime.date | None:
-        if not self.updated_year:
+        if self.updated_year is None:
             return None
-        return datetime.date(self.updated_date, self.updated_month, self.updated_day)
+        return datetime.date(self.updated_year, self.updated_month, self.updated_day)
+
+
+def _int_or_none(s: str | None) -> int | None:
+    try:
+        return int(s)
+    except:
+        return None
 
 
 def _make_pattern() -> str:

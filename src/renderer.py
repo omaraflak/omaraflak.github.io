@@ -25,6 +25,10 @@ def _format_date(meta: metadata.Metadata) -> str:
     return meta.date.strftime("%b %d, %Y")
 
 
+def _format_updated_date(meta: metadata.Metadata) -> str:
+    return meta.updated_date.strftime("%b %d, %Y")
+
+
 def _parse_image_data(location: str) -> tuple[str, str, str]:
     parts = location.split(";")
     mapping = dict(part.split("=") for part in parts[1:])
@@ -127,6 +131,12 @@ def make_article(markdown: str) -> str:
     html = html.replace("{{title}}", meta.title)
     html = html.replace("{{description}}", meta.description)
     html = html.replace("{{date}}", _format_date(meta))
+    if meta.updated_date is not None:
+        updated_date_html = templates.UPDATED_DATE.replace(
+            "{{date}}", _format_updated_date(meta))
+    else:
+        updated_date_html = ""
+    html = html.replace("{{updated_date}}", updated_date_html)
     html = html.replace("{{content}}", generated_html)
     html = html.strip()
     return html
