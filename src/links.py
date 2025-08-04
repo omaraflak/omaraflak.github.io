@@ -18,11 +18,11 @@ class Links(dataclasses_json.DataClassJsonMixin):
 
 
 class LinkPreview:
-    def __init__(self, filename: str = ".cache/links.json"):
-        self.filename = filename
+    def __init__(self, cache_path: str = ".cache/links.json"):
+        self.cache_path = cache_path
         self.cache = Links()
         try:
-            with open(filename, "r") as file:
+            with open(cache_path, "r") as file:
                 self.cache = Links.from_json(file.read())
         except:
             pass
@@ -33,8 +33,12 @@ class LinkPreview:
 
         try:
             preview = link_preview.link_preview.generate_dict(url)
-            link = Link(url, preview["title"],
-                        preview["description"], preview["website"])
+            link = Link(
+                url,
+                preview["title"],
+                preview["description"],
+                preview["website"]
+            )
             self._add_to_cache(link)
             return link
         except:
@@ -43,10 +47,10 @@ class LinkPreview:
     def _add_to_cache(self, link: Link):
         try:
             self.cache.links[link.url] = link
-            dir = os.path.dirname(self.filename)
+            dir = os.path.dirname(self.cache_path)
             if not os.path.exists(dir):
                 os.makedirs(dir)
-            with open(self.filename, "w") as file:
+            with open(self.cache_path, "w") as file:
                 file.write(self.cache.to_json(indent=2))
         except:
             pass

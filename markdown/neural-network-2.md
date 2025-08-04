@@ -3,6 +3,9 @@
 :year: 2018
 :month: 11
 :day: 16
+:updated_year: 2025
+:updated_month: 8
+:updated_day: 3
 
 In **[part 1](/articles/neural-network.html)** we developed a fully functional neural network library that supports any type of layer, loss function, and optimization method. We then trained a small model to mimic the XOR function.
 

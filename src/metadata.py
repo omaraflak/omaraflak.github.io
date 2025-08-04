@@ -5,7 +5,18 @@ import dataclasses
 
 @dataclasses.dataclass
 class Metadata:
-    _KEYS = ["title", "description", "year", "month", "day"]
+    _KEYS = [
+        # Required
+        "title",
+        "description",
+        "year",
+        "month",
+        "day",
+        # Optional
+        "updated_year",
+        "updated_month",
+        "updated_day"
+    ]
 
     metadata: dict[str, str]
 
@@ -30,8 +41,26 @@ class Metadata:
         return int(self.metadata["day"])
 
     @property
+    def updated_year(self) -> int | None:
+        return int(self.metadata.get("updated_year"))
+
+    @property
+    def updated_month(self) -> int | None:
+        return int(self.metadata.get("updated_month"))
+
+    @property
+    def updated_day(self) -> int | None:
+        return int(self.metadata.get("updated_day"))
+
+    @property
     def date(self) -> datetime.date:
         return datetime.date(self.year, self.month, self.day)
+
+    @property
+    def updated_date(self) -> datetime.date | None:
+        if not self.updated_year:
+            return None
+        return datetime.date(self.updated_date, self.updated_month, self.updated_day)
 
 
 def _make_pattern() -> str:
