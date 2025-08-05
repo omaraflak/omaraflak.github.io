@@ -249,7 +249,10 @@ w_{1n} & w_{2n} & \cdots & w_{mn}
 &=
 W^{\top} \frac{\partial E}{\partial Y}
 \end{align*}
-[end-latex]</div><h3 id=dense-layer-code class="article-small-section">Dense Layer Code</h3><p>We can now create a Python class for the Dense layer:</p><pre class="article-code-block python"><code>    def __init__(self, input_size: int, output_size: int):
+[end-latex]</div><h3 id=dense-layer-code class="article-small-section">Dense Layer Code</h3><p>We can now create a Python class for the Dense layer:</p><pre class="article-code-block python"><code>class Linear(Module):
+    """Linear transformation applied to input column vector."""
+
+    def __init__(self, input_size: int, output_size: int):
         super().__init__()
         self.weights = np.random.randn(output_size, input_size)
         self.bias = np.random.randn(output_size, 1)

@@ -410,6 +410,9 @@ W^{\top} \frac{\partial E}{\partial Y}
 We can now create a Python class for the Dense layer:
 
 ```python
+class Linear(Module):
+    """Linear transformation applied to input column vector."""
+
     def __init__(self, input_size: int, output_size: int):
         super().__init__()
         self.weights = np.random.randn(output_size, input_size)
