@@ -1,5 +1,5 @@
 :title: Symmetric Polynomials
-:description: Special property of symmetric polynomials.
+:description: Divide the degree of a polynomial by 2!
 :year: 2021
 :month: 11
 :day: 3
