@@ -10,6 +10,8 @@ Can you solve the following equation?
 6x^4 + 5x^3 - 8x^2 + 5x + 6 = 0
 ```
 
+# Example
+
 It turns out you can use the symmetry of the coefficients to solve this equation. To start off, divide by `$x^2$` then factorize:
 
 ```latex
