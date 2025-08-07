@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symmetric Polynomials</title>
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/fonts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css" integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="site-header">
+        <div class="site-header-content">
+            <a href="/index.html" class="site-header-link">Home</a>
+            <a href="/articles.html" class="site-header-link">Blog</a>
+        </div>
+    </div>
+    <div class="article-header">
+        <div class="article-header-content">
+            <h1 class="article-title">Symmetric Polynomials</h1>
+            <p class="article-description">Special property of symmetric polynomials.</p>
+            <p class="article-date">Nov 03, 2021</p>
+            
+        </div>
+    </div>
+    <main class="article-main">
+        <article class="article-body">
+            <p>Can you solve the following equation?</p><div class="article-latex">[begin-latex]6x^4 + 5x^3 - 8x^2 + 5x + 6 = 0
+[end-latex]</div><p>It turns out you can use the symmetry of the coefficients to solve this equation. To start off, divide by [begin-latex-inline]x^2[end-latex-inline] then factorize:</p><div class="article-latex">[begin-latex]\begin{align*}
+&6x^4 + 5x^3 - 8x^2 + 5x + 6 = 0 \\[3ex]
+\iff& \dfrac{6x^4 + 5x^3 - 8x^2 + 5x + 6}{x^2} = 0 \\[3ex]
+\iff& 6x^2 + 5x - 8 + \frac{5}{x} + \dfrac{6}{x^2} = 0 \\[3ex]
+\iff& 6\left(x^2 + \dfrac{1}{x^2}\right) + 5\left(x + \dfrac{1}{x}\right) - 8 = 0
+\end{align*}
+[end-latex]</div><p>You can now do a change of variable:</p><div class="article-latex">[begin-latex]X = x + \frac{1}{x}
+[end-latex]</div><p>And luckily:</p><div class="article-latex">[begin-latex]\begin{align*}
+X^2 &= \left(x + \frac{1}{x}\right)^2 \\[3ex]
+&= x^2 + \frac{1}{x^2} + 2
+\end{align*}
+[end-latex]</div><p>Therefore,</p><div class="article-latex">[begin-latex]\begin{align*}
+& 6\left(x^2 + \dfrac{1}{x^2}\right) + 5\left(x + \dfrac{1}{x}\right) - 8 = 0 \\[3ex]
+\iff& 6(X^2 - 2) + 5X - 8 = 0 \\[3ex]
+\iff& 6X^2 + 5X - 20 = 0
+\end{align*}
+[end-latex]</div><p>We end up with a quadratic equation that we know how to solve. The two solutions will then lead to two other quadratic equations when plugged in the equation [begin-latex-inline]X=x+\frac{1}{x}[end-latex-inline], which will yield four solutions overall.</p><div class="article-quote"><p>Can we generalize this trick ?</p></div><h2 id=generalization class="article-section">Generalization</h2><p>Let's see if this works all the time. We need a polynimal with an even degree and symmetrical coefficients:</p><div class="article-latex">[begin-latex]\begin{align*}
+& a_0x^0 + a_1x^1 + \cdots + a_kx^k + \cdots + a_1x^{2k-1} + a_0x^{2k} = 0 \\[3ex]
+\iff& \dfrac{a_0}{x^k} + \dfrac{a_1}{x^{k-1}} + \cdots + a_k + \cdots + a_1x^{k-1} + a_0x^k = 0 \\[3ex]
+\iff& a_0\left(x^k + \dfrac{1}{x^k}\right) + a_1\left(x^{k-1} + \dfrac{1}{x^{k-1}}\right) + \cdots + a_{k-1}\left(x + \dfrac{1}{x}\right) + a_k = 0
+\end{align*}
+[end-latex]</div><p>Now the question is: can we use [begin-latex-inline]X=x+\frac{1}{x}[end-latex-inline] change of variable? Using the binomial formula:</p><div class="article-latex">[begin-latex]\begin{align*}
+X^k &= \left(x + \dfrac{1}{x} \right)^k \\[3ex]
+&= \sum_{i=0}^k {k \choose i} x^{2i-k} \\[3ex]
+&= {k \choose 0} \dfrac{1}{x^k} + {k \choose 1} \dfrac{1}{x^{k-2}} + \cdots + {k \choose k-1} x^{k-2} + {k \choose k} x^k \\[3ex]
+&= \left(x^k + \dfrac{1}{x^k}\right) + {k \choose 1} \left(\dfrac{1}{x^{k-2}} + x^{k-2}\right) + {k \choose 2} \left(\dfrac{1}{x^{k-4}} + x^{k-4}\right) + \cdots \\[3ex]
+&= \left(x^k + \dfrac{1}{x^k}\right) + P(X), \quad deg(P) < k
+\end{align*}
+[end-latex]</div><p>In conclusion, we can always substitute [begin-latex-inline]X=x + \frac{1}{x}[end-latex-inline] as it will divide the degree of the initial polynomial by 2!</p>
+        </article>
+    </main>
+    <div class="article-hr"></div>
+    <div class="site-footer">
+        <div class="site-footer-content"></div>
+    </div>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" integrity="sha512-LQNxIMR5rXv7o+b1l8+N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r+EFLLCyA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" integrity="sha512-iWiuBS5nt6r60fCz26Nd0Zqe0nbk1ZTIQbl3Kv7kYsX+yKMUFHzjaH2+AnM6vp2Xs+gNmaBAVWJjSmuPw76Efg==" crossorigin="anonymous" referrerpolicy="no-referrer" onload="renderMathInElement(document.body, {
+        delimiters: [
+            {left: '[begin-latex]', right: '[end-latex]', display: true},
+            {left: '[begin-latex-inline]', right: '[end-latex-inline]', display: false},
+        ]
+    });"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" integrity="sha512-EBLzUL8XLl+va/zAsmXwS7Z2B1F9HUHkZwyS/VKwh3S7T/U0nF4BaU29EP/ZSf6zgiIxYAnKLu6bJ8dqpmX5uw==" crossorigin="anonymous" referrerpolicy="no-referrer" onload="hljs.highlightAll();"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/viz.js" integrity="sha512-vnRdmX8ZxbU+IhA2gLhZqXkX1neJISG10xy0iP0WauuClu3AIMknxyDjYHEpEhi8fTZPyOCWgqUCnEafDB/jVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/lite.render.js" integrity="sha512-uAHj1knkgGpl0fJcyjbcVY0f9j252eWzEeBxE4s4AQkPJkp/+U+rlfoOXlwreSzPhndCT+5YR00/QSD/nPqb+g==" crossorigin="anonymous" referrerpolicy="no-referrer" onload="
+        const viz = new Viz();
+        document.querySelectorAll('.article-graphviz').forEach(element => {
+            const content = element.textContent;
+            try {
+                viz.renderSVGElement(content)
+                    .then(svg => {
+                        element.textContent = '';
+                        element.appendChild(svg);
+                    })
+                    .catch(error => {
+                        console.error('Error rendering Graphviz SVG:', error);
+                        element.textContent = 'Error rendering graph. Check console for details.';
+                    });
+            } catch (error) {
+                console.error('Error with Viz.js rendering process:', error);
+                element.textContent = 'Error during graph rendering setup.';
+            }
+        });
+    "></script>
+</body>
+
+</html>
