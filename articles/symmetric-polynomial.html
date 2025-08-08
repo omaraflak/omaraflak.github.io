@@ -46,7 +46,7 @@ X^2 &= \left(x + \frac{1}{x}\right)^2 \\[3ex]
 \iff& 6(X^2 - 2) + 5X - 8 = 0 \\[3ex]
 \iff& 6X^2 + 5X - 20 = 0
 \end{align*}
-[end-latex]</div><p>We end up with a quadratic equation that we know how to solve. The two solutions will then lead to two other quadratic equations when plugged in the equation [begin-latex-inline]X=x+\frac{1}{x}[end-latex-inline], which will yield four solutions overall.</p><div class="article-quote"><p>Can we generalize this trick ?</p></div><h2 id=generalization class="article-section">Generalization</h2><p>Let's see if this works all the time. We need a polynimal with an even degree and symmetrical coefficients:</p><div class="article-latex">[begin-latex]\begin{align*}
+[end-latex]</div><p>We end up with a quadratic equation that we know how to solve. The two solutions will then lead to two other quadratic equations when plugged in the equation [begin-latex-inline]X=x+\frac{1}{x}[end-latex-inline], which will yield four solutions overall.</p><div class="article-quote"><p>Can we generalize this trick ?</p></div><h2 id=generalization class="article-section">Generalization</h2><p>Let's see if this works all the time. We need a polynimal with an even degree, [begin-latex-inline]2k[end-latex-inline], and symmetrical coefficients, then divide by [begin-latex-inline]x^k[end-latex-inline]:</p><div class="article-latex">[begin-latex]\begin{align*}
 & a_0x^0 + a_1x^1 + \cdots + a_kx^k + \cdots + a_1x^{2k-1} + a_0x^{2k} = 0 \\[3ex]
 \iff& \dfrac{a_0}{x^k} + \dfrac{a_1}{x^{k-1}} + \cdots + a_k + \cdots + a_1x^{k-1} + a_0x^k = 0 \\[3ex]
 \iff& a_0\left(x^k + \dfrac{1}{x^k}\right) + a_1\left(x^{k-1} + \dfrac{1}{x^{k-1}}\right) + \cdots + a_{k-1}\left(x + \dfrac{1}{x}\right) + a_k = 0

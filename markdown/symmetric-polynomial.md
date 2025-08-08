@@ -54,7 +54,7 @@ We end up with a quadratic equation that we know how to solve. The two solutions
 
 # Generalization
 
-Let's see if this works all the time. We need a polynimal with an even degree and symmetrical coefficients:
+Let's see if this works all the time. We need a polynimal with an even degree, `$2k$`, and symmetrical coefficients, then divide by `$x^k$`:
 
 ```latex
 \begin{align*}
