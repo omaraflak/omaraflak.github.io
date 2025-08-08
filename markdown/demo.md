@@ -118,6 +118,10 @@ digraph G {
 }
 ```
 
+Put file download links using `[file](/path/to/filename.whatever)`:
+
+[file](/images/mnist.png)
+
 ## Custom HTML & JS
 
 You can put HTML tags and render something completely custom too.
