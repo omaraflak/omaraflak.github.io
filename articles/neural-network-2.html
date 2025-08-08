@@ -30,13 +30,13 @@
     <main class="article-main">
         <article class="article-body">
             <p>In <span class="article-bold"><a class="article-link" target="_blank" href="/articles/neural-network.html">part 1</a></span> we developed a fully functional neural network library that supports any type of layer, loss function, and optimization method. We then trained a small model to mimic the XOR function.</p><p>I can understand how this ending may not be very satisfying given the efforts made to build the library. Thus, in part 2, we extend that library with 2 additional components: <span class="article-bold">Softmax</span> layer, and <span class="article-bold">Cross-Entropy</span> loss, and train a neural network to recognize hand-written digits.</p><p>You can find the entire code of the article on my GitHub:</p><p>
-                    <a class="article-link-preview-link" target="_blank" href="https://github.com/omaraflak/neural-network-from-scratch">
-                        <div class="article-link-preview-container">
-                            <p class="article-link-preview-title">GitHub - omaraflak/neural-network-from-scratch: Code for my article on omaraflak.github.io</p>
-                            <p class="article-link-preview-description">Code for my article on omaraflak.github.io. Contribute to omaraflak/neural-network-from-scratch development by creating an account on GitHub.</p>
-                            <p class="article-link-preview-website">github.com</p>
-                        </div>
-                    </a>
+                    <div class="article-link-preview-container">
+                        <a class="article-link-preview-link" target="_blank" href="https://github.com/omaraflak/neural-network-from-scratch">
+                            <span class="article-link-preview-title">GitHub - omaraflak/neural-network-from-scratch: Code for my article on omaraflak.github.io</span>
+                            <span class="article-link-preview-description">Code for my article on omaraflak.github.io. Contribute to omaraflak/neural-network-from-scratch development by creating an account on GitHub.</span>
+                            <span class="article-link-preview-website">github.com</span>
+                        </a>
+                    </div>
                 </p><h2 id=mnist class="article-section">MNIST</h2><p>The MNIST dataset contains images of hand-written digits from 0 to 9. More precisely, it has 60k training images and 10k test images. Each image is 28x28 pixels, greyscale (0-255). I provide a helper function <code class="article-code-inline">download_mnist()</code> in the GitHub repository to load the dataset.</p><pre class="article-code-block python"><code>>>> x_train, y_train, x_test, y_test = download_mnist()
 >>> x_train.shape
 (60000, 28, 28)
@@ -194,13 +194,13 @@ y_1 & y_2 & \cdots & y_n
 >>> softmax.forward([1, 5, 3, 6])
 array([0.00473036, 0.25826895, 0.0349529 , 0.70204779])
 </code></pre><p>We now have have a way to force the neural network to output a probability distribution by adding this layer <span class="article-bold">at the end</span> of the network. We could theoretically start training the neural network like we did with XOR using MSE, but in practice this won't work well.</p><p>Whenever we have <span class="article-bold">classification</span> tasks, i.e. the network outputs a probability distribution over the possible labels, <span class="article-bold">Cross-Entropy</span> is the go-to loss function. To understand why, I invite you to look at a deepr explanation of the concepts of <span class="article-italic">entropy</span>, <span class="article-italic">cross-entropy</span>, and <span class="article-italic">relative entropy</span>:</p><p>
-                    <a class="article-link-preview-link" target="_blank" href="https://omaraflak.github.io/articles/entropy.html">
-                        <div class="article-link-preview-container">
-                            <p class="article-link-preview-title">Information & Entropy</p>
-                            <p class="article-link-preview-description"></p>
-                            <p class="article-link-preview-website">omaraflak.github.io</p>
-                        </div>
-                    </a>
+                    <div class="article-link-preview-container">
+                        <a class="article-link-preview-link" target="_blank" href="https://omaraflak.github.io/articles/entropy.html">
+                            <span class="article-link-preview-title">Information & Entropy</span>
+                            <span class="article-link-preview-description"></span>
+                            <span class="article-link-preview-website">omaraflak.github.io</span>
+                        </a>
+                    </div>
                 </p><h2 id=cross-entropy class="article-section">Cross-Entropy</h2><p>The cross-entropy loss is a way to measure the difference between two probability distributions. We are exactly in that case, where the network outputs a certain distribution due to Softmax, but we want to compare that against the actual distribution which is our labels.</p><p>If [begin-latex-inline]y^*[end-latex-inline] is the <span class="article-italic"><span class="article-bold">true</span></span> ditribution, and [begin-latex-inline]y[end-latex-inline] is the <span class="article-italic"><span class="article-bold">predicted</span></span> distribution, then the cross-entropy loss is:</p><div class="article-latex">[begin-latex]E = - \sum_i {y_i}^* log(y_i)
 [end-latex]</div><p>For example, if the true label was [begin-latex-inline][0, 0, 1, 0, 0, 0, 0, 0, 0, 0][end-latex-inline] but the network predicted [begin-latex-inline][0.7, 0, 0.2, 0.1, 0, 0, 0, 0, 0, 0][end-latex-inline], then the cross-entropy loss for that sample would be:</p><div class="article-latex">[begin-latex]-0 * log(0.7) - 0 * log(0) - 1 * log(0.2) - 0 * log(0.1) - 0 * log(0) - \cdots = -log(0.2) \approx 0.7
 [end-latex]</div><p>If the prediction was perfect, then we'd have [begin-latex-inline]-log(1)=0[end-latex-inline].</p><p>To implement the cross-entropy loss we still need to compute the output gradient:</p><div class="article-latex">[begin-latex]\frac{\partial E}{\partial y_i} = -\frac{y^*_i}{y_i}

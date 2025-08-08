@@ -30,13 +30,13 @@
     <main class="article-main">
         <article class="article-body">
             <p>This is a demo file for all features available.</p><h2 id=this-is-a-title class="article-section">This is a title</h2><p>Text can be <span class="article-italic">italic</span> (<code class="article-code-inline">*text*</code>), <span class="article-bold">bold</span> (<code class="article-code-inline">**text**</code>), or <span class="article-italic"><span class="article-bold">both</span></span> (<code class="article-code-inline">***text***</code>)!</p><p>Inline code such as <code class="article-code-inline">this</code> is displayed by surround your text with a single back tick on each side <code class="article-code-inline">`text`</code>.</p><p>You can have inline code such as <code class="article-code-inline">def main()</code>. If you surround the inner code by '$' signs on both side then it renders [begin-latex-inline]\LaTeX[end-latex-inline]. This formula [begin-latex-inline]E=mc^2[end-latex-inline] relates the energy contained by an object with its mass.</p><h3 id=this-is-a-secondary-title class="article-small-section">This is a secondary title</h3><p>Links are also supported. Check out my <a class="article-link" target="_blank" href="https://github.com/omaraflak">github</a>. Use the following formatting <code class="article-code-inline">[title](https://example.com)</code>.</p><p>If no title is provided, then the link will be in preview mode <code class="article-code-inline">[](https://example.com)</code>:</p><p>
-                    <a class="article-link-preview-link" target="_blank" href="https://github.com/omaraflak">
-                        <div class="article-link-preview-container">
-                            <p class="article-link-preview-title">omaraflak - Overview</p>
-                            <p class="article-link-preview-description">Keep learning . omaraflak has 123 repositories available. Follow their code on GitHub.</p>
-                            <p class="article-link-preview-website">github.com</p>
-                        </div>
-                    </a>
+                    <div class="article-link-preview-container">
+                        <a class="article-link-preview-link" target="_blank" href="https://github.com/omaraflak">
+                            <span class="article-link-preview-title">omaraflak - Overview</span>
+                            <span class="article-link-preview-description">Keep learning . omaraflak has 123 repositories available. Follow their code on GitHub.</span>
+                            <span class="article-link-preview-website">github.com</span>
+                        </a>
+                    </div>
                 </p><p>You can include images as well with <code class="article-code-inline">![alt](/image/path)</code>:</p><p><center><img class="article-image" height="" width="" src="../images/automata.svg" alt="svg"></center></p><p>The height and/or width of the image can be specified in pixels or percentage using the following syntax:</p><pre class="article-code-block md"><code>![alt](/image/path;h=100) # height is 100px
 ![alt](/image/path;w=50%) # width is 50% of the page
 ![alt](/image/path;h=200;w=200) # height is 200px and width is 200px

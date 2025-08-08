@@ -31,13 +31,13 @@
         <article class="article-body">
             <p>In this post we will go through the mathematics of neural networks and code from scratch, in Python, a small modular library to build and train such models. The only import we'll ever need is NumPy for dealing with n-dimensional arrays:</p><pre class="article-code-block python"><code>import numpy as np
 </code></pre><p>I will assume you already have some knowledge about neural networks. The purpose here is not to explain <span class="article-italic">why</span>, but <span class="article-italic">how</span>.</p><p>You can find the entire code of the article on my GitHub:</p><p>
-                    <a class="article-link-preview-link" target="_blank" href="https://github.com/omaraflak/neural-network-from-scratch">
-                        <div class="article-link-preview-container">
-                            <p class="article-link-preview-title">GitHub - omaraflak/neural-network-from-scratch: Code for my article on omaraflak.github.io</p>
-                            <p class="article-link-preview-description">Code for my article on omaraflak.github.io. Contribute to omaraflak/neural-network-from-scratch development by creating an account on GitHub.</p>
-                            <p class="article-link-preview-website">github.com</p>
-                        </div>
-                    </a>
+                    <div class="article-link-preview-container">
+                        <a class="article-link-preview-link" target="_blank" href="https://github.com/omaraflak/neural-network-from-scratch">
+                            <span class="article-link-preview-title">GitHub - omaraflak/neural-network-from-scratch: Code for my article on omaraflak.github.io</span>
+                            <span class="article-link-preview-description">Code for my article on omaraflak.github.io. Contribute to omaraflak/neural-network-from-scratch development by creating an account on GitHub.</span>
+                            <span class="article-link-preview-website">github.com</span>
+                        </a>
+                    </div>
                 </p><h2 id=preamble class="article-section">Preamble</h2><p>A neural network is nothing but a mathematical function. It's a function with generally many <span class="article-italic">parameters</span> which can be tweaked to change the behavior of that function. For example:</p><div class="article-latex">[begin-latex]f(x) = ax+b
 [end-latex]</div><p>This is the equation of a line, where [begin-latex-inline]a[end-latex-inline] and [begin-latex-inline]b[end-latex-inline] are the parameters that will determine which line exactly this equation represents. In the same way, a neural network is a very generic function that maps [begin-latex-inline]n[end-latex-inline] inputs to [begin-latex-inline]m[end-latex-inline] outputs and has some number of parameters, usually denoted as [begin-latex-inline]W[end-latex-inline], for <span class="article-italic">weights</span>.</p><div class="article-latex">[begin-latex]\begin{align*}
 f_W: \quad &\R^n \rightarrow \R^m \\
@@ -275,13 +275,13 @@ W^{\top} \frac{\partial E}{\partial Y}
     def gradients(self) -> list[np.ndarray]:
         return [self.weights_grad, self.bias_grad]
 </code></pre><p>We have completed a milestone in our neural network library! The rest should be a lot easier!</p><p>So far, we are able to perform linear transformation on our data. However, the effect of applying many linear transformations in a row is nothing but a linear transformation itself! We need to add non-linearity in the neural network by applying non-linear functions to the data. This is where <span class="article-italic">activation layers</span> come in the picture.</p><h2 id=activation-layer class="article-section">Activation Layer</h2><p>An activation layer simply passes each of its inputs into a non-linear activation function that we define. Some commonly used activation functions are [begin-latex-inline]tanh(x)[end-latex-inline] or [begin-latex-inline]max(0, x)[end-latex-inline].</p><p>
-                    <a class="article-link-preview-link" target="_blank" href="https://en.wikipedia.org/wiki/Activation_function">
-                        <div class="article-link-preview-container">
-                            <p class="article-link-preview-title">Activation function - Wikipedia</p>
-                            <p class="article-link-preview-description"></p>
-                            <p class="article-link-preview-website">en.wikipedia.org</p>
-                        </div>
-                    </a>
+                    <div class="article-link-preview-container">
+                        <a class="article-link-preview-link" target="_blank" href="https://en.wikipedia.org/wiki/Activation_function">
+                            <span class="article-link-preview-title">Activation function - Wikipedia</span>
+                            <span class="article-link-preview-description"></span>
+                            <span class="article-link-preview-website">en.wikipedia.org</span>
+                        </a>
+                    </div>
                 </p><center><div class="article-graphviz">digraph NeuralNetworkLayer {
     rankdir=LR;
     splines=line;
@@ -562,13 +562,13 @@ for x in x_train:
 [[1], [0]] [[0.9766218725199783]]
 [[1], [1]] [[0.0010051941355460458]]
 </code></pre><p>The model has been trained successfully!</p><p>I am sure this is not a satisfying result after going through all that math. So let's solve some more interesting problems with our library... in <span class="article-bold">part 2</span>!</p><p>
-                    <a class="article-link-preview-link" target="_blank" href="https://omaraflak.github.io/articles/neural-network-2.html">
-                        <div class="article-link-preview-container">
-                            <p class="article-link-preview-title">Neural Network From Scratch — Part 2</p>
-                            <p class="article-link-preview-description"></p>
-                            <p class="article-link-preview-website">omaraflak.github.io</p>
-                        </div>
-                    </a>
+                    <div class="article-link-preview-container">
+                        <a class="article-link-preview-link" target="_blank" href="https://omaraflak.github.io/articles/neural-network-2.html">
+                            <span class="article-link-preview-title">Neural Network From Scratch — Part 2</span>
+                            <span class="article-link-preview-description"></span>
+                            <span class="article-link-preview-website">omaraflak.github.io</span>
+                        </a>
+                    </div>
                 </p><script src="https://cdnjs.cloudflare.com/ajax/libs/function-plot/1.25.1/function-plot.min.js" integrity="sha512-fsvE52IC5bx7NhuaGLoNE+Sq3EKFQ+fcvaJPE5hGemvMwQudqQuNXC4eG/8CjU2a90P88NzYPRl77iOcXerCHg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 functionPlot({

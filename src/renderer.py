@@ -1,4 +1,5 @@
 import re
+import os
 import marko
 import marko.inline
 import metadata
@@ -72,24 +73,36 @@ def _render_element(element: marko.block.Element) -> str:
     elif isinstance(element, marko.inline.Link):
         title = _render_elements(element.children)
         url = element.dest
-        if title:
-            return f'<a class="article-link" target="_blank" href="{url}">{title}</a>'
-        else:
+        if title == '':
             preview = _LINKS.get_link_preview(url)
             if preview:
                 return f'''
-                    <a class="article-link-preview-link" target="_blank" href="{url}">
-                        <div class="article-link-preview-container">
-                            <p class="article-link-preview-title">{preview.title}</p>
-                            <p class="article-link-preview-description">{preview.description}</p>
-                            <p class="article-link-preview-website">{preview.website}</p>
-                        </div>
-                    </a>
+                    <div class="article-link-preview-container">
+                        <a class="article-link-preview-link" target="_blank" href="{url}">
+                            <span class="article-link-preview-title">{preview.title}</span>
+                            <span class="article-link-preview-description">{preview.description}</span>
+                            <span class="article-link-preview-website">{preview.website}</span>
+                        </a>
+                    </div>
                 '''
             else:
                 print("Could not fetch link preview: ", url)
                 title = '<span style="color:red;">ERROR NO INTERNET TO FETCH LINK PREVIEW</span>'
                 return f'<a class="article-link" target="_blank" href="{url}">{title}</a>'
+        elif title == 'file':
+            filename = os.path.basename(url)
+            return f'''
+                <center>
+                    <div class="article-file-download-container">
+                        <a class="article-file-download-link" href="{url}" download>
+                            <img src="/images/download.svg" alt="download" height="30" width="30">
+                            <span class="article-file-download-title">{filename}</span>
+                        </a>
+                    </div>
+                </center>
+            '''
+        else:
+            return f'<a class="article-link" target="_blank" href="{url}">{title}</a>'
     elif isinstance(element, marko.inline.Image):
         alt = _render_elements(element.children)
         url, height, width = _parse_image_data(element.dest)
