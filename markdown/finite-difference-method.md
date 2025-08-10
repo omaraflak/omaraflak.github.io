@@ -13,7 +13,7 @@ We will find the differential equation of the pendulum starting from scratch, an
 
 You already know the famous Cartesian coordinates (x, y, z coordinates), which are probably the most used in everyday life. However, in some cases, describing the position of an object in Cartesian coordinates isn't practical. For instance, when an object is in a **circular movement**, sine and cosine functions are going to pop all over the place, so it's generally a much better idea to describe that object's position in what we call **Polar coordinates**.
 
-![polar coordinates](/images/polar.webp;w=80%)
+![polar coordinates](/assets/finite-difference-method/polar.webp;w=80%)
 
 Polar coordinates are described by two variables, the radius `$\rho$` and the angle `$\theta$`. We attach unit vectors to each variable:
 
@@ -22,7 +22,7 @@ Polar coordinates are described by two variables, the radius `$\rho$` and the an
 
 Our goal now is to express the ***position***, ***velocity***, and ***acceleration*** of an object in Polar coordinates. For this we need to express the relationship between the Polar unit vectors and the Cartesian unit vectors.
 
-![polar cartesian conversion](/images/polar_cartesian.webp;w=50%)
+![polar cartesian conversion](/assets/finite-difference-method/polar_cartesian.webp;w=50%)
 
 Cartesian to Polar:
 
@@ -83,7 +83,7 @@ Done! We can now work on our problem: the pendulum.
 
 # Pendulum Equation
 
-![pendulum](/images/pendulum.webp;w=50%)
+![pendulum](/assets/finite-difference-method/pendulum.webp;w=50%)
 
 To find the equation that angle `$\theta$` satisfies, we will use Newton's second law of motion, or as we call it in French, the *fundamental principle of dynamic*.
 
@@ -246,7 +246,7 @@ plt.show()
 
 We iteratively compute `$\theta(t)$` and `$\dot{\theta}(t)$` using the formulas we found, and put the results in two separate lists. Running the code produces the following plot.
 
-![pendulum result](/images/pendulum_result.webp;w=100%)
+![pendulum result](/assets/finite-difference-method/pendulum_result.webp;w=100%)
 
 Two happy observations:
 
@@ -255,12 +255,12 @@ Two happy observations:
 
 Playing with the code a little, you might want to set the initial velocity to `$2\pi$` for instance.
 
-![pendulum full rotation](/images/pendulum_result_2.webp;w=100%)
+![pendulum full rotation](/assets/finite-difference-method/pendulum_result_2.webp;w=100%)
 
 Notice how the angle keeps increasing before going down. What happened is that the initial velocity was high enough to make the pendulum make a full spin before entering the oscillation!
 
 You can try to increase `$dt$` and see how this affects the simulation. We would expect a smaller `$dt$` to give more accurate results (since that controls the approximation of the derivative). Let's see what happens for `N=3,2,1`.
 
-![pendulum different dt](/images/pendulum_result_3.webp;w=100%)
+![pendulum different dt](/assets/finite-difference-method/pendulum_result_3.webp;w=100%)
 
 I was actually surprised to see that for only 3 points per second (and even 2), we still manage to get the general shape of the solution. `N=1` is another story...

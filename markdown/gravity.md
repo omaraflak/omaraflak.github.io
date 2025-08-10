@@ -31,6 +31,6 @@ To make things interesting, I've set the particles to repulse themselves if they
         <span id="min_distance_placeholder">50</span>
     </div>
 </div>
-<script src="../scripts/canvas.js"></script>
-<script src="../scripts/matrix.js"></script>
-<script src="../scripts/gravity.js"></script>
+<script src="/scripts/canvas.js"></script>
+<script src="/scripts/matrix.js"></script>
+<script src="/assets/gravity/gravity.js"></script>

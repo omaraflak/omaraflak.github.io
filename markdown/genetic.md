@@ -63,7 +63,7 @@ So, next time you see a Samara flying in the wind and wonder how smart nature is
 <center><div id="survival_ratio" style="width: 100%; height: 250px; margin: 30px 0px;"></div></center>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="../scripts/canvas.js"></script>
-<script src="../scripts/plot.js"></script>
-<script src="../scripts/matrix.js"></script>
-<script src="../scripts/genetic.js"></script>
+<script src="/scripts/canvas.js"></script>
+<script src="/scripts/plot.js"></script>
+<script src="/scripts/matrix.js"></script>
+<script src="/assets/genetic/genetic.js"></script>

@@ -11,5 +11,5 @@ This is a sand simulation based on a cellular automata. Each grain of sand is up
 
 
 <canvas class="article-canvas" id="canvas"></canvas>
-<script src="../scripts/canvas.js"></script>
-<script src="../scripts/sand.js"></script>
+<script src="/scripts/canvas.js"></script>
+<script src="/assets/sand/sand.js"></script>

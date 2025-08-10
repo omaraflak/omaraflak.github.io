@@ -24,7 +24,7 @@ If no title is provided, then the link will be in preview mode `[](https://examp
 
 You can include images as well with `![alt](/image/path)`:
 
-![svg](../images/automata.svg)
+![svg](/assets/automata/automata.svg)
 
 The height and/or width of the image can be specified in pixels or percentage using the following syntax:
 
@@ -120,7 +120,7 @@ digraph G {
 
 Put file download links using `[#download](/path/to/filename.whatever)`:
 
-[#download](/images/mnist.png)
+[#download](/assets/automata/mnist.png)
 
 ## Custom HTML & JS
 
@@ -128,4 +128,4 @@ You can put HTML tags and render something completely custom too.
 
 <div id="plotDiv" style="width: 100%"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.33.1/plotly.min.js" integrity="sha512-V0j9LhrK9IMNdFYZqh+IqU4cjo7wdxyHNyH+L0td4HryBuZ7Oq6QxP2/CWr6TituX31+gv5PnolvERuTbz8UNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="../scripts/demo.js"></script>
+<script src="/assets/demo/demo.js"></script>

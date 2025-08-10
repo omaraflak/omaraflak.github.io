@@ -110,15 +110,15 @@ plt.plot(*P2, 'r.')
 plt.show()
 ```
 
-![bezier](/images/bezier_1.webp;w=80%)
+![bezier](/assets/bezier/bezier_1.webp;w=80%)
 
 Notice that the curve does indeed start and end at the first and last control points. Because of that, if you fix `$P_0$` and `$P_2$`, the `$P1$` entirely determines the shape of the curve. Moving `$P1$` around you might notice something:
 
-![bezier different P1](/images/bezier_2.webp;w=100%)
+![bezier different P1](/assets/bezier/bezier_2.webp;w=100%)
 
 The Bézier curve is always contained in the polygon formed by the control points. This polygon is hence called the control polygon, or Bézier polygon. This property also holds for any number of control points, which makes their manipulation quite intuitive when using a software.
 
-![bezier curve is contained in convex hull](/images/bezier_3.webp;w=100%)
+![bezier curve is contained in convex hull](/assets/bezier/bezier_3.webp;w=100%)
 
 ## Matrix Representation
 
