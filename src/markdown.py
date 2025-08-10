@@ -55,7 +55,7 @@ class Markdown:
     LINK = re.compile(r'\[(?P<title>.*)\]\((?P<url>.+)\)')
     IMAGE = re.compile(r'!\[(?P<alt>.*)\]\((?P<url>.+)\)')
     SEPARATOR = re.compile(r'^---$')
-    UUID = re.compile(r'(\%\%[a-z]{5}-[a-z]{3}\%\%)')
+    UUID = re.compile(r'(?P<uid>\%\%[a-z]{5}-[a-z]{3}\%\%)')
     HTML = re.compile(r'^<(\w+).*>(.*</\1>)?$')
 
     def __init__(self, renderer: MarkdownRenderer | None = None):
@@ -71,7 +71,7 @@ class Markdown:
         return _render
 
     def _render_uid(self, match: re.Match[str]) -> str:
-        uid = match.group(1)
+        uid = match.group('uid')
         return self.immutables[uid]
 
     def _render_bold(self, match: re.Match[str]) -> str:
