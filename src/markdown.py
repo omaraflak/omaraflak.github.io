@@ -49,9 +49,9 @@ class Markdown:
     BOLD = re.compile(r'(\*\*)(?P<text>.+?)(\*\*)')
     CODE_BLOCKS = re.compile(r'```(?P<lang>\w+)?\n(?P<text>[\s\S]+?)\n```')
     QUOTE = re.compile(r'(?m)^(?P<block>(?:>\s?.*(?:\n>\s?.*)*))')
+    UNORDERED_LIST = re.compile(r'(?m)^(?P<list>(?:\s+-[^-].*\n?)+)$')
     INLINE_BLOCK = re.compile(r'`(?P<text>.+?)`')
     INLINE_BLOCK_ALT = re.compile(r'``\s(?P<text>.+?)\s``')
-    UNORDERED_LIST = re.compile(r'^((?:\s+-[^-].*\n?)+)$', re.MULTILINE)
     LINK = re.compile(r'\[(?P<title>.*)\]\((?P<url>.+)\)')
     IMAGE = re.compile(r'!\[(?P<alt>.*)\]\((?P<url>.+)\)')
     SEPARATOR = re.compile(r'^---$')
@@ -101,7 +101,7 @@ class Markdown:
         return self.renderer.render_quote(quote)
 
     def _render_unordered_list(self, match: re.Match[str]) -> str:
-        text = match.group(1)
+        text = match.group('list')
         lines = [line.strip() for line in text.splitlines()]
         lines = [line.strip('-').strip() for line in lines if line]
         return self.renderer.render_unordered_list(lines)
