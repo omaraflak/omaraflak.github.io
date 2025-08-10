@@ -42,6 +42,9 @@ class MarkdownRenderer:
     def render_separator(self) -> str:
         return '<hr>'
 
+    def render_include(self, path: str) -> str:
+        return open(path, "r").read()
+
 
 class Markdown:
     HEADINGS = re.compile(r'^(?P<level>#{1,3})\s(?P<text>.+)$')
@@ -55,6 +58,7 @@ class Markdown:
     LINK = re.compile(r'\[(?P<title>.*)\]\((?P<url>.+)\)')
     IMAGE = re.compile(r'!\[(?P<alt>.*)\]\((?P<url>.+)\)')
     SEPARATOR = re.compile(r'^---$')
+    INCLUDE = re.compile(r'#include\((?P<path>.*?)\)')
     UUID = re.compile(r'(?P<uid>\%\%[a-z]{5}-[a-z]{3}\%\%)')
     HTML = re.compile(r'^<(\w+).*>(.*</\1>)?$')
 
@@ -126,6 +130,10 @@ class Markdown:
     def _render_separator(self, _: re.Match[str]) -> str:
         return self.renderer.render_separator()
 
+    def _render_include(self, match: re.Match[str]) -> str:
+        path = match.group('path')
+        return self.renderer.render_include(path)
+
     def _render_inlines(self, text: str) -> str:
         text = Markdown.HEADINGS.sub(self._render_header, text)
         text = Markdown.INLINE_BLOCK_ALT.sub(self._render_inline_code, text)
@@ -138,6 +146,7 @@ class Markdown:
         return text
 
     def _render_multilines(self, text: str) -> str:
+        text = Markdown.INCLUDE.sub(self._render_include, text)
         text = Markdown.CODE_BLOCKS.sub(self._render_code_block, text)
         text = Markdown.QUOTE.sub(self._render_quote, text)
         text = Markdown.UNORDERED_LIST.sub(self._render_unordered_list, text)

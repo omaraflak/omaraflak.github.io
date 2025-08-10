@@ -141,3 +141,9 @@ You can put HTML tags and render something completely custom too.
 <script src="/assets/demo/demo.js"></script>
 
 # This is a *title*
+
+You can include content using `#include`:
+
+```python
+#include(./assets/demo/main.py)
+```
