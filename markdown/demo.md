@@ -118,9 +118,9 @@ digraph G {
 }
 ```
 
-Put file download links using `[file](/path/to/filename.whatever)`:
+Put file download links using `[#download](/path/to/filename.whatever)`:
 
-[file](/images/mnist.png)
+[#download](/images/mnist.png)
 
 ## Custom HTML & JS
 
