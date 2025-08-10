@@ -24,7 +24,7 @@ If no title is provided, then the link will be in preview mode `[](https://examp
 
 You can include images as well with `![alt](/image/path)`:
 
-![svg](/assets/automata/automata.svg)
+![svg](/assets/demo/image.svg)
 
 The height and/or width of the image can be specified in pixels or percentage using the following syntax:
 
@@ -120,7 +120,7 @@ digraph G {
 
 Put file download links using `[#download](/path/to/filename.whatever)`:
 
-[#download](/assets/automata/mnist.png)
+[#download](/assets/demo/image.svg)
 
 ## Custom HTML & JS
 
