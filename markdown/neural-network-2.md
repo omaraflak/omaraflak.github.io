@@ -34,7 +34,7 @@ The MNIST dataset contains images of hand-written digits from 0 to 9. More preci
 
 If you plotted the first 15 images of the training set, you'd see this:
 
-![mnist images](/images/mnist.png;w=100%)
+![mnist images](/assets/neural-network/mnist.png;w=100%)
 
 The labels themselves are just the numbers on the images:
 

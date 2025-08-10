@@ -35,6 +35,6 @@ R_y(\theta) =
 
 This will get you points on the donut surface. You can now multiply these points by a rotation matrix that rotates around all three axes to get the animation.
 
-<script src="../scripts/canvas.js"></script>
-<script src="../scripts/matrix.js"></script>
-<script src="../scripts/donut.js"></script>
+<script src="/scripts/canvas.js"></script>
+<script src="/scripts/matrix.js"></script>
+<script src="/assets/donut/donut.js"></script>

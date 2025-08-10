@@ -89,7 +89,7 @@ def _render_element(element: marko.block.Element) -> str:
                 print("Could not fetch link preview: ", url)
                 title = '<span style="color:red;">ERROR NO INTERNET TO FETCH LINK PREVIEW</span>'
                 return f'<a class="article-link" target="_blank" href="{url}">{title}</a>'
-        elif title == 'file':
+        elif title == '#download':
             filename = os.path.basename(url)
             return f'''
                 <center>
