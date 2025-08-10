@@ -49,21 +49,9 @@ class Markdown:
     BOLD = re.compile(r'(\*\*)(?P<text>.+?)(\*\*)')
     CODE_BLOCKS = re.compile(r'```(?P<lang>\w+)?\n(?P<text>[\s\S]+?)\n```')
     QUOTE = re.compile(r'(?m)^(?P<block>(?:>\s?.*(?:\n>\s?.*)*))')
-    UNORDERED_LIST = re.compile(r'''(?mx)
-    ^(?P<block>
-    (?![ ]{0,3}(?:[-*_]\s*){3,}$)
-    [ ]{0,3}[*+-][\t ]+.*
-    (?:\n
-        (?:
-            (?![ ]{0,3}(?:[-*_]\s*){3,}$)[ ]*[*+-][\t ]+.*
-        | [ ]{4,}.*
-        | [ ]*$
-        )
-    )*
-    )
-    ''')
     INLINE_BLOCK = re.compile(r'`(?P<text>.+?)`')
     INLINE_BLOCK_ALT = re.compile(r'``\s(?P<text>.+?)\s``')
+    UNORDERED_LIST = re.compile(r'^((?:\s+-[^-].*\n?)+)$', re.MULTILINE)
     LINK = re.compile(r'\[(?P<title>.*)\]\((?P<url>.+)\)')
     IMAGE = re.compile(r'!\[(?P<alt>.*)\]\((?P<url>.+)\)')
     SEPARATOR = re.compile(r'^---$')
