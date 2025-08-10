@@ -29,7 +29,12 @@
     </div>
     <main class="article-main">
         <article class="article-body">
-            <p>Wolfram elementary cellular automata are a fascinating piece of mathematics. We start with a grid of cells, where all cells are in an <span class="article-italic"><span class="article-bold">off</span></span> state, except the middle cell of the first row, which is <span class="article-italic"><span class="article-bold">on</span></span>. Then, we proceed and apply the following rule to compute the state of all cells below the first row.</p><p><center><img class="article-image" height="" width="" src="/assets/automata/automata.svg" alt="rules"></center></p><p>This is saying that for a given cell, we look at the three adjacent cells above it, and depending on their state the current cell will be either <span class="article-italic">on</span> or <span class="article-italic">off</span>.</p><p>As you can see, the three adjacent top cells can be in [begin-latex-inline]2^3=8[end-latex-inline] possible configurations. Therefore there is [begin-latex-inline]2^8=256[end-latex-inline] possible <span class="article-italic"><span class="article-bold">rules</span></span> that we could apply. This is just one of them. It's called rule 30, because [begin-latex-inline](00011110)_{2} = (30)_{10}[end-latex-inline].</p><p>You can read more about this simple cellular automata on Wolfram's website:</p><p>
+            <p>Wolfram elementary cellular automata are a fascinating piece of mathematics. We start with a grid of cells, where all cells are in an <span class="article-bold"><span class="article-italic">off</span></span> state, except the middle cell of the first row, which is <span class="article-bold"><span class="article-italic">on</span></span>. Then, we proceed and apply the following rule to compute the state of all cells below the first row.</p>
+<center><img class="article-image" height="" width="" src="/assets/automata/automata.svg" alt="rules"></center>
+<p>This is saying that for a given cell, we look at the three adjacent cells above it, and depending on their state the current cell will be either <span class="article-italic">on</span> or <span class="article-italic">off</span>.</p>
+<p>As you can see, the three adjacent top cells can be in [begin-latex-inline]2^3=8[end-latex-inline] possible configurations. Therefore there is [begin-latex-inline]2^8=256[end-latex-inline] possible <span class="article-bold"><span class="article-italic">rules</span></span> that we could apply. This is just one of them. It's called rule 30, because [begin-latex-inline](00011110)_{2} = (30)_{10}[end-latex-inline].</p>
+<p>You can read more about this simple cellular automata on Wolfram's website:</p>
+<p>
                     <div class="article-link-preview-container">
                         <a class="article-link-preview-link" target="_blank" href="https://mathworld.wolfram.com/ElementaryCellularAutomaton.html">
                             <span class="article-link-preview-title">Elementary Cellular Automaton -- from Wolfram MathWorld</span>
@@ -37,12 +42,15 @@
                             <span class="article-link-preview-website">mathworld.wolfram.com</span>
                         </a>
                     </div>
-                </p><p>Below is a simulation of the above rule, and somehow this very simple rule creates those intricate patterns that seem regular but also chaotic! Enter a rule number below to see them all!</p><p><canvas class="article-canvas" id="canvas"></canvas></p><center>
+                </p>
+<p>Below is a simulation of the above rule, and somehow this very simple rule creates those intricate patterns that seem regular but also chaotic! Enter a rule number below to see them all!</p>
+<canvas class="article-canvas" id="canvas"></canvas>
+<center>
 <div>
-    <span class="text">Rule: </span>
-    <input type="number" min="0" max="255" value="30" id="rule">
-</div>
-</center>
+<p>    <span class="text">Rule: </span></p>
+<p>    <input type="number" min="0" max="255" value="30" id="rule"></p>
+<p></div></p>
+<p></center></p>
 <script src="/scripts/canvas.js"></script>
 <script src="/assets/automata/automata.js"></script>
         </article>

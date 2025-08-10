@@ -1,10 +1,9 @@
 import re
 import os
-import marko
-import marko.inline
 import metadata
 import templates
 import unicodedata
+import markdown
 import links
 
 
@@ -36,43 +35,46 @@ def _parse_image_data(location: str) -> tuple[str, str, str]:
     return parts[0], mapping.get("h", ""), mapping.get("w", "")
 
 
-def _render_elements(elements: list[marko.block.Element]) -> str:
-    return "".join(_render_element(element) for element in elements)
-
-
-def _render_element(element: marko.block.Element) -> str:
-    if isinstance(element, marko.inline.RawText):
-        return element.children
-    elif isinstance(element, marko.block.Paragraph):
-        return f"<p>{_render_elements(element.children)}</p>"
-    elif isinstance(element, marko.block.Heading):
-        title = _render_elements(element.children)
-        if element.level == 1:
-            return f'<h2 id={_make_tag(title)} class="article-section">{title}</h2>'
-        elif element.level == 2:
-            return f'<h3 id={_make_tag(title)} class="article-small-section">{title}</h3>'
+class Renderer(markdown.MarkdownRenderer):
+    def render_heading(self, text: str, level: int) -> str:
+        if level == 1:
+            return f'<h2 id={_make_tag(text)} class="article-section">{text}</h2>'
+        elif level == 2:
+            return f'<h3 id={_make_tag(text)} class="article-small-section">{text}</h3>'
         else:
-            print(f"Heading with level {element.level} is not supported!")
-    elif isinstance(element, marko.block.Quote):
-        quote = _render_elements(element.children)
-        return f'<div class="article-quote">{quote}</div>'
-    elif isinstance(element, marko.block.List):
-        tmp = _render_elements(element.children)
-        return f'<ul>{tmp}</ul>'
-    elif isinstance(element, marko.block.ListItem):
-        tmp = _render_elements(element.children)
-        return f'<li class="article-li">{tmp}</li>'
-    elif isinstance(element, marko.block.ThematicBreak):
-        return '<div class="article-hr"></div>'
-    elif isinstance(element, marko.inline.Emphasis):
-        text = _render_elements(element.children)
-        return f'<span class="article-italic">{text}</span>'
-    elif isinstance(element, marko.inline.StrongEmphasis):
-        text = _render_elements(element.children)
+            print(f"Heading with level {level} is not supported!")
+
+    def render_bold(self, text: str) -> str:
         return f'<span class="article-bold">{text}</span>'
-    elif isinstance(element, marko.inline.Link):
-        title = _render_elements(element.children)
-        url = element.dest
+
+    def render_italic(self, text: str) -> str:
+        return f'<span class="article-italic">{text}</span>'
+
+    def render_paragraph(self, text: str) -> str:
+        return f'<p>{text}</p>'
+
+    def render_code_block(self, text: str, lang: str) -> str:
+        if lang == "latex":
+            return f'<div class="article-latex">[begin-latex]{text}[end-latex]</div>'
+        elif lang == "dot":
+            return f'<center><div class="article-graphviz">{text}</div></center>'
+        else:
+            return f'<pre class="article-code-block {lang}"><code>{text}</code></pre>'
+
+    def render_quote(self, text: str) -> str:
+        return f'<div class="article-quote">{text}</div>'
+
+    def render_unordered_list(self, items: list[str]) -> str:
+        li = '\n'.join(f'<li class="article-li">{i}</li>' for i in items)
+        return f'<ul>{li}</ul>'
+
+    def render_inline_code(self, text: str) -> str:
+        if text.startswith('$') and text.endswith('$'):
+            return f'[begin-latex-inline]{text[1:-1]}[end-latex-inline]'
+        else:
+            return f'<code class="article-code-inline">{text}</code>'
+
+    def render_link(self, title: str, url: str) -> str:
         if title == '':
             preview = _LINKS.get_link_preview(url)
             if preview:
@@ -103,43 +105,20 @@ def _render_element(element: marko.block.Element) -> str:
             '''
         else:
             return f'<a class="article-link" target="_blank" href="{url}">{title}</a>'
-    elif isinstance(element, marko.inline.Image):
-        alt = _render_elements(element.children)
-        url, height, width = _parse_image_data(element.dest)
+
+    def render_image(self, alt: str, url: str) -> str:
+        url, height, width = _parse_image_data(url)
         return f'<center><img class="article-image" height="{height}" width="{width}" src="{url}" alt="{alt}"></center>'
-    elif isinstance(element, marko.block.BlankLine):
-        return ""
-    elif isinstance(element, marko.inline.LineBreak):
-        return "</br>"
-    elif isinstance(element, marko.inline.CodeSpan):
-        code = element.children
-        if code.startswith('$') and code.endswith('$'):
-            return f'[begin-latex-inline]{code[1:-1]}[end-latex-inline]'
-        else:
-            return f'<code class="article-code-inline">{code}</code>'
-    elif isinstance(element, marko.block.FencedCode):
-        code = _render_elements(element.children)
-        if element.lang == "latex":
-            return f'<div class="article-latex">[begin-latex]{code}[end-latex]</div>'
-        if element.lang == "dot":
-            return f'<center><div class="article-graphviz">{code}</div></center>'
-        else:
-            return f'<pre class="article-code-block {element.lang}"><code>{code}</code></pre>'
-    elif isinstance(element, marko.block.HTMLBlock):
-        return element.body
-    elif isinstance(element, marko.inline.Literal):
-        return element.children
-    elif isinstance(element, marko.inline.InlineHTML):
-        return element.children
-    else:
-        print(f"{element.get_type()} is not supported!")
-    return ""
+
+    def render_separator(self) -> str:
+        return '<div class="article-hr"></div>'
 
 
-def make_article(markdown: str) -> str:
-    meta = metadata.parse_metadata(markdown)
-    text = metadata.strip_metadata(markdown)
-    generated_html = _render_elements(marko.parse(text).children)
+def make_article(markdown_text: str) -> str:
+    md = markdown.Markdown(Renderer())
+    meta = metadata.parse_metadata(markdown_text)
+    text = metadata.strip_metadata(markdown_text)
+    generated_html = md.convert(text)
     updated_date_html = (
         templates.UPDATED_DATE.replace("{{date}}", _format_updated_date(meta))
         if meta.updated_date

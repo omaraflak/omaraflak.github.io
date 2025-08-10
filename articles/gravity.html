@@ -29,21 +29,24 @@
     </div>
     <main class="article-main">
         <article class="article-body">
-            <p>This is a simulation of gravity using Newton's law of motion:</p><div class="article-latex">[begin-latex]\sum{\overrightarrow{F}} = m\overrightarrow{a}
-[end-latex]</div><p>and Newton's law of gravity:</p><div class="article-latex">[begin-latex]\overrightarrow{F_{a \rightarrow b}} = G \frac{m_a m_b}{d_{ab}^2} \overrightarrow{u_{ba}}
-[end-latex]</div><p>To make things interesting, I've set the particles to repulse themselves if they come too close together. You can play with that parameter using the slider below.</p><center><canvas class="article-canvas" id="canvas" style="width: 50%;"></canvas></center>
+            <p>This is a simulation of gravity using Newton's law of motion:</p>
+<div class="article-latex">[begin-latex]\sum{\overrightarrow{F}} = m\overrightarrow{a}[end-latex]</div>
+<p>and Newton's law of gravity:</p>
+<div class="article-latex">[begin-latex]\overrightarrow{F_{a \rightarrow b}} = G \frac{m_a m_b}{d_{ab}^2} \overrightarrow{u_{ba}}[end-latex]</div>
+<p>To make things interesting, I've set the particles to repulse themselves if they come too close together. You can play with that parameter using the slider below.</p>
+<center><canvas class="article-canvas" id="canvas" style="width: 50%;"></canvas></center>
 <div>
-    <div style="display: flex;">
-        <span>Number of particles: </span>
-        <input type="range" min="100" max="1000" value="500" id="total_particles">
-        <span id="total_particles_placeholder">500</span>
-    </div>
-    <div style="display: flex;">
-        <span>Repulsion distance: </span>
-        <input type="range" min="0" max="200" value="50" id="min_distance">
-        <span id="min_distance_placeholder">50</span>
-    </div>
-</div>
+<p>    <div style="display: flex;"></p>
+<p>        <span>Number of particles: </span></p>
+<p>        <input type="range" min="100" max="1000" value="500" id="total_particles"></p>
+<p>        <span id="total_particles_placeholder">500</span></p>
+<p>    </div></p>
+<p>    <div style="display: flex;"></p>
+<p>        <span>Repulsion distance: </span></p>
+<p>        <input type="range" min="0" max="200" value="50" id="min_distance"></p>
+<p>        <span id="min_distance_placeholder">50</span></p>
+<p>    </div></p>
+<p></div></p>
 <script src="/scripts/canvas.js"></script>
 <script src="/scripts/matrix.js"></script>
 <script src="/assets/gravity/gravity.js"></script>
