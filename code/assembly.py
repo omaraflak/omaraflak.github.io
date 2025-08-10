@@ -7,14 +7,16 @@ def _int32(value: int) -> bytes:
 
 def _assemble(commands: list[str]) -> bytes:
     program = bytearray()
-    labels = dict()
+    label_defs = dict()
+    label_calls = list()
     pointer = 0
 
     for command in commands:
         parts = command.split()
         cmd = parts[0].lower()
+
         if cmd.startswith('.'):
-            labels[cmd] = pointer
+            label_defs[cmd] = pointer
         elif cmd == 'push':
             program.append(vm.Op.PUSH)
             program.extend(_int32(int(parts[1])))
@@ -33,10 +35,27 @@ def _assemble(commands: list[str]) -> bytes:
         elif cmd == 'lt':
             program.append(vm.Op.LT)
             pointer += 1
+        elif cmd == 'jump':
+            program.append(vm.Op.JUMP)
+            if parts[1].startswith('.'):
+                label_calls.append((parts[1], pointer + 1))
+                program.extend(_int32(0))
+            else:
+                program.extend(_int32(int(parts[1])))
+            pointer += 5
         elif cmd == 'jumpif':
             program.append(vm.Op.JUMPIF)
             if parts[1].startswith('.'):
-                program.extend(_int32(labels[parts[1]]))
+                label_calls.append((parts[1], pointer + 1))
+                program.extend(_int32(0))
+            else:
+                program.extend(_int32(int(parts[1])))
+            pointer += 5
+        elif cmd == 'jumpifnot':
+            program.append(vm.Op.JUMPIFNOT)
+            if parts[1].startswith('.'):
+                label_calls.append((parts[1], pointer + 1))
+                program.extend(_int32(0))
             else:
                 program.extend(_int32(int(parts[1])))
             pointer += 5
@@ -47,13 +66,20 @@ def _assemble(commands: list[str]) -> bytes:
             program.append(vm.Op.HALT)
             pointer += 1
 
-    return program
+    for label, position in label_calls:
+        value = _int32(label_defs[label])
+        program[position: position + 4] = value
+
+    return bytes(program)
 
 
 def assemble(assembly: str) -> bytes:
-    lines = [
-        line.strip()
-        for line in assembly.strip().splitlines()
-        if line.strip() and not line.strip().startswith('#')
-    ]
+    lines = []
+    for line in assembly.strip().splitlines():
+        line = line.strip()
+        if line and not line.startswith('#'):
+            idx = line.find('#')
+            if idx > 0:
+                line = line[:idx].strip()
+            lines.append(line)
     return _assemble(lines)

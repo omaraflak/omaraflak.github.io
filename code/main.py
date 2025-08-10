@@ -1,23 +1,7 @@
 import vm
 import assembly
 
-# program = bytes([
-#     0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
-#     0, 0, 0, 0, 1, 1, 0, 0, 0, 1,
-#     0, 0, 0, 0, 0, 1, 0, 0, 0, 2,
-#     2, 0, 0, 0, 0, 2, 0, 0, 0, 1,
-#     3, 1, 0, 0, 0, 3,
-#     2, 0, 0, 0, 3, 6,
-#     2, 0, 0, 0, 1, 1, 0, 0, 0, 0,
-#     2, 0, 0, 0, 3, 1, 0, 0, 0, 1,
-#     2, 0, 0, 0, 2, 0, 0, 0, 0, 1,
-#     3, 1, 0, 0, 0, 2,
-#     2, 0, 0, 0, 2, 0, 0, 0, 0, 20,
-#     4, 5, 0, 0, 0, 30, 7
-# ])
-
-
-program = """
+fibonacci = """
 # a = 0
 push 0
 store 0
@@ -55,13 +39,42 @@ push 1
 add
 store 2
 
-# goto .label if i<30
+# goto .label if i<20
 load 2
-push 30
+push 20
 lt
 jumpif .label
 halt
 """
 
-machine = vm.Vm(program=assembly.assemble(program), stack=[], memory=[0] * 16)
+loop = """
+push 0
+store 0
+
+.label
+
+load 0
+push 10
+lt
+jumpifnot .end
+
+load 0
+push 1
+add
+store 0
+
+load 0
+print
+
+jump .label
+
+.end
+halt
+"""
+
+machine = vm.Vm(
+    program=assembly.assemble(loop),
+    stack=[0] * 16,
+    memory=[0] * 16
+)
 machine.run()
