@@ -29,34 +29,47 @@
     </div>
     <main class="article-main">
         <article class="article-body">
-            <p>Bézier curves are used extensively in computer graphics, often to produce smooth curves. If you have ever used Photoshop you might have stumbled upon that tool called "Anchor" where you can put anchor points and draw some curves with them... These are Bézier curves. Or if you have used vector-based graphic, SVG, these too use Bézier curves. Let's see how it works.</p><h2 id=general-definition class="article-section">General Definition</h2><p>Given [begin-latex-inline]n+1[end-latex-inline] points [begin-latex-inline]\{P_0, ..., P_n\}[end-latex-inline] called the <span class="article-italic"><span class="article-bold">control points</span></span>, the <a class="article-link" target="_blank" href="https://en.wikipedia.org/wiki/B%C3%A9zier_curve">Bézier curve</a> traced by these points is defined as:</p><div class="article-latex">[begin-latex]\begin{align}
+            <p>Bézier curves are used extensively in computer graphics, often to produce smooth curves. If you have ever used Photoshop you might have stumbled upon that tool called "Anchor" where you can put anchor points and draw some curves with them... These are Bézier curves. Or if you have used vector-based graphic, SVG, these too use Bézier curves. Let's see how it works.</p>
+<h2 id=general-definition class="article-section">General Definition</h2>
+<p>Given [begin-latex-inline]n+1[end-latex-inline] points [begin-latex-inline]\{P_0, ..., P_n\}[end-latex-inline] called the <span class="article-bold"><span class="article-italic">control points</span></span>, the <a class="article-link" target="_blank" href="https://en.wikipedia.org/wiki/B%C3%A9zier_curve">Bézier curve</a> traced by these points is defined as:</p>
+<p><div class="article-latex">[begin-latex]\begin{align}
 Z(t) = \sum_{i=0}^n B_i^n(t) \cdot P_i, \quad t \in[0, 1]
-\end{align}
-[end-latex]</div><p>Where [begin-latex-inline]P_i=\{x_i, y_i\}[end-latex-inline], and [begin-latex-inline]B_i^n(t)[end-latex-inline] is the <a class="article-link" target="_blank" href="https://en.wikipedia.org/wiki/Bernstein_polynomial">Bernstein polynomial</a>:</p><div class="article-latex">[begin-latex]B_i^n(t) = {n \choose i} t^i (1-t)^{n-i}, \quad {n \choose i} = \frac{n!}{i! (n-i)!}
-[end-latex]</div><div class="article-quote"><p>Note that [begin-latex-inline]Z(t)[end-latex-inline] is not a number, but a point!</p></div><p>Notice that Bernstein polynomial looks a lot like the [begin-latex-inline]k^{\text{th}}[end-latex-inline] term in Newton's binomial formula:</p><div class="article-latex">[begin-latex](a+b)^n = \sum_{i=0}^n {n \choose i} a^i b^{n-1}
-[end-latex]</div><p>For the particular values of [begin-latex-inline]a=1[end-latex-inline] and [begin-latex-inline]b=t-1[end-latex-inline]. It then becomes obvious that:</p><div class="article-latex">[begin-latex]\sum_{i=0}^n B_i^n(t) = 1
-[end-latex]</div><p>Therefore, you can interpret [begin-latex-inline]Z(t)[end-latex-inline] as a weighted average of the control points. As [begin-latex-inline]t[end-latex-inline] changes, the weighted average [begin-latex-inline]Z(t)[end-latex-inline] smoothly moves from the <span class="article-bold">first</span> control point to the <span class="article-bold">last</span> control point. Indeed:</p><div class="article-latex">[begin-latex]\begin{align*}
+\end{align}[end-latex]</div></p>
+<p>Where [begin-latex-inline]P_i=\{x_i, y_i\}[end-latex-inline], and [begin-latex-inline]B_i^n(t)[end-latex-inline] is the <a class="article-link" target="_blank" href="https://en.wikipedia.org/wiki/Bernstein_polynomial">Bernstein polynomial</a>:</p>
+<div class="article-latex">[begin-latex]B_i^n(t) = {n \choose i} t^i (1-t)^{n-i}, \quad {n \choose i} = \frac{n!}{i! (n-i)!}[end-latex]</div>
+<div class="article-quote">Note that [begin-latex-inline]Z(t)[end-latex-inline] is not a number, but a point!</div>
+<p>Notice that Bernstein polynomial looks a lot like the [begin-latex-inline]k^{\text{th}}[end-latex-inline] term in Newton's binomial formula:</p>
+<div class="article-latex">[begin-latex](a+b)^n = \sum_{i=0}^n {n \choose i} a^i b^{n-1}[end-latex]</div>
+<p>For the particular values of [begin-latex-inline]a=1[end-latex-inline] and [begin-latex-inline]b=t-1[end-latex-inline]. It then becomes obvious that:</p>
+<div class="article-latex">[begin-latex]\sum_{i=0}^n B_i^n(t) = 1[end-latex]</div>
+<p>Therefore, you can interpret [begin-latex-inline]Z(t)[end-latex-inline] as a weighted average of the control points. As [begin-latex-inline]t[end-latex-inline] changes, the weighted average [begin-latex-inline]Z(t)[end-latex-inline] smoothly moves from the <span class="article-bold">first</span> control point to the <span class="article-bold">last</span> control point. Indeed:</p>
+<p><div class="article-latex">[begin-latex]\begin{align*}
 Z(0) &= \sum_{i=0}^n B_i^n(0) \cdot P_i \\
 &= P_0
-\end{align*}
-[end-latex]</div><p>That is because:</p><div class="article-latex">[begin-latex]B_i^n(0) =
+\end{align*}[end-latex]</div></p>
+<p>That is because:</p>
+<p><div class="article-latex">[begin-latex]B_i^n(0) =
 \left\{
 \begin{array}{ll}
 1 \quad \text{if} \quad i = 0 \\
 0 \quad \text{if} \quad i \neq 0
 \end{array}
-\right.
-[end-latex]</div><p>Similarily:</p><div class="article-latex">[begin-latex]\begin{align*}
+\right.[end-latex]</div></p>
+<p>Similarily:</p>
+<p><div class="article-latex">[begin-latex]\begin{align*}
 Z(n) &= \sum_{i=0}^n B_i^n(n) \cdot P_i \\
 &= P_n
-\end{align*}
-[end-latex]</div><h2 id=quadratic-bezier-curve class="article-section">Quadratic Bézier Curve</h2><p>The quadratic Bézier curve is how we call the Bézier curve with 3 control points, since the degree of [begin-latex-inline]Z(t)[end-latex-inline] will be 2. Let's calculate the Bézier curve given 3 control points and explore some properties we might find! Remember, [begin-latex-inline](1)[end-latex-inline] holds for [begin-latex-inline]n+1[end-latex-inline] points, so in our case [begin-latex-inline]n=2[end-latex-inline].</p><div class="article-latex">[begin-latex]\begin{align*}
+\end{align*}[end-latex]</div></p>
+<h2 id=quadratic-bezier-curve class="article-section">Quadratic Bézier Curve</h2>
+<p>The quadratic Bézier curve is how we call the Bézier curve with 3 control points, since the degree of [begin-latex-inline]Z(t)[end-latex-inline] will be 2. Let's calculate the Bézier curve given 3 control points and explore some properties we might find! Remember, [begin-latex-inline](1)[end-latex-inline] holds for [begin-latex-inline]n+1[end-latex-inline] points, so in our case [begin-latex-inline]n=2[end-latex-inline].</p>
+<p><div class="article-latex">[begin-latex]\begin{align*}
 Z(t) &= \sum_{i=0}^2 B_i^2(t) \cdot P_i \\
 &= \sum_{i=0}^2 {2 \choose i} t^i (1 - t)^{2-i} \cdot P_i \\
 &= {2 \choose 0} t^0 (1 - t)^{2-0} \cdot P_0 + {2 \choose 1} t^1 (1 - t)^{2-1} \cdot P_1 + {2 \choose 2} t^2 (1 - t)^{2-2} \cdot P_2 \\
 &= (1-t)^2 \cdot P_0 + 2t(1-t) \cdot P_1 + t^2 \cdot P_2
-\end{align*}
-[end-latex]</div><p>Now we just have to choose three control points and evaluate the curve on the range [begin-latex-inline][0, 1][end-latex-inline]. We can do this in Python easily.</p><pre class="article-code-block python"><code>import numpy as np
+\end{align*}[end-latex]</div></p>
+<p>Now we just have to choose three control points and evaluate the curve on the range [begin-latex-inline][0, 1][end-latex-inline]. We can do this in Python easily.</p>
+<p><pre class="article-code-block python"><code>import numpy as np
 import matplotlib.pyplot as plt
 
 P0, P1, P2 = np.array([
@@ -79,36 +92,47 @@ plt.plot(x, y, 'b-')
 plt.plot(*P0, 'r.')
 plt.plot(*P1, 'r.')
 plt.plot(*P2, 'r.')
-plt.show()
-</code></pre><p><center><img class="article-image" height="" width="80%" src="/assets/bezier/bezier_1.webp" alt="bezier"></center></p><p>Notice that the curve does indeed start and end at the first and last control points. Because of that, if you fix [begin-latex-inline]P_0[end-latex-inline] and [begin-latex-inline]P_2[end-latex-inline], the [begin-latex-inline]P1[end-latex-inline] entirely determines the shape of the curve. Moving [begin-latex-inline]P1[end-latex-inline] around you might notice something:</p><p><center><img class="article-image" height="" width="100%" src="/assets/bezier/bezier_2.webp" alt="bezier different P1"></center></p><p>The Bézier curve is always contained in the polygon formed by the control points. This polygon is hence called the control polygon, or Bézier polygon. This property also holds for any number of control points, which makes their manipulation quite intuitive when using a software.</p><p><center><img class="article-image" height="" width="100%" src="/assets/bezier/bezier_3.webp" alt="bezier curve is contained in convex hull"></center></p><h3 id=matrix-representation class="article-small-section">Matrix Representation</h3><p>We can actually represent the Bézier formula using matrix multiplication, which might be useful in other contexts, for instance for splitting the Bézier curve. If we go back to our example we can rewrite [begin-latex-inline]Z(t)[end-latex-inline] as follows:</p><div class="article-latex">[begin-latex]\begin{align*}
+plt.show()</code></pre></p>
+<center><img class="article-image" height="" width="80%" src="/assets/bezier/bezier_1.webp" alt="bezier"></center>
+<p>Notice that the curve does indeed start and end at the first and last control points. Because of that, if you fix [begin-latex-inline]P_0[end-latex-inline] and [begin-latex-inline]P_2[end-latex-inline], the [begin-latex-inline]P1[end-latex-inline] entirely determines the shape of the curve. Moving [begin-latex-inline]P1[end-latex-inline] around you might notice something:</p>
+<center><img class="article-image" height="" width="100%" src="/assets/bezier/bezier_2.webp" alt="bezier different P1"></center>
+<p>The Bézier curve is always contained in the polygon formed by the control points. This polygon is hence called the control polygon, or Bézier polygon. This property also holds for any number of control points, which makes their manipulation quite intuitive when using a software.</p>
+<center><img class="article-image" height="" width="100%" src="/assets/bezier/bezier_3.webp" alt="bezier curve is contained in convex hull"></center>
+<h3 id=matrix-representation class="article-small-section">Matrix Representation</h3>
+<p>We can actually represent the Bézier formula using matrix multiplication, which might be useful in other contexts, for instance for splitting the Bézier curve. If we go back to our example we can rewrite [begin-latex-inline]Z(t)[end-latex-inline] as follows:</p>
+<p><div class="article-latex">[begin-latex]\begin{align*}
 Z(t) &= (1-t)^2 \cdot P_0 + 2t(1-t) \cdot P_1 + t^2 \cdot P_2 \\
 &= (1-2t+t^2) \cdot P_0 + (2t-2t^2) \cdot P_1 + t^2 \cdot P_2 \\
 &= \begin{bmatrix} (1-2t+t^2) & (2t-2t^2) & t^2 \end{bmatrix} \cdot \begin{bmatrix} P_0 \\ P_1 \\ P_2 \end{bmatrix}  \\
 &= \begin{bmatrix} 1 & t & t^2 \end{bmatrix} \cdot \begin{bmatrix} 1 & 0 & 0 \\ -2 & 2 & 0 \\ 1 & -2 & 1 \end{bmatrix} \cdot \begin{bmatrix} P_0 \\ P_1 \\ P_2 \end{bmatrix}  \\
 &= T \cdot M \cdot P
-\end{align*}
-[end-latex]</div><p>All the information of the quadratic Bézier curve is now compacted into one matrix, [begin-latex-inline]M[end-latex-inline]. Notice the [begin-latex-inline]i^{\text{th}}[end-latex-inline] column of [begin-latex-inline]M[end-latex-inline] is just the coefficients of the polynomial [begin-latex-inline]B_i^n[end-latex-inline]. However, if we want to program this, it will be easier to create a matrix row by row, instead of column by column. Luckily, because [begin-latex-inline]{n \choose i} = {n \choose n-i}[end-latex-inline], the [begin-latex-inline]i^{\text{th}}[end-latex-inline] row of the matrix is just the reversed [begin-latex-inline](n-i)^{\text{th}}[end-latex-inline] column.</p><div class="article-latex">[begin-latex]\begin{align*}
+\end{align*}[end-latex]</div></p>
+<p>All the information of the quadratic Bézier curve is now compacted into one matrix, [begin-latex-inline]M[end-latex-inline]. Notice the [begin-latex-inline]i^{\text{th}}[end-latex-inline] column of [begin-latex-inline]M[end-latex-inline] is just the coefficients of the polynomial [begin-latex-inline]B_i^n[end-latex-inline]. However, if we want to program this, it will be easier to create a matrix row by row, instead of column by column. Luckily, because [begin-latex-inline]{n \choose i} = {n \choose n-i}[end-latex-inline], the [begin-latex-inline]i^{\text{th}}[end-latex-inline] row of the matrix is just the reversed [begin-latex-inline](n-i)^{\text{th}}[end-latex-inline] column.</p>
+<p><div class="article-latex">[begin-latex]\begin{align*}
 Z(t) &= {n \choose n-i} t^{n-i} (1 - t)^{n-(n-i)} \\
 &= {n \choose i} t^{n-i} (1 - t)^i \\
 &= {n \choose i} t^{n-i} \sum_{k=0}^i {i \choose k} 1^k (-t)^{i-k} \\
 &= {n \choose i} t^{n-i} \sum_{k=0}^i {i \choose k} (-1)^{i-k} t^{i-k} \\
 &= \sum_{k=0}^i {n \choose i} {i \choose k} (-1)^{i-k} t^{n-k}
-\end{align*}
-[end-latex]</div><p>Therefore, the coefficients of the matrix are nothing but the coefficients of [begin-latex-inline]t[end-latex-inline]:</p><div class="article-latex">[begin-latex]{n \choose i} {i \choose k} (-1)^{i-k}, \quad \left\{
+\end{align*}[end-latex]</div></p>
+<p>Therefore, the coefficients of the matrix are nothing but the coefficients of [begin-latex-inline]t[end-latex-inline]:</p>
+<p><div class="article-latex">[begin-latex]{n \choose i} {i \choose k} (-1)^{i-k}, \quad \left\{
 \begin{array}{ll}
 i = 0, ..., n \\
 k = 0, ..., i
 \end{array}
-\right.
-[end-latex]</div><pre class="article-code-block python"><code>from math import comb
+\right.[end-latex]</div></p>
+<p><pre class="article-code-block python"><code>from math import comb
 
 def get_bezier_matrix(n: int) -> list[list[float]]:
     coef = [[0] * (n + 1) for _ in range(n + 1)]
     for i in range(n + 1):
         for k in range(i + 1):
             coef[i][k] = comb(n, i) * comb(i, k) * (-1)**(i - k)
-    return coef
-</code></pre><div class="article-hr"></div><p>Lastly, this is a general version of the polynomial version:</p><pre class="article-code-block python"><code>import numpy as np
+    return coef</code></pre></p>
+<div class="article-hr"></div>
+<p>Lastly, this is a general version of the polynomial version:</p>
+<p><pre class="article-code-block python"><code>import numpy as np
 import matplotlib.pyplot as plt
 from math import comb
 
@@ -136,8 +160,7 @@ x, y = points[:,0], points[:,1]
 bx, by = evaluate_bezier(points, 50)
 plt.plot(bx, by, 'b-')
 plt.plot(x, y, 'r.')
-plt.show()
-</code></pre>
+plt.show()</code></pre></p>
         </article>
     </main>
     <div class="article-hr"></div>

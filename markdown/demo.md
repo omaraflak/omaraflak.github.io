@@ -16,7 +16,7 @@ You can have inline code such as `def main()`. If you surround the inner code by
 
 ## This is a secondary title
 
-Links are also supported. Check out my [github](https://github.com/omaraflak). Use the following formatting `[title](https://example.com)`.
+Links are also supported. Check out my **[github](https://github.com/omaraflak)**. Use the following formatting `[title](https://example.com)`.
 
 If no title is provided, then the link will be in preview mode `[](https://example.com)`:
 
@@ -41,6 +41,12 @@ Use `---` for a horizontal line.
 > Quotes need to start with `>`. It can extend multiple lines.
 > Quotes need to start with `>`. It can extend multiple lines.
 > Quotes need to start with `>`. It can extend multiple lines.
+
+This is a list:
+
+- one
+- two
+- three
 
 You can display code blocks by surround your code with 3 back ticks `` ``` `` before and after the code. Specify a language after the opening backticks to change the code highlighting.
 
@@ -122,6 +128,10 @@ Put file download links using `[#download](/path/to/filename.whatever)`:
 
 [#download](/assets/demo/image.svg)
 
+You can also include content!
+
+[#include](./assets/demo/main.py)
+
 ## Custom HTML & JS
 
 You can put HTML tags and render something completely custom too.
@@ -129,3 +139,5 @@ You can put HTML tags and render something completely custom too.
 <div id="plotDiv" style="width: 100%"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.33.1/plotly.min.js" integrity="sha512-V0j9LhrK9IMNdFYZqh+IqU4cjo7wdxyHNyH+L0td4HryBuZ7Oq6QxP2/CWr6TituX31+gv5PnolvERuTbz8UNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="/assets/demo/demo.js"></script>
+
+# This is a *title*
