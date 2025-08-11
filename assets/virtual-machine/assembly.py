@@ -32,27 +32,11 @@ def _assemble(commands: list[str]) -> bytes:
         elif cmd == 'add':
             program.append(vm.Op.ADD)
             pointer += 1
-        elif cmd == 'lt':
-            program.append(vm.Op.LT)
+        elif cmd == 'sub':
+            program.append(vm.Op.SUB)
             pointer += 1
-        elif cmd == 'jump':
-            program.append(vm.Op.JUMP)
-            if parts[1].startswith('.'):
-                label_calls.append((parts[1], pointer + 1))
-                program.extend(_int32(0))
-            else:
-                program.extend(_int32(int(parts[1])))
-            pointer += 5
         elif cmd == 'jumpif':
             program.append(vm.Op.JUMPIF)
-            if parts[1].startswith('.'):
-                label_calls.append((parts[1], pointer + 1))
-                program.extend(_int32(0))
-            else:
-                program.extend(_int32(int(parts[1])))
-            pointer += 5
-        elif cmd == 'jumpifnot':
-            program.append(vm.Op.JUMPIFNOT)
             if parts[1].startswith('.'):
                 label_calls.append((parts[1], pointer + 1))
                 program.extend(_int32(0))

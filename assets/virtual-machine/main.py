@@ -40,41 +40,37 @@ add
 store 2
 
 # goto .label if i<20
-load 2
 push 20
-lt
+load 2
+sub
 jumpif .label
 halt
 """
 
 loop = """
-push 0
+push 1
 store 0
 
 .label
 
 load 0
-push 10
-lt
-jumpifnot .end
+print
 
 load 0
 push 1
 add
 store 0
 
+push 10
 load 0
-print
-
-jump .label
-
-.end
+sub
+jumpif .label
 halt
 """
 
-
+print([i for i in assembly.assemble(fibonacci)])
 machine = vm.Vm(
-    program=assembly.assemble(loop),
+    program=assembly.assemble(fibonacci),
     stack=[0] * 16,
     memory=[0] * 16
 )

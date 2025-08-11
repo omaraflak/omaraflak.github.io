@@ -1,4 +1,5 @@
 import re
+import html
 import random
 import string
 from typing import Callable
@@ -77,6 +78,9 @@ class Markdown:
             return uid
         return _render
 
+    def _plain(self, text: str) -> str:
+        return html.escape(text)
+
     def _render_uid(self, match: re.Match[str]) -> str:
         uid = match.group('uid')
         return self.immutables.pop(uid)
@@ -91,7 +95,7 @@ class Markdown:
 
     @_immutable
     def _render_inline_code(self, match: re.Match[str]) -> str:
-        text = match.group('text')
+        text = self._plain(match.group('text'))
         return self.renderer.render_inline_code(text)
 
     @_immutable
@@ -119,14 +123,14 @@ class Markdown:
 
     @_immutable
     def _render_link(self, match: re.Match[str]) -> str:
-        title = match.group('title')
-        url = match.group('url')
+        title = self._plain(match.group('title'))
+        url = self._plain(match.group('url'))
         return self.renderer.render_link(title, url)
 
     @_immutable
     def _render_image(self, match: re.Match[str]) -> str:
-        alt = match.group('alt')
-        url = match.group('url')
+        alt = self._plain(match.group('alt'))
+        url = self._plain(match.group('url'))
         return self.renderer.render_image(alt, url)
 
     def _render_separator(self, _: re.Match[str]) -> str:

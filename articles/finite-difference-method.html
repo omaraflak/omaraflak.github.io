@@ -112,7 +112,7 @@ mg \cos(\theta) - R = -mL\dot{\theta}^2 \\
 <h2 id=finite-difference-method class="article-section">Finite Difference Method</h2>
 <p>The method consists of approximating derivatives numerically using a rate of change with a very small step size.</p>
 <div class="article-latex">[begin-latex]f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}[end-latex]</div>
-<p>That is the very definition of what a derivative is. Numerically, if we knew [begin-latex-inline]f[end-latex-inline], we could take a small number [begin-latex-inline]h[end-latex-inline] — e.g. 0.0001 — and compute the above formula for a given [begin-latex-inline]x[end-latex-inline], which would give us an approximation of [begin-latex-inline]f'(x)[end-latex-inline].</p>
+<p>That is the very definition of what a derivative is. Numerically, if we knew [begin-latex-inline]f[end-latex-inline], we could take a small number [begin-latex-inline]h[end-latex-inline] — e.g. 0.0001 — and compute the above formula for a given [begin-latex-inline]x[end-latex-inline], which would give us an approximation of [begin-latex-inline]f&#x27;(x)[end-latex-inline].</p>
 <p>The finite difference method simply uses that fact to transform differential equations into ordinary equations.</p>
 <p>In our case, we start by expressing [begin-latex-inline]\ddot{\theta}[end-latex-inline] with respect to [begin-latex-inline]\dot{\theta}[end-latex-inline] using the rate of change.</p>
 <div class="article-latex">[begin-latex]\ddot{\theta}(t) = \frac{\dot{\theta}(t+dt) - \dot{\theta}(t)}{dt}[end-latex]</div>

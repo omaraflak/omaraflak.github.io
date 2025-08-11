@@ -268,11 +268,6 @@ p {
     font-style: oblique;
 }
 
-.article-bold-italic {
-    font-weight: bold;
-    font-style: oblique;
-}
-
 .article-section {
     color: var(--color-text-primary);
     font-size: 2rem;
@@ -431,4 +426,20 @@ p {
 
 .article-file-download-link:hover {
     color: var(--color-text-primary-hover);
+}
+
+.article-code-output {
+    background-color: var(--color-text-primary);
+    color: #E0E0E0;
+    font-family: 'Menlo', Courier, monospace;
+    font-size: 0.8rem !important;
+    line-height: 1.4rem;
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin-top: var(--code-block-vertical-margin);
+    margin-bottom: var(--code-block-vertical-margin);
+
+    &:not(:empty) {
+        padding: 5px 8px;
+    }
 }

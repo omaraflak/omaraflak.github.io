@@ -6,12 +6,10 @@ class Op:
     STORE = 1
     LOAD = 2
     ADD = 3
-    LT = 4
-    JUMP = 5
-    JUMPIF = 6
-    JUMPIFNOT = 7
-    PRINT = 8
-    HALT = 9
+    SUB = 4
+    JUMPIF = 5
+    PRINT = 6
+    HALT = 7
 
 
 @dataclasses.dataclass
@@ -35,20 +33,13 @@ class Vm:
         b = self.stack.pop()
         self.stack.append(a + b)
 
-    def lt(self):
+    def sub(self):
         a = self.stack.pop()
         b = self.stack.pop()
-        self.stack.append(int(b < a))
-
-    def jump(self, pointer: int):
-        self.ip = pointer
+        self.stack.append(b - a)
 
     def jumpif(self, pointer: int):
         if self.stack.pop() > 0:
-            self.ip = pointer
-
-    def jumpifnot(self, pointer: int):
-        if self.stack.pop() == 0:
             self.ip = pointer
 
     def print(self):
@@ -67,18 +58,16 @@ class Vm:
                 self.load(self._read_int32())
             elif instruction == Op.ADD:
                 self.add()
-            elif instruction == Op.LT:
-                self.lt()
-            elif instruction == Op.JUMP:
-                self.jump(self._read_int32())
+            elif instruction == Op.SUB:
+                self.sub()
             elif instruction == Op.JUMPIF:
                 self.jumpif(self._read_int32())
-            elif instruction == Op.JUMPIFNOT:
-                self.jumpifnot(self._read_int32())
             elif instruction == Op.PRINT:
                 self.print()
             elif instruction == Op.HALT:
                 break
+            else:
+                raise ValueError(f"Instruction not supported: {instruction}")
 
     def _read_int32(self) -> int:
         return self._read_int(4)
