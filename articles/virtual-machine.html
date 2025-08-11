@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Machine</title>
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/fonts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css" integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="site-header">
+        <div class="site-header-content">
+            <a href="/index.html" class="site-header-link">Home</a>
+            <a href="/articles.html" class="site-header-link">Blog</a>
+        </div>
+    </div>
+    <div class="article-header">
+        <div class="article-header-content">
+            <h1 class="article-title">Virtual Machine</h1>
+            <p class="article-description">What is a virtual machine and how to create one?</p>
+            <p class="article-date">Aug 08, 2025</p>
+            
+        </div>
+    </div>
+    <main class="article-main">
+        <article class="article-body">
+            <p><pre class="article-code-block python"><code>a = 0
+b = 1
+n = 20
+
+for i in range(n):
+    c = a + b
+    print(c)
+    a = b
+    b = c</code></pre></p>
+<p><pre class="article-code-block None"><code># a = 0
+push 0
+store 0
+
+# b = 0
+push 1
+store 1
+
+# i = 0
+push 0
+store 2
+
+.label
+# c = a + b
+load 0
+load 1
+add
+store 3
+
+# print(c)
+load 3
+print
+
+# a = b
+load 1
+store 0
+
+# b = c
+load 3
+store 1
+
+# i++
+load 2
+push 1
+add
+store 2
+
+# goto .label if i<30
+load 2
+push 30
+lt
+jumpif .label</code></pre></p>
+<p>Instructions: <code class="article-code-inline">push</code>, <code class="article-code-inline">store</code>, <code class="article-code-inline">load</code>, <code class="article-code-inline">add</code>, <code class="article-code-inline">lt</code>, <code class="article-code-inline">jumpif</code>, <code class="article-code-inline">print</code></p>
+        </article>
+    </main>
+    <div class="article-hr"></div>
+    <div class="site-footer">
+        <div class="site-footer-content"></div>
+    </div>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" integrity="sha512-LQNxIMR5rXv7o+b1l8+N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r+EFLLCyA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" integrity="sha512-iWiuBS5nt6r60fCz26Nd0Zqe0nbk1ZTIQbl3Kv7kYsX+yKMUFHzjaH2+AnM6vp2Xs+gNmaBAVWJjSmuPw76Efg==" crossorigin="anonymous" referrerpolicy="no-referrer" onload="renderMathInElement(document.body, {
+        delimiters: [
+            {left: '[begin-latex]', right: '[end-latex]', display: true},
+            {left: '[begin-latex-inline]', right: '[end-latex-inline]', display: false},
+        ]
+    });"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" integrity="sha512-EBLzUL8XLl+va/zAsmXwS7Z2B1F9HUHkZwyS/VKwh3S7T/U0nF4BaU29EP/ZSf6zgiIxYAnKLu6bJ8dqpmX5uw==" crossorigin="anonymous" referrerpolicy="no-referrer" onload="hljs.highlightAll();"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/viz.js" integrity="sha512-vnRdmX8ZxbU+IhA2gLhZqXkX1neJISG10xy0iP0WauuClu3AIMknxyDjYHEpEhi8fTZPyOCWgqUCnEafDB/jVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/lite.render.js" integrity="sha512-uAHj1knkgGpl0fJcyjbcVY0f9j252eWzEeBxE4s4AQkPJkp/+U+rlfoOXlwreSzPhndCT+5YR00/QSD/nPqb+g==" crossorigin="anonymous" referrerpolicy="no-referrer" onload="
+        const viz = new Viz();
+        document.querySelectorAll('.article-graphviz').forEach(element => {
+            const content = element.textContent;
+            try {
+                viz.renderSVGElement(content)
+                    .then(svg => {
+                        element.textContent = '';
+                        element.appendChild(svg);
+                    })
+                    .catch(error => {
+                        console.error('Error rendering Graphviz SVG:', error);
+                        element.textContent = 'Error rendering graph. Check console for details.';
+                    });
+            } catch (error) {
+                console.error('Error with Viz.js rendering process:', error);
+                element.textContent = 'Error during graph rendering setup.';
+            }
+        });
+    "></script>
+</body>
+
+</html>

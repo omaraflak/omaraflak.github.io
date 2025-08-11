@@ -61,6 +61,4 @@ lt
 jumpif .label
 ```
 
-```
-push, store, load, add, lt, jumpif, print
-```
+Instructions: `push`, `store`, `load`, `add`, `lt`, `jumpif`, `print`
