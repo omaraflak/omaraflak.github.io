@@ -29,7 +29,7 @@
     </div>
     <main class="article-main">
         <article class="article-body">
-            <p><pre class="article-code-block python"><code>a = 0
+            <pre class="article-code-block python"><code>a = 0
 b = 1
 n = 20
 
@@ -37,8 +37,8 @@ for i in range(n):
     c = a + b
     print(c)
     a = b
-    b = c</code></pre></p>
-<p><pre class="article-code-block None"><code># a = 0
+    b = c</code></pre>
+<pre class="article-code-block None"><code># a = 0
 push 0
 store 0
 
@@ -79,8 +79,12 @@ store 2
 load 2
 push 30
 lt
-jumpif .label</code></pre></p>
+jumpif .label</code></pre>
 <p>Instructions: <code class="article-code-inline">push</code>, <code class="article-code-inline">store</code>, <code class="article-code-inline">load</code>, <code class="article-code-inline">add</code>, <code class="article-code-inline">lt</code>, <code class="article-code-inline">jumpif</code>, <code class="article-code-inline">print</code></p>
+<textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly" placeholder="Write assembly here..."></textarea>
+<input id="assemble" type="button" value="Assemble">
+<div style="font-family: courier;" id="output"></div>
+<script src="/assets/virtual-machine/vm.js"></script>
         </article>
     </main>
     <div class="article-hr"></div>

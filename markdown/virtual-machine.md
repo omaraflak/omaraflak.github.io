@@ -62,3 +62,10 @@ jumpif .label
 ```
 
 Instructions: `push`, `store`, `load`, `add`, `lt`, `jumpif`, `print`
+
+
+<textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly" placeholder="Write assembly here..."></textarea>
+<input id="assemble" type="button" value="Assemble">
+<div style="font-family: courier;" id="output"></div>
+
+<script src="/assets/virtual-machine/vm.js"></script>

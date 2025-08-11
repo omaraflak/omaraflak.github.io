@@ -72,6 +72,7 @@ jump .label
 halt
 """
 
+
 machine = vm.Vm(
     program=assembly.assemble(loop),
     stack=[0] * 16,
