@@ -194,8 +194,8 @@ b_m
 <p>In effect, this is mapping [begin-latex-inline]n[end-latex-inline] inputs to [begin-latex-inline]m[end-latex-inline] outputs.</p>
 <h3 id=backward-propagation class="article-small-section">Backward Propagation</h3>
 <p>As we said earlier, suppose we have a matrix containing the derivative of the error with respect to that layer's output [begin-latex-inline]\frac{\partial E}{\partial Y}[end-latex-inline]. We need to compute:</p>
-<p>1. The derivative of the error with respect to the parameters [begin-latex-inline]\frac{\partial E}{\partial W}[end-latex-inline], [begin-latex-inline]\frac{\partial E}{\partial B}[end-latex-inline]</p>
-<p>2. The derivative of the error with respect to the input [begin-latex-inline]\frac{\partial E}{\partial X}[end-latex-inline]</p>
+<ul><li class="article-li">The derivative of the error with respect to the parameters [begin-latex-inline]\frac{\partial E}{\partial W}[end-latex-inline], [begin-latex-inline]\frac{\partial E}{\partial B}[end-latex-inline]</li>
+<li class="article-li">The derivative of the error with respect to the input [begin-latex-inline]\frac{\partial E}{\partial X}[end-latex-inline]</li></ul>
 <p>Let's calculate [begin-latex-inline]\frac{\partial E}{\partial B}[end-latex-inline]. This matrix should be the same size as [begin-latex-inline]B[end-latex-inline] itself ([begin-latex-inline]m \times 1[end-latex-inline]):</p>
 <div class="article-latex">[begin-latex]\frac{\partial E}{\partial B} =
 \begin{bmatrix}
@@ -505,8 +505,8 @@ f'(x_n)
     def gradients(self) -> list[np.ndarray]:
         return [grad for module in self.modules for grad in module.gradients()]</code></pre>
 <p>As you can see, we now wrote very explicitly two ideas:</p>
-<p>1. Forward propagation: the output of one layer is the input of the next one</p>
-<p>2. Backward propagation: the input gradient of one layer is the output gradient of the previous one</p>
+<ul><li class="article-li">Forward propagation: the output of one layer is the input of the next one</li>
+<li class="article-li">Backward propagation: the input gradient of one layer is the output gradient of the previous one</li></ul>
 <p>With this class in hand, a neural network can be expressed as easily as this:</p>
 <pre class="article-code-block python"><code># A neural network that maps 10 inputs to 3 outputs
 network = Sequential([
@@ -595,9 +595,9 @@ class MSE(Loss):
         for i in range(len(parameters)):
             parameters[i] -= self.learning_rate * gradients[i]</code></pre>
 <p><span class="article-bold">Note:</span> there are 3 variants of gradient descent which have different names:</p>
-<p>1. <span class="article-bold">Gradient Descent</span>: the original method goes through the <span class="article-italic">entire</span> data, <span class="article-italic">accumulates</span> the gradients, and then does an update of the parameters (the average of the gradients at each step). This is slow in practice.</p>
-<p>2. <span class="article-bold">Stocastic Gradient Descent</span>: a variation where we do an update on the parameters after <span class="article-italic">every datapoint</span> seen. This is computationally expensive in practice.</p>
-<p>3. <span class="article-bold">Mini-Batch Gradient Descent</span>: a mix of 1 and 2 where we update the parameters after a predefined number of samples (mini-batch).</p>
+<ul><li class="article-li"><span class="article-bold">Gradient Descent</span>: the original method goes through the <span class="article-italic">entire</span> data, <span class="article-italic">accumulates</span> the gradients, and then does an update of the parameters (the average of the gradients at each step). This is slow in practice.</li>
+<li class="article-li"><span class="article-bold">Stocastic Gradient Descent</span>: a variation where we do an update on the parameters after <span class="article-italic">every datapoint</span> seen. This is computationally expensive in practice.</li>
+<li class="article-li"><span class="article-bold">Mini-Batch Gradient Descent</span>: a mix of 1 and 2 where we update the parameters after a predefined number of samples (mini-batch).</li></ul>
 <p>The optimizer class is agnostic of when it's being called and therefore this logic will be implemented upstream, in the next section. This is why we have this <code class="article-code-inline">zero_gradients()</code> method which will help us reset the gradients <span class="article-bold"><span class="article-italic">when we want to</span></span> so we don't accumulate (<code class="article-code-inline">+=</code>) indefinitely. Although in practice, you almost certainly want to reset the gradients after an update.</p>
 <h2 id=trainer class="article-section">Trainer</h2>
 <p>We now have all the pieces we need to write the training routine of our neural networks! Let's put this in a function:</p>
@@ -681,53 +681,7 @@ for x in x_train:
                     </div>
                 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/function-plot/1.25.1/function-plot.min.js" integrity="sha512-fsvE52IC5bx7NhuaGLoNE+Sq3EKFQ+fcvaJPE5hGemvMwQudqQuNXC4eG/8CjU2a90P88NzYPRl77iOcXerCHg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-<p>functionPlot({</p>
-<p>target: '#xor-plot',</p>
-<p>grid: true,</p>
-<p>xAxis: { domain: [-1, 2] },</p>
-<p>yAxis: { domain: [-1, 2] },</p>
-<p>data: [</p>
-<p>{</p>
-<p>points: [</p>
-<p>[0, 0],</p>
-<p>[0, 1],</p>
-<p>[1, 0],</p>
-<p>[1, 1],</p>
-<p>],</p>
-<p>fnType: 'points',</p>
-<p>graphType: 'scatter'</p>
-<p>},</p>
-<p>{</p>
-<p>fn: '0.5*x+0.2'</p>
-<p>},</p>
-<p>{</p>
-<p>graphType: 'text',</p>
-<p>location: [0, 0],</p>
-<p>text: '(0,0)',</p>
-<p>color: 'black'</p>
-<p>},</p>
-<p>{</p>
-<p>graphType: 'text',</p>
-<p>location: [0, 1],</p>
-<p>text: '(0,1)',</p>
-<p>color: 'blue'</p>
-<p>},</p>
-<p>{</p>
-<p>graphType: 'text',</p>
-<p>location: [1, 0],</p>
-<p>text: '(1,0)',</p>
-<p>color: 'blue'</p>
-<p>},</p>
-<p>{</p>
-<p>graphType: 'text',</p>
-<p>location: [1, 1],</p>
-<p>text: '(1,1)',</p>
-<p>color: 'black'</p>
-<p>}</p>
-<p>]</p>
-<p>})</p>
-<p></script></p>
+<script src="/assets/neural-network/xor.js"></script>
         </article>
     </main>
     <div class="article-hr"></div>

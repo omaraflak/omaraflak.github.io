@@ -195,27 +195,7 @@ KL(P || Q) &= H(P, Q) - H(P) \\
 <p>Where [begin-latex-inline]P[end-latex-inline] is the distribution of the <span class="article-bold">data</span>, and [begin-latex-inline]Q[end-latex-inline] is the distribution of the <span class="article-bold">model</span>. Since the data doesn't change during the training, [begin-latex-inline]H(P)[end-latex-inline] is a constant, we are essentially <span class="article-bold">minimising the relative entropy</span>, i.e. the difference between [begin-latex-inline]P[end-latex-inline] and [begin-latex-inline]Q[end-latex-inline].</p>
 <p>Interestingly, in the context of LLMs (Large Language Models), when we minimise the cross entropy and therefore minimise the relative entropy, the loss we end up with after training is an approximation (as KL goes to 0) of the entropy of the data distribution, that is, the entropy of language.</p>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/function-plot/1.25.1/function-plot.min.js" integrity="sha512-fsvE52IC5bx7NhuaGLoNE+Sq3EKFQ+fcvaJPE5hGemvMwQudqQuNXC4eG/8CjU2a90P88NzYPRl77iOcXerCHg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-<p>functionPlot({</p>
-<p>target: '#negative-log',</p>
-<p>xAxis: {</p>
-<p>label: 'x',</p>
-<p>domain: [-3, 6]</p>
-<p>},</p>
-<p>yAxis: {</p>
-<p>label: 'y=-log(x)',</p>
-<p>domain: [-2, 3.5]</p>
-<p>},</p>
-<p>annotations: [</p>
-<p>{</p>
-<p>x: 1,</p>
-<p>text: 'x = 1'</p>
-<p>}</p>
-<p>],</p>
-<p>grid: true,</p>
-<p>data: [{ fn: '-log(x)' }]</p>
-<p>})</p>
-<p></script></p>
+<script src="/assets/entropy/log.js"></script>
         </article>
     </main>
     <div class="article-hr"></div>
