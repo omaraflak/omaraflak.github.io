@@ -31,7 +31,7 @@
         <article class="article-body">
             <p>These particles are born in the left half of the screen, and are left to wander around... After some number of iterations, those who are in the right half of the canvas, <span class="article-bold">survive</span>, the others, are <span class="article-bold">killed</span>. Admittedly it's a rough world to live in, but that's life.</p>
 <p>Each particle has a small neural network brain that takes 4 inputs: the distance from the particle to each wall. The neural network outputs 4 numbers that we use to compute a displacement in the x axis [begin-latex-inline]dx[end-latex-inline] and a displacement in the y axis [begin-latex-inline]dy[end-latex-inline].</p>
-<p><div class="article-latex">[begin-latex]\tanh \left(
+<div class="article-latex">[begin-latex]\tanh \left(
 \begin{bmatrix}
     \text{top} \\
     \text{left} \\
@@ -51,14 +51,14 @@
     y_2 \\
     y_3 \\
     y_4
-\end{bmatrix}[end-latex]</div></p>
+\end{bmatrix}[end-latex]</div>
 <p>The displacements are computed arbitrarily as:</p>
-<p><div class="article-latex">[begin-latex]\left\{
+<div class="article-latex">[begin-latex]\left\{
 \begin{array}{ll}
     dx = y_1 - y_2 \\
     dy = y_3 - y_4
 \end{array}
-\right.[end-latex]</div></p>
+\right.[end-latex]</div>
 <p>When particles survive the death round, they are paired in groups of 2 to produce a child particle. The child particle's brain (<span class="article-italic">aka</span> neural network) is built by mixing the neural network parameters from each of its parents. More precisely, the neural network of the child inherits half the [begin-latex-inline]W[end-latex-inline] parameters matrix from each of its parents. The parents and the child are then taken to the next round.</p>
 <p>Interestingly, the parameters of each particle's brain are never trained per-se (for example with <a class="article-link" target="_blank" href="https://en.wikipedia.org/wiki/Gradient_descent)">gradient descent</a>, but simply built out of the parents brains. Another interesting fact is that particles are never told to go right; they don't even know how the output of their brain is being used. They have essentially <span class="article-italic">zero feedback</span> from the environment. However, since we only ever keep the particles that behaved in a certain way, i.e. went right, we end up with a population that has the sought-after characteristics.</p>
 <p>This is the process of natural selection.</p>

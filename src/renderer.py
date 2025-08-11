@@ -61,8 +61,9 @@ class Renderer(markdown.MarkdownRenderer):
         else:
             return f'<pre class="article-code-block {lang}"><code>{text}</code></pre>'
 
-    def render_quote(self, text: str) -> str:
-        return f'<div class="article-quote">{text}</div>'
+    def render_quote(self, lines: list[str]) -> str:
+        quote = '</br>'.join(lines)
+        return f'<div class="article-quote">{quote}</div>'
 
     def render_unordered_list(self, items: list[str]) -> str:
         li = '\n'.join(f'<li class="article-li">{i}</li>' for i in items)

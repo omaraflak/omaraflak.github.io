@@ -128,9 +128,11 @@ Put file download links using `[#download](/path/to/filename.whatever)`:
 
 [#download](/assets/demo/image.svg)
 
-You can also include content!
+You can include content using `#include`:
 
+```python
 [#include](./assets/demo/main.py)
+```
 
 ## Custom HTML & JS
 
@@ -139,11 +141,3 @@ You can put HTML tags and render something completely custom too.
 <div id="plotDiv" style="width: 100%"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.33.1/plotly.min.js" integrity="sha512-V0j9LhrK9IMNdFYZqh+IqU4cjo7wdxyHNyH+L0td4HryBuZ7Oq6QxP2/CWr6TituX31+gv5PnolvERuTbz8UNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="/assets/demo/demo.js"></script>
-
-# This is a *title*
-
-You can include content using `#include`:
-
-```python
-#include(./assets/demo/main.py)
-```

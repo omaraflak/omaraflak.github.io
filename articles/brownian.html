@@ -30,13 +30,13 @@
     <main class="article-main">
         <article class="article-body">
             <p>These particles are following a random walk, or brownian motion. At each time step, we get a random direction in space for each particle and move it towards that direction.</p>
-<p><div class="article-latex">[begin-latex]\left\{
+<div class="article-latex">[begin-latex]\left\{
 \begin{align*}
 &\theta \sim U(0, 1) \\
 &x_{t+1} = x_t + r \cos(2\pi\theta) \\
 &y_{t+1} = y_t + r \sin(2\pi\theta)
 \end{align*}
-\right.[end-latex]</div></p>
+\right.[end-latex]</div>
 <canvas id="canvas" style="width: 100%; overflow-x: auto;"></canvas>
 <h3 id=mean-squared-displacement class="article-small-section">Mean Squared Displacement</h3>
 <p>This is the <a class="article-link" target="_blank" href="https://en.wikipedia.org/wiki/Mean_squared_displacement) over time. It is the average distance of a particle to its initial starting point (here, the center of the canvas">mean squared displacement</a>.</p>

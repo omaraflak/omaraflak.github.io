@@ -44,9 +44,9 @@
 <p>More precisely, the negative logarithms:</p>
 <center><div id="negative-log"></div></center>
 <p>We define information mathematically as:</p>
-<p><div class="article-latex">[begin-latex]I(x) = -log(p(x)) \\
+<div class="article-latex">[begin-latex]I(x) = -log(p(x)) \\
 \text{or} \\
-I(p) = -log(p)[end-latex]</div></p>
+I(p) = -log(p)[end-latex]</div>
 <span class="article-italic">I might use either notation depending on the context to make the equations lighter.</span>
 <p>We said <span class="article-bold"><span class="article-italic">the family of functions</span></span> earlier — indeed, logarithms of <span class="article-italic">all</span> bases respect the properties listed above. You can use any of them, the difference will be in the <span class="article-bold">unit</span> of the information:</p>
 <ul><li class="article-li">[begin-latex-inline]log_2(x)[end-latex-inline] will give <span class="article-bold"><span class="article-italic">bits</span></span></li>
@@ -72,19 +72,19 @@ I(p) = -log(p)[end-latex]</div></p>
 <li class="article-li"><span class="article-bold">O</span>range [begin-latex-inline]p=0.1[end-latex-inline]</li></ul>
 <p>A natural question is: <span class="article-bold"><span class="article-italic">on average</span></span>, what is the information gained for observing an event from that random experiment? We are asking the same question as before, but of course since each outcome has a different probability, and since the information depends on the probability, the result will change for different outcomes. Therefore we ask about the <span class="article-bold"><span class="article-italic">average</span></span> outcome.</p>
 <p>One way is to sum the information gained by each event <span class="article-bold"><span class="article-italic">weighted</span></span> by the probability of realisation.</p>
-<p><div class="article-latex">[begin-latex]\begin{align*}
+<div class="article-latex">[begin-latex]\begin{align*}
 \mathbb{E}[I] &= p(M) * I(M) + p(A) * I(A) + p(O) * I(O) \\
 &= -p(M)*log(p(M)) -p(A)*log(p(A)) -p(O)*log(p(O)) \\
 &= -0.7*log(0.7) -0.2*log(0.2) -0.1*log(0.1) \\
 &= 0.35
-\end{align*}[end-latex]</div></p>
+\end{align*}[end-latex]</div>
 <div class="article-quote">That is exactly what <span class="article-bold">entropy</span> is!</div>
 <p>We call entropy the <span class="article-bold">expected amount of information</span> gained for observing an event from a random variable. In other words, this answers the question: "If I sample an event from a variable [begin-latex-inline]X[end-latex-inline]; On average, what is the information gained for observing one of [begin-latex-inline]x_1[end-latex-inline], [begin-latex-inline]x_2[end-latex-inline], ..., or [begin-latex-inline]x_n[end-latex-inline] given the probability distribution of those events?".</p>
 <p>We usually denote the entropy of a random variable [begin-latex-inline]X[end-latex-inline] as [begin-latex-inline]H(X)[end-latex-inline]:</p>
-<p><div class="article-latex">[begin-latex]\begin{align*}
+<div class="article-latex">[begin-latex]\begin{align*}
 H(X) &= \sum_x p(x) * I(x) \\
 &= - \sum_x p(x) * log(p(x))
-\end{align*}[end-latex]</div></p>
+\end{align*}[end-latex]</div>
 <div class="article-quote">An interesting follow up question is: when is the entropy minimal/maximal ?</div>
 <p>We can try to intuitively answer. Give it a thought!</p>
 <h3 id=minimal-entropy class="article-small-section">Minimal Entropy</h3>
@@ -94,7 +94,7 @@ H(X) &= \sum_x p(x) * I(x) \\
 <div class="article-quote">You can see the uniform distribution as the most <span class="article-bold"><span class="article-italic">"unpredictable"</span></span> — the one for which each event brings the maximum amount of information content.</div>
 <div class="article-hr"></div>
 <p>I highly advise checking out 3B1B video on how to solve the game Wordle using the concept of entropy.</p>
-<p>
+
                     <div class="article-link-preview-container">
                         <a class="article-link-preview-link" target="_blank" href="https://www.youtube.com/watch?v=v68zYyaEmEA">
                             <span class="article-link-preview-title">Solving Wordle using information theory</span>
@@ -102,7 +102,7 @@ H(X) &= \sum_x p(x) * I(x) \\
                             <span class="article-link-preview-website">www.youtube.com</span>
                         </a>
                     </div>
-                </p>
+                
 <div class="article-hr"></div>
 <p>There's also another way to interpret entropy, and it's going to be useful for the rest of the article, so before going further with <span class="article-italic">Cross Entropy</span> and <span class="article-italic">Relative Entropy</span>, we're making a little stop at <span class="article-bold"><span class="article-italic">encoders</span></span>.</p>
 <h2 id=encoders class="article-section">Encoders</h2>
@@ -144,7 +144,7 @@ H(X) &= \sum_x p(x) * I(x) \\
 <p>A natural question is then:</p>
 <div class="article-quote">What is the minimum number of bits we can use to encode events drawn from a given probability distribution?</div>
 <p>The answer is... <span class="article-bold">entropy</span>!</p>
-<p>
+
                     <div class="article-link-preview-container">
                         <a class="article-link-preview-link" target="_blank" href="https://en.wikipedia.org/wiki/Shannon%27s_source_coding_theorem">
                             <span class="article-link-preview-title">Shannon&#039;s source coding theorem - Wikipedia</span>
@@ -152,7 +152,7 @@ H(X) &= \sum_x p(x) * I(x) \\
                             <span class="article-link-preview-website">en.wikipedia.org</span>
                         </a>
                     </div>
-                </p>
+                
 <p>To clarify: the entropy is the <span class="article-bold">theoretical minimum</span>, but in practice you may not come up with an encoder that uses [begin-latex-inline]H(X)[end-latex-inline] number of bits on average.</p>
 <p>Now that we're equipped with this new insight, let's tackle the next concepts!</p>
 <h2 id=cross-entropy class="article-section">Cross Entropy</h2>
@@ -163,31 +163,31 @@ H(X) &= \sum_x p(x) * I(x) \\
 <div class="article-quote">The cross entropy between [begin-latex-inline]P[end-latex-inline] and [begin-latex-inline]Q[end-latex-inline] is the average number of bits needed to encode events from [begin-latex-inline]P[end-latex-inline] using an optimal encoder for [begin-latex-inline]Q[end-latex-inline]. We denote that number [begin-latex-inline]H(P, Q)[end-latex-inline].</div>
 <p>Said differently, it means that you were <span class="article-bold">expecting</span> data from a probability distribution [begin-latex-inline]Q[end-latex-inline], but in reality the data belonged to a probability distribution [begin-latex-inline]P[end-latex-inline]. And the average number of bits used to encode those events from [begin-latex-inline]P[end-latex-inline] (while expecting they were drawn from [begin-latex-inline]Q[end-latex-inline]) is what we call the cross entropy.</p>
 <span class="article-italic">Can you guess the formula?</span>
-<p><div class="article-latex">[begin-latex]\begin{align*}
+<div class="article-latex">[begin-latex]\begin{align*}
 H(P, Q) &= p(x_1) * I(q(x_1)) + p(x_2) * I(q(x_2)) + \ldots \\
 &= \sum_x p(x) * I(q(x)) \\
 &= - \sum_x p(x) * log(q(x)) \\
-\end{align*}[end-latex]</div></p>
+\end{align*}[end-latex]</div>
 <p>This looks very much like [begin-latex-inline]H(Q)[end-latex-inline], but the information is weighted by the probabilities coming from [begin-latex-inline]P[end-latex-inline]. This makes sense:</p>
 <p>You will be using [begin-latex-inline]Q[end-latex-inline] to encode events coming from the machine, therefore the information content will be calculated using [begin-latex-inline]q(x)[end-latex-inline]. However, the <span class="article-bold"><span class="article-italic">actual weighting</span></span> of the information for each event comes from [begin-latex-inline]P[end-latex-inline] since that is the <span class="article-bold">true frequency</span> of the events.</p>
 <div class="article-quote">Notice that [begin-latex-inline]H(P, Q) \neq H(Q, P)[end-latex-inline].</div>
 <p>Also, notice that if you had guessed [begin-latex-inline]P[end-latex-inline] perfectly well ([begin-latex-inline]Q=P[end-latex-inline]), then the result should be the theoretical minimum number of bits possible to encode events from [begin-latex-inline]P[end-latex-inline], that is the <span class="article-bold">entropy</span>:</p>
-<p><div class="article-latex">[begin-latex]\begin{align*}
+<div class="article-latex">[begin-latex]\begin{align*}
 H(P, P) &= - \sum_x p(x) * log(p(x)) \\
 &= H(P)
-\end{align*}[end-latex]</div></p>
+\end{align*}[end-latex]</div>
 <h2 id=relative-entropy class="article-section">Relative Entropy</h2>
 <p>Lastly, the <span class="article-bold"><span class="article-italic">relative entropy</span></span>, also known as the <span class="article-bold"><span class="article-italic">KL divergence</span></span>.</p>
 <p>If you've understood the <span class="article-italic">cross entropy</span>, then this should be a piece of cake!</p>
 <p>The <span class="article-bold"><span class="article-italic">cross entropy</span></span> is the average number of bits used if you encode events drawn from a distribution [begin-latex-inline]P[end-latex-inline] while expecting the events to come from a distribution [begin-latex-inline]Q[end-latex-inline]. We said this number must be higher or equal to [begin-latex-inline]H(P)[end-latex-inline] since that would be the number of bits used by a perfect encoder for [begin-latex-inline]P[end-latex-inline]. [begin-latex-inline]H(P)[end-latex-inline] is a <span class="article-bold">lower bound</span> for [begin-latex-inline]H(P, Q)[end-latex-inline].</p>
 <p>The number of <span class="article-italic">extra</span> bits used <span class="article-bold">relative to</span> [begin-latex-inline]H(P)[end-latex-inline] is what we call the <span class="article-bold"><span class="article-italic">relative entropy</span></span> and we denote it [begin-latex-inline]KL(P||Q)[end-latex-inline]! That is, not the entire entropy but just the extra you used due to the error in guessing [begin-latex-inline]P[end-latex-inline].</p>
 <div class="article-quote">The relative entropy is the difference in information used by a suboptimal encoder and an optimal encoder: [begin-latex-inline]H(P, Q) - H(P)[end-latex-inline].</div>
-<p><div class="article-latex">[begin-latex]\begin{align*}
+<div class="article-latex">[begin-latex]\begin{align*}
 KL(P || Q) &= H(P, Q) - H(P) \\
 &= -\sum_x p(x) * log(q(x)) + \sum_x p(x) log(p(x)) \\
 &= \sum_x p(x) * (log(p(x)) - log(q(x))) \\
 &= \sum_x p(x) * log\left(\frac{p(x)}{q(x)}\right) \\
-\end{align*}[end-latex]</div></p>
+\end{align*}[end-latex]</div>
 <p>Like the cross entropy, the <span class="article-italic">relative entropy</span> is not commutative: [begin-latex-inline]KL(P||Q) \neq KL(Q||P)[end-latex-inline]. You can understand it as a measure of <span class="article-bold"><span class="article-italic">relative difference</span></span> between two probability distributions, the minimum being [begin-latex-inline]0[end-latex-inline] when [begin-latex-inline]Q=P[end-latex-inline].</p>
 <h3 id=last-note class="article-small-section">Last Note</h3>
 <p>In machine learning, we try to minimise the cross entropy:</p>
@@ -197,23 +197,23 @@ KL(P || Q) &= H(P, Q) - H(P) \\
 <script src="https://cdnjs.cloudflare.com/ajax/libs/function-plot/1.25.1/function-plot.min.js" integrity="sha512-fsvE52IC5bx7NhuaGLoNE+Sq3EKFQ+fcvaJPE5hGemvMwQudqQuNXC4eG/8CjU2a90P88NzYPRl77iOcXerCHg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 <p>functionPlot({</p>
-<p>    target: '#negative-log',</p>
-<p>    xAxis: {</p>
-<p>        label: 'x',</p>
-<p>        domain: [-3, 6]</p>
-<p>    },</p>
-<p>    yAxis: {</p>
-<p>        label: 'y=-log(x)',</p>
-<p>        domain: [-2, 3.5]</p>
-<p>    },</p>
-<p>    annotations: [</p>
-<p>        {</p>
-<p>            x: 1,</p>
-<p>            text: 'x = 1'</p>
-<p>        }</p>
-<p>    ],</p>
-<p>    grid: true,</p>
-<p>    data: [{ fn: '-log(x)' }]</p>
+<p>target: '#negative-log',</p>
+<p>xAxis: {</p>
+<p>label: 'x',</p>
+<p>domain: [-3, 6]</p>
+<p>},</p>
+<p>yAxis: {</p>
+<p>label: 'y=-log(x)',</p>
+<p>domain: [-2, 3.5]</p>
+<p>},</p>
+<p>annotations: [</p>
+<p>{</p>
+<p>x: 1,</p>
+<p>text: 'x = 1'</p>
+<p>}</p>
+<p>],</p>
+<p>grid: true,</p>
+<p>data: [{ fn: '-log(x)' }]</p>
 <p>})</p>
 <p></script></p>
         </article>

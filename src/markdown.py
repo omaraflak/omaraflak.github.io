@@ -23,8 +23,9 @@ class MarkdownRenderer:
         else:
             return f'<pre><code>{text}</code></pre>'
 
-    def render_quote(self, text: str) -> str:
-        return f'<span>{text}</span>'
+    def render_quote(self, lines: list[str]) -> str:
+        quote = '</br>'.join(lines)
+        return f'<span>{quote}</span>'
 
     def render_unordered_list(self, items: list[str]) -> str:
         li = '\n'.join(f'<li>{i}</li>' for i in items)
@@ -58,8 +59,8 @@ class Markdown:
     LINK = re.compile(r'\[(?P<title>.*)\]\((?P<url>.+)\)')
     IMAGE = re.compile(r'!\[(?P<alt>.*)\]\((?P<url>.+)\)')
     SEPARATOR = re.compile(r'^---$')
-    INCLUDE = re.compile(r'#include\((?P<path>.*?)\)')
-    UUID = re.compile(r'(?P<uid>\%\%[a-z]{5}-[a-z]{3}\%\%)')
+    INCLUDE = re.compile(r'\[#include\]\((?P<path>.*?)\)')
+    UUID = re.compile(r'(?P<uid><uid>[a-z]{5}-[a-z]{3}</uid>)')
     HTML = re.compile(r'^<(\w+).*>(.*</\1>)?$')
 
     def __init__(self, renderer: MarkdownRenderer | None = None):
@@ -67,6 +68,8 @@ class Markdown:
         self.immutables: dict[str, str] = dict()
 
     def _immutable(render: Callable[[re.Match[str]], str]) -> Callable[[re.Match[str]], str]:
+        """Prevents a content from being altered by other tags, e.g. bold, italic, etc."""
+
         def _render(self: 'Markdown', match: re.Match[str]) -> str:
             uid = Markdown._uuid()
             rendered = render(self, match)
@@ -76,7 +79,7 @@ class Markdown:
 
     def _render_uid(self, match: re.Match[str]) -> str:
         uid = match.group('uid')
-        return self.immutables[uid]
+        return self.immutables.pop(uid)
 
     def _render_bold(self, match: re.Match[str]) -> str:
         text = match.group('text')
@@ -101,8 +104,7 @@ class Markdown:
         text = match.group('block')
         lines = [line.strip() for line in text.splitlines()]
         lines = [line.strip('>').strip() for line in lines if line]
-        quote = '</br>'.join(lines)
-        return self.renderer.render_quote(quote)
+        return self.renderer.render_quote(lines)
 
     def _render_unordered_list(self, match: re.Match[str]) -> str:
         text = match.group('list')
@@ -152,26 +154,33 @@ class Markdown:
         text = Markdown.UNORDERED_LIST.sub(self._render_unordered_list, text)
         return text
 
-    def convert(self, markdown_text: str) -> str:
-        markdown_text = self._render_multilines(markdown_text)
+    def convert(self, markdown: str) -> str:
+        markdown = self._render_multilines(markdown)
 
         html = []
-        for line in markdown_text.splitlines():
-            if not line.strip():
+        for line in markdown.splitlines():
+            line = line.strip()
+
+            if not line:
                 continue
 
             line = self._render_inlines(line)
-            line = Markdown.UUID.sub(self._render_uid, line)
             if not Markdown.HTML.match(line):
                 line = self.renderer.render_paragraph(line)
 
             html.append(line)
 
-        return '\n'.join(html)
+        result = '\n'.join(html)
+
+        # some uids might be nested under other uids...
+        while self.immutables:
+            result = Markdown.UUID.sub(self._render_uid, result)
+
+        return result
 
     @staticmethod
     def _uuid() -> str:
         letters = string.ascii_lowercase
         a = ''.join(random.choice(letters) for _ in range(5))
         b = ''.join(random.choice(letters) for _ in range(3))
-        return f'%%{a}-{b}%%'
+        return f'<uid>{a}-{b}</uid>'
