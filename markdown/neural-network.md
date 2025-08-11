@@ -258,8 +258,8 @@ In effect, this is mapping `$n$` inputs to `$m$` outputs.
 
 As we said earlier, suppose we have a matrix containing the derivative of the error with respect to that layer's output `$\frac{\partial E}{\partial Y}$`. We need to compute:
 
-1. The derivative of the error with respect to the parameters `$\frac{\partial E}{\partial W}$`, `$\frac{\partial E}{\partial B}$`
-2. The derivative of the error with respect to the input `$\frac{\partial E}{\partial X}$`
+- The derivative of the error with respect to the parameters `$\frac{\partial E}{\partial W}$`, `$\frac{\partial E}{\partial B}$`
+- The derivative of the error with respect to the input `$\frac{\partial E}{\partial X}$`
 
 Let's calculate `$\frac{\partial E}{\partial B}$`. This matrix should be the same size as `$B$` itself (`$m \times 1$`):
 
@@ -645,8 +645,8 @@ class Sequential(Module):
 
 As you can see, we now wrote very explicitly two ideas:
 
-1. Forward propagation: the output of one layer is the input of the next one
-2. Backward propagation: the input gradient of one layer is the output gradient of the previous one
+- Forward propagation: the output of one layer is the input of the next one
+- Backward propagation: the input gradient of one layer is the output gradient of the previous one
 
 With this class in hand, a neural network can be expressed as easily as this:
 
@@ -776,9 +776,9 @@ class SGD(Optimizer):
 
 **Note:** there are 3 variants of gradient descent which have different names:
 
-1. **Gradient Descent**: the original method goes through the *entire* data, *accumulates* the gradients, and then does an update of the parameters (the average of the gradients at each step). This is slow in practice.
-2. **Stocastic Gradient Descent**: a variation where we do an update on the parameters after *every datapoint* seen. This is computationally expensive in practice.
-3. **Mini-Batch Gradient Descent**: a mix of 1 and 2 where we update the parameters after a predefined number of samples (mini-batch).
+- **Gradient Descent**: the original method goes through the *entire* data, *accumulates* the gradients, and then does an update of the parameters (the average of the gradients at each step). This is slow in practice.
+- **Stocastic Gradient Descent**: a variation where we do an update on the parameters after *every datapoint* seen. This is computationally expensive in practice.
+- **Mini-Batch Gradient Descent**: a mix of 1 and 2 where we update the parameters after a predefined number of samples (mini-batch).
 
 The optimizer class is agnostic of when it's being called and therefore this logic will be implemented upstream, in the next section. This is why we have this `zero_gradients()` method which will help us reset the gradients ***when we want to*** so we don't accumulate (`+=`) indefinitely. Although in practice, you almost certainly want to reset the gradients after an update.
 
@@ -882,50 +882,4 @@ I am sure this is not a satisfying result after going through all that math. So 
 [](https://omaraflak.github.io/articles/neural-network-2.html)
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/function-plot/1.25.1/function-plot.min.js" integrity="sha512-fsvE52IC5bx7NhuaGLoNE+Sq3EKFQ+fcvaJPE5hGemvMwQudqQuNXC4eG/8CjU2a90P88NzYPRl77iOcXerCHg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-functionPlot({
-  target: '#xor-plot',
-  grid: true,
-  xAxis: { domain: [-1, 2] },
-  yAxis: { domain: [-1, 2] },
-  data: [
-    {
-        points: [
-            [0, 0],
-            [0, 1],
-            [1, 0],
-            [1, 1],
-        ],
-        fnType: 'points',
-        graphType: 'scatter'
-    },
-    {
-        fn: '0.5*x+0.2'
-    },
-    {
-        graphType: 'text',
-        location: [0, 0],
-        text: '(0,0)',
-        color: 'black'
-    },
-    {
-        graphType: 'text',
-        location: [0, 1],
-        text: '(0,1)',
-        color: 'blue'
-    },
-    {
-        graphType: 'text',
-        location: [1, 0],
-        text: '(1,0)',
-        color: 'blue'
-    },
-    {
-        graphType: 'text',
-        location: [1, 1],
-        text: '(1,1)',
-        color: 'black'
-    }
-  ]
-})
-</script>
+<script src="/assets/neural-network/xor.js"></script>
