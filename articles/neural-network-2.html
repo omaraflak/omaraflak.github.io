@@ -32,7 +32,7 @@
             <p>In <span class="article-bold"><a class="article-link" target="_blank" href="/articles/neural-network.html">part 1</a></span> we developed a fully functional neural network library that supports any type of layer, loss function, and optimization method. We then trained a small model to mimic the XOR function.</p>
 <p>I can understand how this ending may not be very satisfying given the efforts made to build the library. Thus, in part 2, we extend that library with 2 additional components: <span class="article-bold">Softmax</span> layer, and <span class="article-bold">Cross-Entropy</span> loss, and train a neural network to recognize hand-written digits.</p>
 <p>You can find the entire code of the article on my GitHub:</p>
-<p>
+
                     <div class="article-link-preview-container">
                         <a class="article-link-preview-link" target="_blank" href="https://github.com/omaraflak/neural-network-from-scratch">
                             <span class="article-link-preview-title">GitHub - omaraflak/neural-network-from-scratch: Code for my article on omaraflak.github.io</span>
@@ -40,10 +40,10 @@
                             <span class="article-link-preview-website">github.com</span>
                         </a>
                     </div>
-                </p>
+                
 <h2 id=mnist class="article-section">MNIST</h2>
 <p>The MNIST dataset contains images of hand-written digits from 0 to 9. More precisely, it has 60k training images and 10k test images. Each image is 28x28 pixels, greyscale (0-255). I provide a helper function <code class="article-code-inline">download_mnist()</code> in the GitHub repository to load the dataset.</p>
-<p><pre class="article-code-block python"><code>>>> x_train, y_train, x_test, y_test = download_mnist()
+<pre class="article-code-block python"><code>>>> x_train, y_train, x_test, y_test = download_mnist()
 >>> x_train.shape
 (60000, 28, 28)
 >>> y_train.shape
@@ -51,12 +51,12 @@
 >>> x_test.shape
 (10000, 28, 28)
 >>> y_test.shape
-(10000,)</code></pre></p>
+(10000,)</code></pre>
 <p>If you plotted the first 15 images of the training set, you'd see this:</p>
 <center><img class="article-image" height="" width="100%" src="/assets/neural-network/mnist.png" alt="mnist images"></center>
 <p>The labels themselves are just the numbers on the images:</p>
-<p><pre class="article-code-block python"><code>>>> print(y_train[:15])
-[5 0 4 1 9 2 1 3 1 4 3 5 3 6 1]</code></pre></p>
+<pre class="article-code-block python"><code>>>> print(y_train[:15])
+[5 0 4 1 9 2 1 3 1 4 3 5 3 6 1]</code></pre>
 <p>The goal is to build a neural network that takes the 28x28 image as input and predicts the label (0-9).</p>
 <p>To build this model, we need to add 2 extra components to our library: Softmax and Cross-Entropy. One is an activation function, the other is a loss function.</p>
 <h2 id=softmax class="article-section">Softmax</h2>
@@ -80,21 +80,21 @@
 <div class="article-latex">[begin-latex]\frac{\partial E}{\partial x_k} = \sum_i \frac{\partial E}{\partial y_i} \frac{\partial y_i}{\partial x_k}[end-latex]</div>
 <p>[begin-latex-inline]\frac{\partial y_i}{\partial x_k}[end-latex-inline] will change depending on whether [begin-latex-inline]i=k[end-latex-inline] or not, because that will make the numerator of [begin-latex-inline]\sigma(x)_i[end-latex-inline] a variable or a constant with respect to [begin-latex-inline]x_k[end-latex-inline].</p>
 <p>If [begin-latex-inline]i=k[end-latex-inline]:</p>
-<p><div class="article-latex">[begin-latex]\begin{align*}
+<div class="article-latex">[begin-latex]\begin{align*}
 \dfrac{\partial y_i}{\partial x_k} &= \dfrac{\partial \sigma(x)_k}{\partial x_k} \\[3ex]
 &= \dfrac{e^{x_k} \sum_i e^{x_i} - (e^{x_k})^2}{(\sum_i e^{x_i})^2} \\[3ex]
 &= \dfrac{e^{x_k}}{\sum_i e^{x_i}} - \left(\dfrac{e^{x_k}}{\sum_i e^{x_i}}\right)^2 \\[3ex]
 &= y_k - {y_k}^2 \\[3ex]
 &= y_k (1 - y_k)
-\end{align*}[end-latex]</div></p>
+\end{align*}[end-latex]</div>
 <p>If [begin-latex-inline]i \neq k[end-latex-inline]:</p>
-<p><div class="article-latex">[begin-latex]\begin{align*}
+<div class="article-latex">[begin-latex]\begin{align*}
 \dfrac{\partial y_i}{\partial x_k} &= \dfrac{\partial \sigma(x)_i}{\partial x_k} \\[3ex]
 &= e^{x_i} \dfrac{-e^{x_k}}{(\sum_i e^{x_i})^2} \\[3ex]
 &= -y_i y_k
-\end{align*}[end-latex]</div></p>
+\end{align*}[end-latex]</div>
 <p>We can now substitute those into the vector form:</p>
-<p><div class="article-latex">[begin-latex]\begin{align*}
+<div class="article-latex">[begin-latex]\begin{align*}
 \frac{\partial E}{\partial X} &=
 \begin{bmatrix}
 \dfrac{\partial E}{\partial x_1} \\[3ex]
@@ -203,18 +203,18 @@ y_1 & y_2 & \cdots & y_n
 \\
 &=
 (M \odot (I_n - M^{\top})) \frac{\partial E}{\partial Y}
-\end{align*}[end-latex]</div></p>
+\end{align*}[end-latex]</div>
 <span class="article-bold"><span class="article-italic">Phew!</span></span>
 <p>Where [begin-latex-inline]\odot[end-latex-inline] is the element-wise product and:</p>
-<p><div class="article-latex">[begin-latex]M = \begin{bmatrix}
+<div class="article-latex">[begin-latex]M = \begin{bmatrix}
 y_1 & y_2 & \cdots & y_n \\
 y_1 & y_2 & \cdots & y_n \\
 \vdots & \vdots & \ddots & \vdots \\
 y_1 & y_2 & \cdots & y_n
-\end{bmatrix}[end-latex]</div></p>
+\end{bmatrix}[end-latex]</div>
 <h2 id=softmax-code class="article-section">Softmax Code</h2>
 <p>The implementation is straightforward and we can take advantage of NumPy's broadcasting to avoid building [begin-latex-inline]M[end-latex-inline] ourselves.</p>
-<p><pre class="article-code-block python"><code>class Softmax(Module):
+<pre class="article-code-block python"><code>class Softmax(Module):
     """Softmax activation layer."""
 
     def forward(self, inputs: np.ndarray) -> np.ndarray:
@@ -224,15 +224,15 @@ y_1 & y_2 & \cdots & y_n
 
     def backward(self, output_grad: np.ndarray) -> np.ndarray:
         n = np.size(self.outputs)
-        return np.dot(self.outputs * (np.identity(n) - self.outputs.T), output_grad)</code></pre></p>
+        return np.dot(self.outputs * (np.identity(n) - self.outputs.T), output_grad)</code></pre>
 <p>We can verify that this does what we want:</p>
-<p><pre class="article-code-block python"><code>>>> import modules
+<pre class="article-code-block python"><code>>>> import modules
 >>> softmax = modules.Softmax()
 >>> softmax.forward([1, 5, 3, 6])
-array([0.00473036, 0.25826895, 0.0349529 , 0.70204779])</code></pre></p>
+array([0.00473036, 0.25826895, 0.0349529 , 0.70204779])</code></pre>
 <p>We now have have a way to force the neural network to output a probability distribution by adding this layer <span class="article-bold">at the end</span> of the network. We could theoretically start training the neural network like we did with XOR using MSE, but in practice this won't work well.</p>
 <p>Whenever we have <span class="article-bold">classification</span> tasks, i.e. the network outputs a probability distribution over the possible labels, <span class="article-bold">Cross-Entropy</span> is the go-to loss function. To understand why, I invite you to look at a deepr explanation of the concepts of <span class="article-italic">entropy</span>, <span class="article-italic">cross-entropy</span>, and <span class="article-italic">relative entropy</span>:</p>
-<p>
+
                     <div class="article-link-preview-container">
                         <a class="article-link-preview-link" target="_blank" href="https://omaraflak.github.io/articles/entropy.html">
                             <span class="article-link-preview-title">Information & Entropy</span>
@@ -240,7 +240,7 @@ array([0.00473036, 0.25826895, 0.0349529 , 0.70204779])</code></pre></p>
                             <span class="article-link-preview-website">omaraflak.github.io</span>
                         </a>
                     </div>
-                </p>
+                
 <h2 id=cross-entropy class="article-section">Cross-Entropy</h2>
 <p>The cross-entropy loss is a way to measure the difference between two probability distributions. We are exactly in that case, where the network outputs a certain distribution due to Softmax, but we want to compare that against the actual distribution which is our labels.</p>
 <p>If [begin-latex-inline]y^*[end-latex-inline] is the <span class="article-bold"><span class="article-italic">true</span></span> ditribution, and [begin-latex-inline]y[end-latex-inline] is the <span class="article-bold"><span class="article-italic">predicted</span></span> distribution, then the cross-entropy loss is:</p>
@@ -252,18 +252,18 @@ array([0.00473036, 0.25826895, 0.0349529 , 0.70204779])</code></pre></p>
 <div class="article-latex">[begin-latex]\frac{\partial E}{\partial y_i} = -\frac{y^*_i}{y_i}[end-latex]</div>
 <p>Therefore, [begin-latex-inline]\frac{\partial E}{\partial Y} = -Y^* \oslash Y[end-latex-inline], where [begin-latex-inline]\oslash[end-latex-inline] is element-wise division.</p>
 <h3 id=cross-entropy-code class="article-small-section">Cross-Entropy Code</h3>
-<p><pre class="article-code-block python"><code>class CrossEntropy(Loss):
+<pre class="article-code-block python"><code>class CrossEntropy(Loss):
     """Cross entropy loss."""
 
     def loss(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
         return -np.sum(y_true * np.log(y_pred))
 
     def loss_prime(self, y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:
-        return -y_true / y_pred</code></pre></p>
+        return -y_true / y_pred</code></pre>
 <p>We are now ready to train on MNIST!</p>
 <h2 id=mnist-solver class="article-section">MNIST Solver</h2>
 <p>Because we have inputs of shape [begin-latex-inline]28 \times 28[end-latex-inline], and we currently only support column vectors, we will flatten our images to vectors of size [begin-latex-inline]28 \times 28=784[end-latex-inline]. It's also a good practice to normalize the inputs; since pixel values are in [begin-latex-inline][0, 255][end-latex-inline], we just divide by [begin-latex-inline]255[end-latex-inline].</p>
-<p><pre class="article-code-block python"><code>def one_hot_encoding(y: np.ndarray, num_classes: int = None) -> np.ndarray:
+<pre class="article-code-block python"><code>def one_hot_encoding(y: np.ndarray, num_classes: int = None) -> np.ndarray:
     y = np.array(y, dtype='int').ravel()
     num_classes = num_classes or np.max(y) + 1
     n = y.shape[0]
@@ -310,15 +310,15 @@ for x, y in zip(x_test, y_test):
     if true == pred:
         score += 1
 
-print(f"Score: {100 * score / len(x_test):.2f}%")</code></pre></p>
+print(f"Score: {100 * score / len(x_test):.2f}%")</code></pre>
 <p>Notice that we're training on the first 3k examples and not the full 60k which can take some time with our current implementation.</p>
-<p><pre class="article-code-block shell"><code>1/30 error=3.10702
+<pre class="article-code-block shell"><code>1/30 error=3.10702
 2/30 error=1.33642
 3/30 error=0.88651
 ...
 29/30 error=0.04302
 30/30 error=0.04136
-Score: 78.24%</code></pre></p>
+Score: 78.24%</code></pre>
 <p>This is working!</p>
         </article>
     </main>
