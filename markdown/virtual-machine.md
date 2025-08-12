@@ -290,11 +290,40 @@ int multiply(int a, int b) {
 
 Will return tokens: `int`, `multiply`, `(`, `int`, `a`, `,`, `int`, `b`, `)`, `{`, `return`, `a`, `*`, `b`, `;`, `}`.
 
-Notice that this is not a simple split-by-space, but not too far from it. The tokenizer will generally assign a type to each token, e.g. `STRING`, `NUMBER`, `LEFT_PARENTHESIS`, `RIGHT_PARENTHESIS`, `LABEL`, etc.
+Notice that this is not a simple split-by-space, but not too far from it. The tokenizer will generally assign a type to each token, e.g. `STRING`, `NUMBER`, `LEFT_PARENTHESIS`, `RIGHT_PARENTHESIS`, `IDENTIFIER`, etc.
 
 ## 2. Abstract Syntax Tree
 
-The tokens from the previous step are then used to build an *Abastract Syntax Tree*, AST. The AST represents the **logic** of your code in a way that is independent from the syntax of your language. Essentially, this is a Tree structure, with `IF`-nodes, `WHILE`-nodes, and such.
+The tokens from the previous step are then used to build an *Abastract Syntax Tree*, AST. The AST represents the **logic** of your code in a way that is independent from the syntax of your language. Essentially, this is a Tree structure, with `IF`-nodes, `WHILE`-nodes, and such. 
+
+For example, this AST represents `a=b+3`.
+
+```dot
+digraph AST {
+    // General node style: rounded boxes
+    node [shape=box, style=rounded, fontname="Inter"];
+    edge [fontname="Inter"];
+
+    // Define the nodes of the tree
+    // We give them simple names (node0, node1, etc.) and descriptive labels.
+    node0 [label="Assign\n="];
+    node1 [label="Identifier\n(a)"];
+    node2 [label="Binary Op\n+"];
+    node3 [label="Identifier\n(b)"];
+    node4 [label="Literal\n(3)"];
+
+    // Define the edges (connections) between the nodes
+    // This shows the structure of the expression.
+
+    // The root is the assignment operator
+    node0 -> node1; // The left child of '=' is the variable 'a'
+    node0 -> node2; // The right child of '=' is the expression 'b + 3'
+
+    // The children of the addition operator
+    node2 -> node3; // The left child of '+' is the variable 'b'
+    node2 -> node4; // The right child of '+' is the number '3'
+}
+```
 
 ## 3. Compiler
 
