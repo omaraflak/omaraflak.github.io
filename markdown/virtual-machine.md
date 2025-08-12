@@ -3,8 +3,9 @@
 :year: 2025
 :month: 8
 :day: 11
+:pinned: true
 
-Virtual machines are a truely fascinating piece of software, and suprisingly simple. As you start understanding how they work and write your own, you will feel like you're discovering computers all over again. In this article I will explain what a virtual machine is, we will write some code that runs on a virtual machine, and see how simple constructs build up to create complex logic.
+Virtual machines are a truely fascinating piece of software, and yet suprisingly simple. As you start understanding how they work and write your own, it will feel like you're discovering computers all over again. In this article I will explain what a virtual machine is and how to bulid one, we will write some code that runs on our virtual machine, and see how simple constructs build up to create complex logic.
 
 # Preamble
 
@@ -12,9 +13,9 @@ Your computer has a processor, or CPU (central processing unit), which is respon
 
 > A CPU is a machine that takes **instructions** as input, and executes **actions** as output.
 
-Those instructions are very basic. You might have an instruction to add two numbers, to multiply two numbers, to read from a memory location, to write to a memory location, etc.
+Those *instructions* are very basic. An instruction might add two numbers, multiply two numbers, read from a memory location, write to a memory location, etc.
 
-When some piece of code executes on your computer, it can go through convoluted paths involving various optimizations and pre-processing, but evenutally it **must** be transformed into instructions for the CPU to understand and execute.
+When a program executes on your computer, it can go through convoluted paths involving various optimizations and pre-processing, but evenutally it **must** be transformed into instructions for the CPU to understand and execute.
 
 > A virtual machine, VM, is a simulation of a CPU.
 
@@ -24,16 +25,16 @@ There are multiple types of VM architectures, mainly: stack-based, register-base
 
 # Programming Languages
 
-CPUs come in various kinds, architectures, brands, etc. The instructions a CPU support are not necessarily the same across other CPUs. This already gives you a hint on something important: when you compile code, it has to be compiled *for a given CPU instruction set*.
+CPUs come in various kinds and architectures (for example because of their brands). The instructions a given CPU support are thus not necessarily the same than other CPUs. This means that when you compile code into an executable, it has to be compiled *for a given CPU instruction set*.
 
-Language such as C or C++ compile directly into machine code (CPU instructions), which means they run very fast, but it also means you have to write **one compiler per CPU architecture**.
+Languages such as C or C++ compile directly into machine code (CPU instructions), which means they run very fast, but it also means you have to write **one compiler per CPU architecture to target**.
 
-Other languages, like Java, are based on virtual machines. For Java it's the **Java Virtual Machine**, or JVM. This means that code in Java does not compile into CPU instructions, but **VM instructions** (here, the JVM)! It is then the job of the JVM (which is just a piece of software) to execute the code. This means it's slower to execute since we've introduced a sort of middle-man between the code and the CPU, which is the VM. In other words, the code runs on the JVM, which runs on the CPU.
+Other languages, like Java, are based on virtual machines. For Java it's the **Java Virtual Machine**, or JVM. This means that code written in Java does not compile into CPU instructions directly, but instead it compiles into **VM instructions** (here, the JVM)! It is then the job of the JVM (which is just another piece of software) to read and execute the instructions. This means it is slower to execute since we've introduced a "middle-man" between the code and the CPU, which is the VM. In other words, the code runs on the JVM, which runs on the CPU.
 
 In return, the advantages of this approach are multiple:
 
-- Any system that has the VM can run your code (so you don't have to write a compiler for each system)
-- Anyone can create a new progamming language syntax and compile their code to your VM's instruction set (e.g. Scala, Kotlin, etc run on the JVM)
+- Any system that has the VM can run your code (so you don't have to write a compiler for each CPU architecture)
+- Anyone can create a new progamming language syntax and compile their code into your VM's instruction set (e.g. Scala, Kotlin, and more, run on the JVM)
 - Easier to maintain, extend, and debug
 
 # Virtual Machine
@@ -45,7 +46,7 @@ Our virtual machine will have those components:
 - A **program** which it has to run (a set of instructions).
 - An **instruction pointer** which points to the current instruction in the *program* that is being executed.
 
-We will support those instructions to start with:
+This will be our instruction set:
 
 - **`push <value>`** pushes a value to the stack.
 - **`store <address>`** pops a value from the stack and stores it at the given address in the memory.
@@ -92,7 +93,7 @@ vm.run()
 
 **Challenge!** Can you complete writing the code of the virtual machine on your own? (Remeber that *values* and *addresses* in the program are written over 4 bytes).
 
-When you do, you can feed in the following program to get a surprise:
+When you do, feed in the following program to get a surprise!
 
 ```python
 program = [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 0, 0, 0, 1, 3, 1, 0, 0, 0, 3, 2, 0, 0, 0, 3, 6, 2, 0, 0, 0, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 3, 1, 0, 0, 0, 1, 2, 0, 0, 0, 2, 0, 0, 0, 0, 1, 3, 1, 0, 0, 0, 2, 0, 0, 0, 0, 20, 2, 0, 0, 0, 2, 4, 5, 0, 0, 0, 30, 7]
@@ -183,25 +184,25 @@ class Vm:
 
 And if you run the previous program you will see... the **fibonacci** sequence! How?!
 
-Let's understand how this works by examples. I wrote a small assembler program which allows us to write the instructions not in bytecode, but using their shorthands.
+Let's understand how this works by examples. I wrote a small assembler program which allows us to write instructions using their name. Anything following a `#` is a comment.
 
 ## Example 1
 
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly1"></textarea>
-<input id="execute1" type="button" value="Execute">
+<input id="execute1" type="button" value="Run">
 <div class="article-code-output" id="output1"></div>
 
 ## Example 2
 
-I have also introduced a label mechanism in the assembler program so we don't have to pass the actual index of the instruction to `jumpif`. To define a label to a certain point in the program, write down a dot `.` followed by the name of the label, e.g. `.mylabel`. Then use it as `jumpif .mylabel`.
+I have also introduced a label mechanism in the assembler program so we don't have to pass the actual index of the instruction to `jumpif`. To define a label, write down a dot `.` followed by the name of the label, e.g. `.mylabel`. Then use it as `jumpif .mylabel`.
 
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly2"></textarea>
-<input id="execute2" type="button" value="Execute">
+<input id="execute2" type="button" value="Run">
 <div class="article-code-output" id="output2"></div>
 
 ## Fibonacci
 
-So you see, all I did earlier was to translate the following logic into bytecode for our VM:
+All I did earlier was to translate the following logic into bytecode for our VM:
 
 ```python
 a = 0
@@ -216,14 +217,91 @@ for i in range(n):
 ```
 
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly3"></textarea>
-<input id="execute3" type="button" value="Execute">
+<input id="execute3" type="button" value="Run">
 <div class="article-code-output" id="output3"></div>
 
 # Programming Constructs
 
+Hopefully you are starting to see how using those simple instructions we can build up to what we have in today's programming languages. In this section we will see how to build common programming constructs.
+
 ## If Condition
+
+An `if`-condition is a construct that executes a code-block **if** a certain condition is true, otherwise the program should jump to the instructions after the condition block.
+
+```
+# evaluate a condition, push the result in the stack
+# stack=[...,x] with x>0 if the condition evaluated to `true`
+jumpifnot .endif
+# if-block...
+.endif
+```
+
+Where `jumpifnot` is the opposite of `jumpif`: it will jump if the top element in the stack is `<= 0`.
+
 ## While Loops
+
+A `while`-loop is a constructs that repeats a code-block **while** a certain condition is true. When the condition stop being true, then program should jump to the end of the while block.
+
+```
+.while
+# evaluate a condition, push the result in the stack
+# stack=[...,x] with x>0 if the condition evaluated to `true`
+jumpifnot .endwhile
+# while-block...
+jump .while
+.endwhile
+```
+
+Where `jump` is an unconditional jump: it moves the instruction pointer regardless of what's in the stack.
+
 ## Functions
 
+Functions are nothing but a place in section of the bytecode that we jump to and back. The question is: how does the function code know where to jump back if it can be invoked from many different places?
+
+In practice we would have a different stack for function calls, in which we push the address of the caller before jumping to a function. Whenever the function ***returns***, it pops an element from the call stack and jumps to that address (so it *returns* to the caller).
+
+```
+# main program
+call .myfunction
+# ...
+# ...
+.myfunction
+# function body
+return
+```
+
+Where `call` pushes the current instruction pointer + 1 to the call stack, and `return` pops an element from the call stack and `jump` to it.
+
+# How To Build A Programming Language
+
+Building a VM-based programming language is really not that hard once you understand those concepts. As you implement more instructions in your VM and understand how to map the high-level constructs to those instructions, what remains is how to translate code written in a high-level syntax into the low-level bytecode for your VM.
+
+The steps are generally the following
+
+## 1. Tokenizer
+
+A *tokenizer* will first run over your high-level code and build a list of *tokens* out of it. For example:
+
+```c
+int multiply(int a, int b) {
+    return a * b;
+}
+```
+
+Will return tokens: `int`, `multiply`, `(`, `int`, `a`, `,`, `int`, `b`, `)`, `{`, `return`, `a`, `*`, `b`, `;`, `}`.
+
+Notice that this is not a simple split-by-space, but not too far from it. The tokenizer will generally assign a type to each token, e.g. `STRING`, `NUMBER`, `LEFT_PARENTHESIS`, `RIGHT_PARENTHESIS`, `LABEL`, etc.
+
+## 2. Abstract Syntax Tree
+
+The tokens from the previous step are then used to build an *Abastract Syntax Tree*, AST. The AST represents the **logic** of your code in a way that is independent from the syntax of your language. Essentially, this is a Tree structure, with `IF`-nodes, `WHILE`-nodes, and such.
+
+## 3. Compiler
+
+Lastly, a *compiler* converts the AST into bytecode for your virtual machine, which can then run the code. This is great because any person who wants to create a new language syntax for your VM only has to compile it to an AST. In fact, you could use any existing AST builder, and then convert code to your VM's bytecode.
+
+A few years ago I built a toy programming language this way. Check it out!
+
+[](https://github.com/omaraflak/banana)
 
 <script src="/assets/virtual-machine/vm.js"></script>

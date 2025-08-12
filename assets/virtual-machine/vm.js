@@ -217,22 +217,22 @@ const assembly2 = document.getElementById("assembly2");
 const output2 = document.getElementById("output2");
 hook(execute2, assembly2, output2);
 assembly2.value = `
-push 1          # stack=[1]     mem[0]=0
-store 0         # stack=[]      mem[0]=1
+push 1          # stack=[1]     memory[0]=0
+store 0         # stack=[]      memory[0]=1
 .label
 
-load 0          # stack=[1]     mem[0]=1
-print           # stack=[]      mem[0]=1
+load 0          # stack=[1]     memory[0]=1
+print           # stack=[]      memory[0]=1
 
-load 0          # stack=[1]     mem[0]=1
-push 1          # stack=[1,1]   mem[0]=1
-add             # stack=[2]     mem[0]=1
-store 0         # stack=[]      mem[0]=2
+load 0          # stack=[1]     memory[0]=1
+push 1          # stack=[1,1]   memory[0]=1
+add             # stack=[2]     memory[0]=1
+store 0         # stack=[]      memory[0]=2
 
-push 10         # stack=[10]    mem[0]=2
-load 0          # stack=[10,2]  mem[0]=2
-sub             # stack=[8]     mem[0]=2
-jumpif .label   # stack=[]      mem[0]=2,    goes to .label if 8>2. will stop at 9.
+push 10         # stack=[10]    memory[0]=2
+load 0          # stack=[10,2]  memory[0]=2
+sub             # stack=[8]     memory[0]=2
+jumpif .label   # stack=[]      memory[0]=2,    goes to .label if 8>2. will stop at 9.
 `.trim()
 
 

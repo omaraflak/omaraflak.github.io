@@ -29,22 +29,22 @@
     </div>
     <main class="article-main">
         <article class="article-body">
-            <p>Virtual machines are a truely fascinating piece of software, and suprisingly simple. As you start understanding how they work and write your own, you will feel like you're discovering computers all over again. In this article I will explain what a virtual machine is, we will write some code that runs on a virtual machine, and see how simple constructs build up to create complex logic.</p>
+            <p>Virtual machines are a truely fascinating piece of software, and yet suprisingly simple. As you start understanding how they work and write your own, it will feel like you're discovering computers all over again. In this article I will explain what a virtual machine is and how to bulid one, we will write some code that runs on our virtual machine, and see how simple constructs build up to create complex logic.</p>
 <h2 id=preamble class="article-section">Preamble</h2>
 <p>Your computer has a processor, or CPU (central processing unit), which is responsible for executing instructions, performing calculations, moving memory around, etc. It's the central piece of your computer, and yet at its core, you could reduce it to something very simple.</p>
 <div class="article-quote">A CPU is a machine that takes <span class="article-bold">instructions</span> as input, and executes <span class="article-bold">actions</span> as output.</div>
-<p>Those instructions are very basic. You might have an instruction to add two numbers, to multiply two numbers, to read from a memory location, to write to a memory location, etc.</p>
-<p>When some piece of code executes on your computer, it can go through convoluted paths involving various optimizations and pre-processing, but evenutally it <span class="article-bold">must</span> be transformed into instructions for the CPU to understand and execute.</p>
+<p>Those <span class="article-italic">instructions</span> are very basic. An instruction might add two numbers, multiply two numbers, read from a memory location, write to a memory location, etc.</p>
+<p>When a program executes on your computer, it can go through convoluted paths involving various optimizations and pre-processing, but evenutally it <span class="article-bold">must</span> be transformed into instructions for the CPU to understand and execute.</p>
 <div class="article-quote">A virtual machine, VM, is a simulation of a CPU.</div>
 <p>This simulation can be more or less complex, support more or less instructions, but the main idea stays the same.</p>
 <p>There are multiple types of VM architectures, mainly: stack-based, register-based, or hybrid. In this article we will be playing around with a <span class="article-italic">hybrid</span> model.</p>
 <h2 id=programming-languages class="article-section">Programming Languages</h2>
-<p>CPUs come in various kinds, architectures, brands, etc. The instructions a CPU support are not necessarily the same across other CPUs. This already gives you a hint on something important: when you compile code, it has to be compiled <span class="article-italic">for a given CPU instruction set</span>.</p>
-<p>Language such as C or C++ compile directly into machine code (CPU instructions), which means they run very fast, but it also means you have to write <span class="article-bold">one compiler per CPU architecture</span>.</p>
-<p>Other languages, like Java, are based on virtual machines. For Java it's the <span class="article-bold">Java Virtual Machine</span>, or JVM. This means that code in Java does not compile into CPU instructions, but <span class="article-bold">VM instructions</span> (here, the JVM)! It is then the job of the JVM (which is just a piece of software) to execute the code. This means it's slower to execute since we've introduced a sort of middle-man between the code and the CPU, which is the VM. In other words, the code runs on the JVM, which runs on the CPU.</p>
+<p>CPUs come in various kinds and architectures (for example because of their brands). The instructions a given CPU support are thus not necessarily the same than other CPUs. This means that when you compile code into an executable, it has to be compiled <span class="article-italic">for a given CPU instruction set</span>.</p>
+<p>Languages such as C or C++ compile directly into machine code (CPU instructions), which means they run very fast, but it also means you have to write <span class="article-bold">one compiler per CPU architecture to target</span>.</p>
+<p>Other languages, like Java, are based on virtual machines. For Java it's the <span class="article-bold">Java Virtual Machine</span>, or JVM. This means that code written in Java does not compile into CPU instructions directly, but instead it compiles into <span class="article-bold">VM instructions</span> (here, the JVM)! It is then the job of the JVM (which is just another piece of software) to read and execute the instructions. This means it is slower to execute since we've introduced a "middle-man" between the code and the CPU, which is the VM. In other words, the code runs on the JVM, which runs on the CPU.</p>
 <p>In return, the advantages of this approach are multiple:</p>
-<ul><li class="article-li">Any system that has the VM can run your code (so you don't have to write a compiler for each system)</li>
-<li class="article-li">Anyone can create a new progamming language syntax and compile their code to your VM's instruction set (e.g. Scala, Kotlin, etc run on the JVM)</li>
+<ul><li class="article-li">Any system that has the VM can run your code (so you don't have to write a compiler for each CPU architecture)</li>
+<li class="article-li">Anyone can create a new progamming language syntax and compile their code into your VM's instruction set (e.g. Scala, Kotlin, and more, run on the JVM)</li>
 <li class="article-li">Easier to maintain, extend, and debug</li></ul>
 <h2 id=virtual-machine class="article-section">Virtual Machine</h2>
 <p>Our virtual machine will have those components:</p>
@@ -52,7 +52,7 @@
 <li class="article-li">A <span class="article-bold">memory</span> which holds persistent values in a given scope.</li>
 <li class="article-li">A <span class="article-bold">program</span> which it has to run (a set of instructions).</li>
 <li class="article-li">An <span class="article-bold">instruction pointer</span> which points to the current instruction in the <span class="article-italic">program</span> that is being executed.</li></ul>
-<p>We will support those instructions to start with:</p>
+<p>This will be our instruction set:</p>
 <ul><li class="article-li"><span class="article-bold"><code class="article-code-inline">push &lt;value&gt;</code></span> pushes a value to the stack.</li>
 <li class="article-li"><span class="article-bold"><code class="article-code-inline">store &lt;address&gt;</code></span> pops a value from the stack and stores it at the given address in the memory.</li>
 <li class="article-li"><span class="article-bold"><code class="article-code-inline">load &lt;address&gt;</code></span> reads a value at the given address from the memory and pushes it onto the stack.</li>
@@ -91,7 +91,7 @@ program = [] # instructions to execute
 vm = Vm(program=program, stack=[], memory=[0] * 32)
 vm.run()</code></pre>
 <p><span class="article-bold">Challenge!</span> Can you complete writing the code of the virtual machine on your own? (Remeber that <span class="article-italic">values</span> and <span class="article-italic">addresses</span> in the program are written over 4 bytes).</p>
-<p>When you do, you can feed in the following program to get a surprise:</p>
+<p>When you do, feed in the following program to get a surprise!</p>
 <pre class="article-code-block python"><code>program = [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 0, 0, 0, 1, 3, 1, 0, 0, 0, 3, 2, 0, 0, 0, 3, 6, 2, 0, 0, 0, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 3, 1, 0, 0, 0, 1, 2, 0, 0, 0, 2, 0, 0, 0, 0, 1, 3, 1, 0, 0, 0, 2, 0, 0, 0, 0, 20, 2, 0, 0, 0, 2, 4, 5, 0, 0, 0, 30, 7]</code></pre>
 <h3 id=code class="article-small-section">Code</h3>
 <p>Here's the full code:</p>
@@ -172,18 +172,18 @@ class Vm:
         self.ip += size
         return int.from_bytes(bytes(data))</code></pre>
 <p>And if you run the previous program you will see... the <span class="article-bold">fibonacci</span> sequence! How?!</p>
-<p>Let's understand how this works by examples. I wrote a small assembler program which allows us to write the instructions not in bytecode, but using their shorthands.</p>
+<p>Let's understand how this works by examples. I wrote a small assembler program which allows us to write instructions using their name. Anything following a <code class="article-code-inline">#</code> is a comment.</p>
 <h3 id=example-1 class="article-small-section">Example 1</h3>
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly1"></textarea>
-<input id="execute1" type="button" value="Execute">
+<input id="execute1" type="button" value="Run">
 <div class="article-code-output" id="output1"></div>
 <h3 id=example-2 class="article-small-section">Example 2</h3>
-<p>I have also introduced a label mechanism in the assembler program so we don't have to pass the actual index of the instruction to <code class="article-code-inline">jumpif</code>. To define a label to a certain point in the program, write down a dot <code class="article-code-inline">.</code> followed by the name of the label, e.g. <code class="article-code-inline">.mylabel</code>. Then use it as <code class="article-code-inline">jumpif .mylabel</code>.</p>
+<p>I have also introduced a label mechanism in the assembler program so we don't have to pass the actual index of the instruction to <code class="article-code-inline">jumpif</code>. To define a label, write down a dot <code class="article-code-inline">.</code> followed by the name of the label, e.g. <code class="article-code-inline">.mylabel</code>. Then use it as <code class="article-code-inline">jumpif .mylabel</code>.</p>
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly2"></textarea>
-<input id="execute2" type="button" value="Execute">
+<input id="execute2" type="button" value="Run">
 <div class="article-code-output" id="output2"></div>
 <h3 id=fibonacci class="article-small-section">Fibonacci</h3>
-<p>So you see, all I did earlier was to translate the following logic into bytecode for our VM:</p>
+<p>All I did earlier was to translate the following logic into bytecode for our VM:</p>
 <pre class="article-code-block python"><code>a = 0
 b = 1
 n = 20
@@ -194,12 +194,63 @@ for i in range(n):
     a = b
     b = c</code></pre>
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly3"></textarea>
-<input id="execute3" type="button" value="Execute">
+<input id="execute3" type="button" value="Run">
 <div class="article-code-output" id="output3"></div>
 <h2 id=programming-constructs class="article-section">Programming Constructs</h2>
+<p>Hopefully you are starting to see how using those simple instructions we can build up to what we have in today's programming languages. In this section we will see how to build common programming constructs.</p>
 <h3 id=if-condition class="article-small-section">If Condition</h3>
+<p>An <code class="article-code-inline">if</code>-condition is a construct that executes a code-block <span class="article-bold">if</span> a certain condition is true, otherwise the program should jump to the instructions after the condition block.</p>
+<pre class="article-code-block None"><code># evaluate a condition, push the result in the stack
+# stack=[...,x] with x>0 if the condition evaluated to `true`
+jumpifnot .endif
+# if-block...
+.endif</code></pre>
+<p>Where <code class="article-code-inline">jumpifnot</code> is the opposite of <code class="article-code-inline">jumpif</code>: it will jump if the top element in the stack is <code class="article-code-inline">&lt;= 0</code>.</p>
 <h3 id=while-loops class="article-small-section">While Loops</h3>
+<p>A <code class="article-code-inline">while</code>-loop is a constructs that repeats a code-block <span class="article-bold">while</span> a certain condition is true. When the condition stop being true, then program should jump to the end of the while block.</p>
+<pre class="article-code-block None"><code>.while
+# evaluate a condition, push the result in the stack
+# stack=[...,x] with x>0 if the condition evaluated to `true`
+jumpifnot .endwhile
+# while-block...
+jump .while
+.endwhile</code></pre>
+<p>Where <code class="article-code-inline">jump</code> is an unconditional jump: it moves the instruction pointer regardless of what's in the stack.</p>
 <h3 id=functions class="article-small-section">Functions</h3>
+<p>Functions are nothing but a place in section of the bytecode that we jump to and back. The question is: how does the function code know where to jump back if it can be invoked from many different places?</p>
+<p>In practice we would have a different stack for function calls, in which we push the address of the caller before jumping to a function. Whenever the function <span class="article-bold"><span class="article-italic">returns</span></span>, it pops an element from the call stack and jumps to that address (so it <span class="article-italic">returns</span> to the caller).</p>
+<pre class="article-code-block None"><code># main program
+call .myfunction
+# ...
+# ...
+.myfunction
+# function body
+return</code></pre>
+<p>Where <code class="article-code-inline">call</code> pushes the current instruction pointer + 1 to the call stack, and <code class="article-code-inline">return</code> pops an element from the call stack and <code class="article-code-inline">jump</code> to it.</p>
+<h2 id=how-to-build-a-programming-language class="article-section">How To Build A Programming Language</h2>
+<p>Building a VM-based programming language is really not that hard once you understand those concepts. As you implement more instructions in your VM and understand how to map the high-level constructs to those instructions, what remains is how to translate code written in a high-level syntax into the low-level bytecode for your VM.</p>
+<p>The steps are generally the following</p>
+<h3 id=1-tokenizer class="article-small-section">1. Tokenizer</h3>
+<p>A <span class="article-italic">tokenizer</span> will first run over your high-level code and build a list of <span class="article-italic">tokens</span> out of it. For example:</p>
+<pre class="article-code-block c"><code>int multiply(int a, int b) {
+    return a * b;
+}</code></pre>
+<p>Will return tokens: <code class="article-code-inline">int</code>, <code class="article-code-inline">multiply</code>, <code class="article-code-inline">(</code>, <code class="article-code-inline">int</code>, <code class="article-code-inline">a</code>, <code class="article-code-inline">,</code>, <code class="article-code-inline">int</code>, <code class="article-code-inline">b</code>, <code class="article-code-inline">)</code>, <code class="article-code-inline">{</code>, <code class="article-code-inline">return</code>, <code class="article-code-inline">a</code>, <code class="article-code-inline">*</code>, <code class="article-code-inline">b</code>, <code class="article-code-inline">;</code>, <code class="article-code-inline">}</code>.</p>
+<p>Notice that this is not a simple split-by-space, but not too far from it. The tokenizer will generally assign a type to each token, e.g. <code class="article-code-inline">STRING</code>, <code class="article-code-inline">NUMBER</code>, <code class="article-code-inline">LEFT_PARENTHESIS</code>, <code class="article-code-inline">RIGHT_PARENTHESIS</code>, <code class="article-code-inline">LABEL</code>, etc.</p>
+<h3 id=2-abstract-syntax-tree class="article-small-section">2. Abstract Syntax Tree</h3>
+<p>The tokens from the previous step are then used to build an <span class="article-italic">Abastract Syntax Tree</span>, AST. The AST represents the <span class="article-bold">logic</span> of your code in a way that is independent from the syntax of your language. Essentially, this is a Tree structure, with <code class="article-code-inline">IF</code>-nodes, <code class="article-code-inline">WHILE</code>-nodes, and such.</p>
+<h3 id=3-compiler class="article-small-section">3. Compiler</h3>
+<p>Lastly, a <span class="article-italic">compiler</span> converts the AST into bytecode for your virtual machine, which can then run the code. This is great because any person who wants to create a new language syntax for your VM only has to compile it to an AST. In fact, you could use any existing AST builder, and then convert code to your VM's bytecode.</p>
+<p>A few years ago I built a toy programming language this way. Check it out!</p>
+
+                    <div class="article-link-preview-container">
+                        <a class="article-link-preview-link" target="_blank" href="https://github.com/omaraflak/banana">
+                            <span class="article-link-preview-title">GitHub - omaraflak/banana: Banana programming language</span>
+                            <span class="article-link-preview-description">Banana programming language. Contribute to omaraflak/banana development by creating an account on GitHub.</span>
+                            <span class="article-link-preview-website">github.com</span>
+                        </a>
+                    </div>
+                
 <script src="/assets/virtual-machine/vm.js"></script>
         </article>
     </main>
