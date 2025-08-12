@@ -9,7 +9,7 @@ Virtual machines are a truely fascinating piece of software, and yet suprisingly
 
 # Preamble
 
-Your computer has a processor, or CPU (central processing unit), which is responsible for executing instructions, performing calculations, moving memory around, etc. It's the central piece of your computer, and yet at its core, you could reduce it to something very simple.
+Your computer has a processor, or CPU (central processing unit), which is responsible for executing instructions, performing calculations, moving memory around, etc. It's the central piece of your computer, and yet at its core, you can reduce it to something very simple.
 
 > A CPU is a machine that takes **instructions** as input, and executes **actions** as output.
 
@@ -25,11 +25,11 @@ There are multiple types of VM architectures, mainly: stack-based, register-base
 
 # Programming Languages
 
-CPUs come in various kinds and architectures (for example because of their brands). The instructions a given CPU support are thus not necessarily the same than other CPUs. This means that when you compile code into an executable, it has to be compiled *for a given CPU instruction set*.
+CPUs come in various kinds and architectures (for example because of their brands). The instructions a given CPU support are not necessarily the same as other CPUs. This means that when you compile code into an executable, it has to be compiled *for a given CPU instruction set*.
 
-Languages such as C or C++ compile directly into machine code (CPU instructions), which means they run very fast, but it also means you have to write **one compiler per CPU architecture to target**.
+Languages such as C or C++ compile directly into machine code (CPU instructions), which is why they run very fast, but it also means you have to write **one compiler per CPU architecture to target**.
 
-Other languages, like Java, are based on virtual machines. For Java it's the **Java Virtual Machine**, or JVM. This means that code written in Java does not compile into CPU instructions directly, but instead it compiles into **VM instructions** (here, the JVM)! It is then the job of the JVM (which is just another piece of software) to read and execute the instructions. This means it is slower to execute since we've introduced a "middle-man" between the code and the CPU, which is the VM. In other words, the code runs on the JVM, which runs on the CPU.
+Other languages, like Java, are based on virtual machines. For Java it's the **Java Virtual Machine**, or JVM. Code written in Java does not compile into CPU instructions directly, but instead it compiles into **VM instructions** (here, the JVM)! It is then the job of the JVM (which is just another piece of software) to read and execute the instructions. This means it is slower to execute since we've introduced a "middle-man" between the code and the CPU, which is the VM (the code runs on the JVM, which runs on the CPU).
 
 In return, the advantages of this approach are multiple:
 
@@ -41,21 +41,21 @@ In return, the advantages of this approach are multiple:
 
 Our virtual machine will have those components:
 
-- A **stack** which holds temporary values for calculations, e.g. when computing `x=1+2`.
-- A **memory** which holds persistent values in a given scope.
-- A **program** which it has to run (a set of instructions).
-- An **instruction pointer** which points to the current instruction in the *program* that is being executed.
+- A **stack** which holds temporary values for calculations
+- A **memory** which holds persistent values in a given scope
+- A **program** which it has to run (a set of instructions)
+- An **instruction pointer** which points to the current instruction in the *program* that is being executed
 
 This will be our instruction set:
 
-- **`push <value>`** pushes a value to the stack.
-- **`store <address>`** pops a value from the stack and stores it at the given address in the memory.
-- **`load <address>`** reads a value at the given address from the memory and pushes it onto the stack.
-- **`add`** pops two elements from the stack, computes the sum, and pushes the result onto the stack.
-- **`sub`** pops two elements from the stack, computes the difference between the second and the first, and pushes the result onto the stack.
-- **`jumpif <address>`** pops an element stack, and moves the instruction pointer to the given address if the value is greater than zero.
-- **`print`** pops an element from the stack and prints it to stdout.
-- **`halt`** stops the virtual machine.
+- **`push <value>`** pushes a value to the stack
+- **`store <address>`** pops a value from the stack and stores it at the given address in the memory
+- **`load <address>`** reads a value at the given address from the memory and pushes it onto the stack
+- **`add`** pops two elements from the stack, computes the sum, and pushes the result onto the stack
+- **`sub`** pops two elements from the stack, computes the difference between the second and the first, and pushes the result onto the stack
+- **`jumpif <address>`** pops an element stack, and moves the instruction pointer to the given address if the value is greater than zero
+- **`print`** pops an element from the stack and prints it to stdout
+- **`halt`** stops the virtual machine
 
 `value` and `address` will be **int32** (4 bytes).
 
@@ -91,7 +91,7 @@ vm = Vm(program=program, stack=[], memory=[0] * 32)
 vm.run()
 ```
 
-**Challenge!** Can you complete writing the code of the virtual machine on your own? (Remeber that *values* and *addresses* in the program are written over 4 bytes).
+**Challenge!** Can you complete writing the code of the virtual machine on your own?
 
 When you do, feed in the following program to get a surprise!
 
@@ -182,11 +182,13 @@ class Vm:
         return int.from_bytes(bytes(data))
 ```
 
-And if you run the previous program you will see... the **fibonacci** sequence! How?!
+If you run the previous program you will see... the **fibonacci** sequence! How?!
 
 Let's understand how this works by examples. I wrote a small assembler program which allows us to write instructions using their name. Anything following a `#` is a comment.
 
 ## Example 1
+
+In this example, we add 4 and 5 together and print the result on the screen. I have commented out the content of the stack at each step. Click the `Run` button to start the VM!
 
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly1"></textarea>
 <input id="execute1" type="button" value="Run">
@@ -196,13 +198,15 @@ Let's understand how this works by examples. I wrote a small assembler program w
 
 I have also introduced a label mechanism in the assembler program so we don't have to pass the actual index of the instruction to `jumpif`. To define a label, write down a dot `.` followed by the name of the label, e.g. `.mylabel`. Then use it as `jumpif .mylabel`.
 
+Can you guess what this example does?
+
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly2"></textarea>
 <input id="execute2" type="button" value="Run">
 <div class="article-code-output" id="output2"></div>
 
 ## Fibonacci
 
-All I did earlier was to translate the following logic into bytecode for our VM:
+Earlier, I simply translated the following logic into bytecode for our VM:
 
 ```python
 a = 0
