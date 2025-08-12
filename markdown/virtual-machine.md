@@ -1,5 +1,5 @@
 :title: Virtual Machine
-:description: What is a virtual machine and how to create one?
+:description: What is a virtual machine and how to build one? How to build a VM-based programming language?
 :year: 2025
 :month: 8
 :day: 11
