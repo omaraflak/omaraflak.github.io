@@ -187,7 +187,7 @@ class Vm:
 <input id="execute2" type="button" value="Run">
 <div class="article-code-output" id="output2"></div>
 <h3 id=fibonacci class="article-small-section">Fibonacci</h3>
-<p>Earlier, I translated the following logic into bytecode for our VM:</p>
+<p>Earlier, I simply translated the following logic into bytecode for our VM:</p>
 <pre class="article-code-block python"><code>a = 0
 b = 1
 n = 20
@@ -201,19 +201,19 @@ for i in range(n):
 <input id="execute3" type="button" value="Run">
 <div class="article-code-output" id="output3"></div>
 <h2 id=programming-constructs class="article-section">Programming Constructs</h2>
-<p>Hopefully you are starting to see how using those simple instructions we can build up to what we have in today's programming languages. In this section we will see how to build common programming constructs.</p>
+<p>As you can see, we can build up to what we have in today's programming languages using very simple instructions. In this section we will see how to build common programming constructs.</p>
 <h3 id=if-condition class="article-small-section">If Condition</h3>
-<p>An <code class="article-code-inline">if</code>-condition is a construct that executes a code-block <span class="article-bold">if</span> a certain condition is true, otherwise the program should jump to the instructions after the condition block.</p>
-<pre class="article-code-block None"><code># evaluate a condition, push the result in the stack
+<p>An <code class="article-code-inline">if</code> condition is a construct that executes a code-block <span class="article-bold">if</span> a certain condition is true, otherwise the program should jump to the instruction after the code-block.</p>
+<pre class="article-code-block None"><code># evaluate a condition, push the result to the stack
 # stack=[...,x] with x>0 if the condition evaluated to `true`
 jumpifnot .endif
 # if-block...
 .endif</code></pre>
 <p>Where <code class="article-code-inline">jumpifnot</code> is the opposite of <code class="article-code-inline">jumpif</code>: it will jump if the top element in the stack is <code class="article-code-inline">&lt;= 0</code>.</p>
-<h3 id=while-loops class="article-small-section">While Loops</h3>
-<p>A <code class="article-code-inline">while</code>-loop is a constructs that repeats a code-block <span class="article-bold">while</span> a certain condition is true. When the condition stop being true, then program should jump to the end of the while block.</p>
+<h3 id=while-loop class="article-small-section">While Loop</h3>
+<p>A <code class="article-code-inline">while</code> loop is a construct that keeps executing a code-block <span class="article-bold">while</span> a certain condition is true. When the condition stops being true, then program should jump to the end of the code-block.</p>
 <pre class="article-code-block None"><code>.while
-# evaluate a condition, push the result in the stack
+# evaluate a condition, push the result to the stack
 # stack=[...,x] with x>0 if the condition evaluated to `true`
 jumpifnot .endwhile
 # while-block...
@@ -221,8 +221,8 @@ jump .while
 .endwhile</code></pre>
 <p>Where <code class="article-code-inline">jump</code> is an unconditional jump: it moves the instruction pointer regardless of what's in the stack.</p>
 <h3 id=functions class="article-small-section">Functions</h3>
-<p>Functions are nothing but a place in section of the bytecode that we jump to and back. The question is: how does the function code know where to jump back if it can be invoked from many different places?</p>
-<p>In practice we would have a different stack for function calls, in which we push the address of the caller before jumping to a function. Whenever the function <span class="article-bold"><span class="article-italic">returns</span></span>, it pops an element from the call stack and jumps to that address (so it <span class="article-italic">returns</span> to the caller).</p>
+<p>Functions are nothing but a section of the bytecode that we jump <span class="article-bold"><span class="article-italic">to and back</span></span>. The question is: how does the function code know where to <span class="article-bold"><span class="article-italic">jump back</span></span> if it can be invoked from different places?</p>
+<p>We can have a different stack for function calls in which we push the address of the caller before jumping to a function. Whenever the function <span class="article-bold"><span class="article-italic">returns</span></span>, it pops an element from the <span class="article-bold"><span class="article-italic">call stack</span></span> and jumps to that address (so it <span class="article-italic">returns</span> to the caller).</p>
 <pre class="article-code-block None"><code># main program
 call .myfunction
 # ...
@@ -233,14 +233,14 @@ return</code></pre>
 <p>Where <code class="article-code-inline">call</code> pushes the current instruction pointer + 1 to the call stack, and <code class="article-code-inline">return</code> pops an element from the call stack and <code class="article-code-inline">jump</code> to it.</p>
 <h2 id=how-to-build-a-programming-language class="article-section">How To Build A Programming Language</h2>
 <p>Building a VM-based programming language is really not that hard once you understand those concepts. As you implement more instructions in your VM and understand how to map the high-level constructs to those instructions, what remains is how to translate code written in a high-level syntax into the low-level bytecode for your VM.</p>
-<p>The steps are generally the following</p>
+<p>The steps are generally the following.</p>
 <h3 id=1-tokenizer class="article-small-section">1. Tokenizer</h3>
-<p>A <span class="article-italic">tokenizer</span> will first run over your high-level code and build a list of <span class="article-italic">tokens</span> out of it. For example:</p>
+<p>A <span class="article-italic">tokenizer</span> first runs over your high-level code and builds a list of <span class="article-italic">tokens</span> out of it. For example:</p>
 <pre class="article-code-block c"><code>int multiply(int a, int b) {
     return a * b;
 }</code></pre>
 <p>Will return tokens: <code class="article-code-inline">int</code>, <code class="article-code-inline">multiply</code>, <code class="article-code-inline">(</code>, <code class="article-code-inline">int</code>, <code class="article-code-inline">a</code>, <code class="article-code-inline">,</code>, <code class="article-code-inline">int</code>, <code class="article-code-inline">b</code>, <code class="article-code-inline">)</code>, <code class="article-code-inline">{</code>, <code class="article-code-inline">return</code>, <code class="article-code-inline">a</code>, <code class="article-code-inline">*</code>, <code class="article-code-inline">b</code>, <code class="article-code-inline">;</code>, <code class="article-code-inline">}</code>.</p>
-<p>Notice that this is not a simple split-by-space, but not too far from it. The tokenizer will generally assign a type to each token, e.g. <code class="article-code-inline">STRING</code>, <code class="article-code-inline">NUMBER</code>, <code class="article-code-inline">LEFT_PARENTHESIS</code>, <code class="article-code-inline">RIGHT_PARENTHESIS</code>, <code class="article-code-inline">IDENTIFIER</code>, etc.</p>
+<p>Note that this is not a simple split-by-space. The tokenizer will also assign a type to each token, e.g. <code class="article-code-inline">STRING</code>, <code class="article-code-inline">NUMBER</code>, <code class="article-code-inline">LEFT_PARENTHESIS</code>, <code class="article-code-inline">RIGHT_PARENTHESIS</code>, <code class="article-code-inline">IDENTIFIER</code>, etc.</p>
 <h3 id=2-abstract-syntax-tree class="article-small-section">2. Abstract Syntax Tree</h3>
 <p>The tokens from the previous step are then used to build an <span class="article-italic">Abastract Syntax Tree</span>, AST. The AST represents the <span class="article-bold">logic</span> of your code in a way that is independent from the syntax of your language. Essentially, this is a Tree structure, with <code class="article-code-inline">IF</code>-nodes, <code class="article-code-inline">WHILE</code>-nodes, and such.</p>
 <p>For example, this AST represents <code class="article-code-inline">a=b+3</code>.</p>
@@ -269,7 +269,8 @@ return</code></pre>
     node2 -> node4; // The right child of '+' is the number '3'
 }</div></center>
 <h3 id=3-compiler class="article-small-section">3. Compiler</h3>
-<p>Lastly, a <span class="article-italic">compiler</span> converts the AST into bytecode for your virtual machine, which can then run the code. This is great because any person who wants to create a new language syntax for your VM only has to compile it to an AST. In fact, you could use any existing AST builder, and then convert code to your VM's bytecode.</p>
+<p>Lastly, a <span class="article-italic">compiler</span> converts the AST into bytecode for your virtual machine, which can then run the code. This is great because any person who wants to create a new language syntax for your VM only has to compile it to your AST. In fact, you could use any existing AST builder, and then convert code to your VM's bytecode.</p>
+<div class="article-hr"></div>
 <p>A few years ago I built a toy programming language this way. Check it out!</p>
 
                     <div class="article-link-preview-container">

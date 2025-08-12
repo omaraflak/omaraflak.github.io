@@ -226,14 +226,14 @@ for i in range(n):
 
 # Programming Constructs
 
-Hopefully you are starting to see how using those simple instructions we can build up to what we have in today's programming languages. In this section we will see how to build common programming constructs.
+As you can see, we can build up to what we have in today's programming languages using very simple instructions. In this section we will see how to build common programming constructs.
 
 ## If Condition
 
-An `if`-condition is a construct that executes a code-block **if** a certain condition is true, otherwise the program should jump to the instructions after the condition block.
+An `if` condition is a construct that executes a code-block **if** a certain condition is true, otherwise the program should jump to the instruction after the code-block.
 
 ```
-# evaluate a condition, push the result in the stack
+# evaluate a condition, push the result to the stack
 # stack=[...,x] with x>0 if the condition evaluated to `true`
 jumpifnot .endif
 # if-block...
@@ -242,13 +242,13 @@ jumpifnot .endif
 
 Where `jumpifnot` is the opposite of `jumpif`: it will jump if the top element in the stack is `<= 0`.
 
-## While Loops
+## While Loop
 
-A `while`-loop is a constructs that repeats a code-block **while** a certain condition is true. When the condition stop being true, then program should jump to the end of the while block.
+A `while` loop is a construct that keeps executing a code-block **while** a certain condition is true. When the condition stops being true, then program should jump to the end of the code-block.
 
 ```
 .while
-# evaluate a condition, push the result in the stack
+# evaluate a condition, push the result to the stack
 # stack=[...,x] with x>0 if the condition evaluated to `true`
 jumpifnot .endwhile
 # while-block...
@@ -260,9 +260,9 @@ Where `jump` is an unconditional jump: it moves the instruction pointer regardle
 
 ## Functions
 
-Functions are nothing but a place in section of the bytecode that we jump to and back. The question is: how does the function code know where to jump back if it can be invoked from many different places?
+Functions are nothing but a section of the bytecode that we jump ***to and back***. The question is: how does the function code know where to ***jump back*** if it can be invoked from different places?
 
-In practice we would have a different stack for function calls, in which we push the address of the caller before jumping to a function. Whenever the function ***returns***, it pops an element from the call stack and jumps to that address (so it *returns* to the caller).
+We can have a different stack for function calls in which we push the address of the caller before jumping to a function. Whenever the function ***returns***, it pops an element from the ***call stack*** and jumps to that address (so it *returns* to the caller).
 
 ```
 # main program
@@ -280,11 +280,11 @@ Where `call` pushes the current instruction pointer + 1 to the call stack, and `
 
 Building a VM-based programming language is really not that hard once you understand those concepts. As you implement more instructions in your VM and understand how to map the high-level constructs to those instructions, what remains is how to translate code written in a high-level syntax into the low-level bytecode for your VM.
 
-The steps are generally the following
+The steps are generally the following.
 
 ## 1. Tokenizer
 
-A *tokenizer* will first run over your high-level code and build a list of *tokens* out of it. For example:
+A *tokenizer* first runs over your high-level code and builds a list of *tokens* out of it. For example:
 
 ```c
 int multiply(int a, int b) {
@@ -294,7 +294,7 @@ int multiply(int a, int b) {
 
 Will return tokens: `int`, `multiply`, `(`, `int`, `a`, `,`, `int`, `b`, `)`, `{`, `return`, `a`, `*`, `b`, `;`, `}`.
 
-Notice that this is not a simple split-by-space, but not too far from it. The tokenizer will generally assign a type to each token, e.g. `STRING`, `NUMBER`, `LEFT_PARENTHESIS`, `RIGHT_PARENTHESIS`, `IDENTIFIER`, etc.
+Note that this is not a simple split-by-space. The tokenizer will also assign a type to each token, e.g. `STRING`, `NUMBER`, `LEFT_PARENTHESIS`, `RIGHT_PARENTHESIS`, `IDENTIFIER`, etc.
 
 ## 2. Abstract Syntax Tree
 
@@ -331,7 +331,9 @@ digraph AST {
 
 ## 3. Compiler
 
-Lastly, a *compiler* converts the AST into bytecode for your virtual machine, which can then run the code. This is great because any person who wants to create a new language syntax for your VM only has to compile it to an AST. In fact, you could use any existing AST builder, and then convert code to your VM's bytecode.
+Lastly, a *compiler* converts the AST into bytecode for your virtual machine, which can then run the code. This is great because any person who wants to create a new language syntax for your VM only has to compile it to your AST. In fact, you could use any existing AST builder, and then convert code to your VM's bytecode.
+
+---
 
 A few years ago I built a toy programming language this way. Check it out!
 
