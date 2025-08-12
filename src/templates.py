@@ -5,6 +5,8 @@ ARTICLE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="{{title}}">
+    <meta property="og:description" content="{{description}}">
     <title>{{title}}</title>
     <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
     <link rel="stylesheet" href="../styles/index.css">
