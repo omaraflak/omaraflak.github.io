@@ -468,8 +468,9 @@ jumpif .main
 
 halt
 
-
+# isPrime() function
 .isprime
+
 # n = stack[-1]
 store 0
 
