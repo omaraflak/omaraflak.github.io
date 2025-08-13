@@ -235,11 +235,17 @@ call .myfunction
 return</code></pre>
 <p>Where <code class="article-code-inline">call</code> pushes the current instruction pointer + 1 to the call stack, and <code class="article-code-inline">return</code> pops an element from the call stack and <code class="article-code-inline">jump</code> to it.</p>
 <h2 id=more-instructions class="article-section">More Instructions</h2>
-<p>A good exercise would be to implement those extra instructions we just mentioned. In fact, if you just want to play around, they are already implemented in the VM running in this website. There is: <code class="article-code-inline">jump</code>, <code class="article-code-inline">jumpifnot</code>, <code class="article-code-inline">call</code>, <code class="article-code-inline">return</code>.</p>
+<p>A good exercise would be to implement those extra instructions we just mentioned. In fact, if you just want to play around, they are already implemented in the VM running in this website.</p>
+<p>You have access to: <code class="article-code-inline">jump</code>, <code class="article-code-inline">jumpifnot</code>, <code class="article-code-inline">call</code>, <code class="article-code-inline">return</code>, <code class="article-code-inline">mod</code> (modulo), <code class="article-code-inline">mul</code> (multiply), <code class="article-code-inline">eq</code> (equal), and <code class="article-code-inline">neq</code> (not equal).</p>
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly4"></textarea>
 <input id="execute4" type="button" value="Run">
 <input id="assemble4" type="button" value="Assemble">
 <div class="article-code-output" id="output4"></div>
+<h3 id=prime-numbers class="article-small-section">Prime Numbers</h3>
+<textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly5"></textarea>
+<input id="execute5" type="button" value="Run">
+<input id="assemble5" type="button" value="Assemble">
+<div class="article-code-output" id="output5"></div>
 <h2 id=how-to-build-a-programming-language class="article-section">How To Build A Programming Language</h2>
 <p>Building a VM-based programming language is really not that hard once you understand those concepts. As you implement more instructions in your VM and understand how to map the high-level constructs to those instructions, what remains is how to translate code written in a high-level syntax into the low-level bytecode for your VM.</p>
 <p>Although this deserves an entire series on its own, these are roughly the steps to take.</p>

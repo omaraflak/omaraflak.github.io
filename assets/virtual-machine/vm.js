@@ -10,7 +10,11 @@ const Op = {
     JUMP: 8,
     JUMPIFNOT: 9,
     CALL: 10,
-    RETURN: 11
+    RETURN: 11,
+    MOD: 12,
+    MUL: 13,
+    EQ: 14,
+    NEQ: 15
 };
 
 class Vm {
@@ -45,6 +49,30 @@ class Vm {
         const a = this.stack.pop();
         const b = this.stack.pop();
         this.stack.push(b - a);
+    }
+
+    mod() {
+        const a = this.stack.pop();
+        const b = this.stack.pop();
+        this.stack.push(b % a);
+    }
+
+    mul() {
+        const a = this.stack.pop();
+        const b = this.stack.pop();
+        this.stack.push(a * b);
+    }
+
+    eq() {
+        const a = this.stack.pop();
+        const b = this.stack.pop();
+        this.stack.push(a === b ? 1 : 0);
+    }
+
+    neq() {
+        const a = this.stack.pop();
+        const b = this.stack.pop();
+        this.stack.push(a !== b ? 1 : 0);
     }
 
     jump(pointer) {
@@ -96,6 +124,18 @@ class Vm {
                     break;
                 case Op.SUB:
                     this.sub();
+                    break;
+                case Op.MOD:
+                    this.mod();
+                    break;
+                case Op.MUL:
+                    this.mul();
+                    break;
+                case Op.EQ:
+                    this.eq();
+                    break;
+                case Op.NEQ:
+                    this.neq();
                     break;
                 case Op.JUMP:
                     this.jump(this._readInt32());
@@ -169,6 +209,18 @@ class Assembler {
                 pointer += 1;
             } else if (cmd === 'sub') {
                 program.push(Op.SUB);
+                pointer += 1;
+            } else if (cmd === 'mod') {
+                program.push(Op.MOD);
+                pointer += 1;
+            } else if (cmd === 'mul') {
+                program.push(Op.MUL);
+                pointer += 1;
+            } else if (cmd === 'eq') {
+                program.push(Op.EQ);
+                pointer += 1;
+            } else if (cmd === 'neq') {
+                program.push(Op.NEQ);
                 pointer += 1;
             } else if (cmd === 'jump') {
                 program.push(Op.JUMP);
@@ -373,5 +425,86 @@ halt
 .fun
 push 10
 add
+return
+`.trim()
+
+
+const execute5 = document.getElementById("execute5");
+const assemble5 = document.getElementById("assemble5");
+const assembly5 = document.getElementById("assembly5");
+const output5 = document.getElementById("output5");
+hook(execute5, assemble5, assembly5, output5);
+assembly5.value = `
+# print 2
+push 2
+print
+
+# i = 2
+push 3
+store 2
+
+.main
+
+# if isPrime(i): print i
+load 2
+call .isprime
+jumpifnot .notaprime
+
+load 2
+print
+
+# i += 2
+.notaprime
+load 2
+push 2
+add
+store 2
+
+# loop if i < 100
+push 100
+load 2
+sub
+jumpif .main
+
+halt
+
+
+.isprime
+# n = stack[-1]
+store 0
+
+# j = 2
+push 2
+store 1
+
+.loop
+
+# if n%j == 0
+load 0
+load 1
+mod
+push 0
+eq
+jumpifnot .continue
+
+# return false
+push 0
+return
+
+# j += 1
+.continue
+push 1
+load 1
+add
+store 1
+
+# if n == j, return true
+load 0
+load 1
+eq
+
+jumpifnot .loop
+
+push 1
 return
 `.trim()

@@ -281,12 +281,21 @@ Where `call` pushes the current instruction pointer + 1 to the call stack, and `
 
 # More Instructions
 
-A good exercise would be to implement those extra instructions we just mentioned. In fact, if you just want to play around, they are already implemented in the VM running in this website. There is: `jump`, `jumpifnot`, `call`, `return`.
+A good exercise would be to implement those extra instructions we just mentioned. In fact, if you just want to play around, they are already implemented in the VM running in this website.
+
+You have access to: `jump`, `jumpifnot`, `call`, `return`, `mod` (modulo), `mul` (multiply), `eq` (equal), and `neq` (not equal).
 
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly4"></textarea>
 <input id="execute4" type="button" value="Run">
 <input id="assemble4" type="button" value="Assemble">
 <div class="article-code-output" id="output4"></div>
+
+## Prime Numbers
+
+<textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly5"></textarea>
+<input id="execute5" type="button" value="Run">
+<input id="assemble5" type="button" value="Assemble">
+<div class="article-code-output" id="output5"></div>
 
 # How To Build A Programming Language
 
