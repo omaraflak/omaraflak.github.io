@@ -179,12 +179,14 @@ class Vm:
 <p>In this example, we add 4 and 5 together and print the result on the screen. I have commented out the content of the stack at each step. Click the <code class="article-code-inline">Run</code> button to start the VM!</p>
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly1"></textarea>
 <input id="execute1" type="button" value="Run">
+<input id="assemble1" type="button" value="Assemble">
 <div class="article-code-output" id="output1"></div>
 <h3 id=example-2 class="article-small-section">Example 2</h3>
 <p>I have also introduced a label mechanism in the assembler program so we don't have to pass the actual index of the instruction to <code class="article-code-inline">jumpif</code>. To define a label, write down a dot <code class="article-code-inline">.</code> followed by the name of the label, e.g. <code class="article-code-inline">.mylabel</code>. Then use it as <code class="article-code-inline">jumpif .mylabel</code>.</p>
 <p>Can you guess what this example does?</p>
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly2"></textarea>
 <input id="execute2" type="button" value="Run">
+<input id="assemble2" type="button" value="Assemble">
 <div class="article-code-output" id="output2"></div>
 <h3 id=fibonacci class="article-small-section">Fibonacci</h3>
 <p>Earlier, I simply translated the following logic into bytecode for our VM:</p>
@@ -199,6 +201,7 @@ for i in range(n):
     b = c</code></pre>
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly3"></textarea>
 <input id="execute3" type="button" value="Run">
+<input id="assemble3" type="button" value="Assemble">
 <div class="article-code-output" id="output3"></div>
 <h2 id=programming-constructs class="article-section">Programming Constructs</h2>
 <p>As you can see, we can build up to what we have in today's programming languages using very simple instructions. In this section we will see how to build common programming constructs.</p>
@@ -235,6 +238,7 @@ return</code></pre>
 <p>A good exercise would be to implement those extra instructions we just mentioned. In fact, if you just want to play around, they are already implemented in the VM running in this website. There is: <code class="article-code-inline">jump</code>, <code class="article-code-inline">jumpifnot</code>, <code class="article-code-inline">call</code>, <code class="article-code-inline">return</code>.</p>
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly4"></textarea>
 <input id="execute4" type="button" value="Run">
+<input id="assemble4" type="button" value="Assemble">
 <div class="article-code-output" id="output4"></div>
 <h2 id=how-to-build-a-programming-language class="article-section">How To Build A Programming Language</h2>
 <p>Building a VM-based programming language is really not that hard once you understand those concepts. As you implement more instructions in your VM and understand how to map the high-level constructs to those instructions, what remains is how to translate code written in a high-level syntax into the low-level bytecode for your VM.</p>

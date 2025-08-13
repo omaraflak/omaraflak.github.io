@@ -247,20 +247,26 @@ class Assembler {
     }
 }
 
-const hook = (execute, assembly, output) => {
+const hook = (execute, assemble, code, output) => {
     execute.onclick = () => {
         let assembler = new Assembler()
-        let bytes = assembler.assemble(assembly.value)
+        let bytes = assembler.assemble(code.value)
         let vm = new Vm(bytes);
         vm.run();
         output.innerText = vm.stdout.join('\n')
     };
+    assemble.onclick = () => {
+        let assembler = new Assembler()
+        let bytes = assembler.assemble(code.value)
+        output.innerText = `[${bytes.join(', ')}]`
+    };
 }
 
 const execute1 = document.getElementById("execute1");
+const assemble1 = document.getElementById("assemble1");
 const assembly1 = document.getElementById("assembly1");
 const output1 = document.getElementById("output1");
-hook(execute1, assembly1, output1);
+hook(execute1, assemble1, assembly1, output1);
 assembly1.value = `
 push 4   # stack=[4]
 push 5   # stack=[4, 5]
@@ -269,9 +275,10 @@ print    # stack=[]
 `.trim()
 
 const execute2 = document.getElementById("execute2");
+const assemble2 = document.getElementById("assemble2");
 const assembly2 = document.getElementById("assembly2");
 const output2 = document.getElementById("output2");
-hook(execute2, assembly2, output2);
+hook(execute2, assemble2, assembly2, output2);
 assembly2.value = `
 push 1          # stack=[1]     memory[0]=0
 store 0         # stack=[]      memory[0]=1
@@ -293,9 +300,10 @@ jumpif .label   # stack=[]      memory[0]=2,    goes to .label if 8>2. will stop
 
 
 const execute3 = document.getElementById("execute3");
+const assemble3 = document.getElementById("assemble3");
 const assembly3 = document.getElementById("assembly3");
 const output3 = document.getElementById("output3");
-hook(execute3, assembly3, output3);
+hook(execute3, assemble3, assembly3, output3);
 assembly3.value = `
 # a = 0
 push 0
@@ -343,9 +351,10 @@ jumpif .label
 
 
 const execute4 = document.getElementById("execute4");
+const assemble4 = document.getElementById("assemble4");
 const assembly4 = document.getElementById("assembly4");
 const output4 = document.getElementById("output4");
-hook(execute4, assembly4, output4);
+hook(execute4, assemble4, assembly4, output4);
 assembly4.value = `
 push 1
 call .fun

@@ -192,6 +192,7 @@ In this example, we add 4 and 5 together and print the result on the screen. I h
 
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly1"></textarea>
 <input id="execute1" type="button" value="Run">
+<input id="assemble1" type="button" value="Assemble">
 <div class="article-code-output" id="output1"></div>
 
 ## Example 2
@@ -202,6 +203,7 @@ Can you guess what this example does?
 
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly2"></textarea>
 <input id="execute2" type="button" value="Run">
+<input id="assemble2" type="button" value="Assemble">
 <div class="article-code-output" id="output2"></div>
 
 ## Fibonacci
@@ -222,6 +224,7 @@ for i in range(n):
 
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly3"></textarea>
 <input id="execute3" type="button" value="Run">
+<input id="assemble3" type="button" value="Assemble">
 <div class="article-code-output" id="output3"></div>
 
 # Programming Constructs
@@ -282,6 +285,7 @@ A good exercise would be to implement those extra instructions we just mentioned
 
 <textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly4"></textarea>
 <input id="execute4" type="button" value="Run">
+<input id="assemble4" type="button" value="Assemble">
 <div class="article-code-output" id="output4"></div>
 
 # How To Build A Programming Language
