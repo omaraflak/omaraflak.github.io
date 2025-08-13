@@ -7,12 +7,17 @@ const Op = {
     JUMPIF: 5,
     PRINT: 6,
     HALT: 7,
+    JUMP: 8,
+    JUMPIFNOT: 9,
+    CALL: 10,
+    RETURN: 11
 };
 
 class Vm {
     constructor(program, memorySize = 256) {
         this.program = new Uint8Array(program);
         this.stack = [];
+        this.callstack = [];
         this.memory = new Array(memorySize).fill(0);
         this.ip = 0;
         this.stdout = [];
@@ -58,6 +63,15 @@ class Vm {
         }
     }
 
+    call(pointer) {
+        this.callstack.push(this.ip);
+        this.ip = pointer;
+    }
+
+    returns() {
+        this.ip = this.callstack.pop()
+    }
+
     print() {
         this.stdout.push(this.stack.pop());
     }
@@ -83,8 +97,20 @@ class Vm {
                 case Op.SUB:
                     this.sub();
                     break;
+                case Op.JUMP:
+                    this.jump(this._readInt32());
+                    break;
                 case Op.JUMPIF:
                     this.jumpif(this._readInt32());
+                    break;
+                case Op.JUMPIFNOT:
+                    this.jumpifnot(this._readInt32());
+                    break;
+                case Op.CALL:
+                    this.call(this._readInt32());
+                    break;
+                case Op.RETURN:
+                    this.returns();
                     break;
                 case Op.PRINT:
                     this.print();
@@ -144,6 +170,15 @@ class Assembler {
             } else if (cmd === 'sub') {
                 program.push(Op.SUB);
                 pointer += 1;
+            } else if (cmd === 'jump') {
+                program.push(Op.JUMP);
+                if (parts[1].startsWith('.')) {
+                    labelCalls.push([parts[1], pointer + 1]);
+                    program.push(...this._int32(0));
+                } else {
+                    program.push(...this._int32(parseInt(parts[1])));
+                }
+                pointer += 5;
             } else if (cmd === 'jumpif') {
                 program.push(Op.JUMPIF);
                 if (parts[1].startsWith('.')) {
@@ -153,6 +188,27 @@ class Assembler {
                     program.push(...this._int32(parseInt(parts[1])));
                 }
                 pointer += 5;
+            } else if (cmd === 'jumpifnot') {
+                program.push(Op.JUMPIFNOT);
+                if (parts[1].startsWith('.')) {
+                    labelCalls.push([parts[1], pointer + 1]);
+                    program.push(...this._int32(0));
+                } else {
+                    program.push(...this._int32(parseInt(parts[1])));
+                }
+                pointer += 5;
+            } else if (cmd === 'call') {
+                program.push(Op.CALL);
+                if (parts[1].startsWith('.')) {
+                    labelCalls.push([parts[1], pointer + 1]);
+                    program.push(...this._int32(0));
+                } else {
+                    program.push(...this._int32(parseInt(parts[1])));
+                }
+                pointer += 5;
+            } else if (cmd === 'return') {
+                program.push(Op.RETURN);
+                pointer += 1;
             } else if (cmd === 'print') {
                 program.push(Op.PRINT);
                 pointer += 1;
@@ -245,7 +301,7 @@ assembly3.value = `
 push 0
 store 0
 
-# b = 0
+# b = 1
 push 1
 store 1
 
@@ -283,4 +339,30 @@ push 20
 load 2
 sub
 jumpif .label
+`.trim()
+
+
+const execute4 = document.getElementById("execute4");
+const assembly4 = document.getElementById("assembly4");
+const output4 = document.getElementById("output4");
+hook(execute4, assembly4, output4);
+assembly4.value = `
+push 1
+call .fun
+print
+
+push 2
+call .fun
+print
+
+push 3
+call .fun
+print
+
+halt
+
+.fun
+push 10
+add
+return
 `.trim()

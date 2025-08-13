@@ -276,11 +276,19 @@ return
 
 Where `call` pushes the current instruction pointer + 1 to the call stack, and `return` pops an element from the call stack and `jump` to it.
 
+# More Instructions
+
+A good exercise would be to implement those extra instructions we just mentioned. In fact, if you just want to play around, they are already implemented in the VM running in this website. There is: `jump`, `jumpifnot`, `call`, `return`.
+
+<textarea style="width: 100%; height: 200px; resize: vertical;" id="assembly4"></textarea>
+<input id="execute4" type="button" value="Run">
+<div class="article-code-output" id="output4"></div>
+
 # How To Build A Programming Language
 
 Building a VM-based programming language is really not that hard once you understand those concepts. As you implement more instructions in your VM and understand how to map the high-level constructs to those instructions, what remains is how to translate code written in a high-level syntax into the low-level bytecode for your VM.
 
-The steps are generally the following.
+Although this deserves an entire series on its own, these are roughly the steps to take.
 
 ## 1. Tokenizer
 
