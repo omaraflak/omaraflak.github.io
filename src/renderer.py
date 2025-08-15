@@ -131,22 +131,23 @@ def _get_scripts(meta: metadata.Metadata) -> str:
     return "\n".join(scripts)
 
 
+def _get_updated_date(meta: metadata.Metadata) -> str:
+    if not meta.updated_date:
+        return ""
+    date = _format_date(meta.updated_date)
+    return templates.UPDATED_DATE.replace("{{date}}", date)
+
+
 def make_article(markdown_text: str) -> str:
     md = markdown.Markdown(Renderer())
     meta = metadata.parse_metadata(markdown_text)
     text = metadata.strip_metadata(markdown_text)
     generated_html = md.convert(text)
-    updated_date_html = (
-        templates.UPDATED_DATE.replace(
-            "{{date}}", _format_date(meta.updated_date))
-        if meta.updated_date
-        else ""
-    )
     html = templates.ARTICLE
     html = html.replace("{{title}}", meta.title)
     html = html.replace("{{description}}", meta.description)
     html = html.replace("{{date}}", _format_date(meta.date))
-    html = html.replace("{{updated_date}}", updated_date_html)
+    html = html.replace("{{updated_date}}", _get_updated_date(meta))
     html = html.replace("{{content}}", generated_html)
     html = html.replace("{{styles}}", _get_styles(meta))
     html = html.replace("{{scripts}}", _get_scripts(meta))
