@@ -30,11 +30,9 @@ ARTICLE = """
             {{updated_date}}
         </div>
     </div>
-    <main class="article-main">
-        <article class="article-body">
-            {{content}}
-        </article>
-    </main>
+    <article class="article-body">
+        {{content}}
+    </article>
     <div class="article-hr"></div>
     <div class="site-footer">
         <div class="site-footer-content"></div>

@@ -29,9 +29,8 @@
             
         </div>
     </div>
-    <main class="article-main">
-        <article class="article-body">
-            <p>In this article we will see how to use the finite difference method to solve non-linear differential equations numerically. We will practice on the pendulum equation, taking air resistance into account, and solve it in Python.</p>
+    <article class="article-body">
+        <p>In this article we will see how to use the finite difference method to solve non-linear differential equations numerically. We will practice on the pendulum equation, taking air resistance into account, and solve it in Python.</p>
 <p>We will find the differential equation of the pendulum starting from scratch, and then solve it. Before we start, we need a little background on Polar coordinates.</p>
 <h2 id=polar-coordinates class="article-section">Polar Coordinates</h2>
 <p>You already know the famous Cartesian coordinates (x, y, z coordinates), which are probably the most used in everyday life. However, in some cases, describing the position of an object in Cartesian coordinates isn't practical. For instance, when an object is in a <span class="article-bold">circular movement</span>, sine and cosine functions are going to pop all over the place, so it's generally a much better idea to describe that object's position in what we call <span class="article-bold">Polar coordinates</span>.</p>
@@ -176,8 +175,7 @@ plt.show()</code></pre>
 <p>You can try to increase [begin-latex-inline]dt[end-latex-inline] and see how this affects the simulation. We would expect a smaller [begin-latex-inline]dt[end-latex-inline] to give more accurate results (since that controls the approximation of the derivative). Let's see what happens for <code class="article-code-inline">N=3,2,1</code>.</p>
 <center><img class="article-image" height="" width="100%" src="/assets/finite-difference-method/pendulum_result_3.webp" alt="pendulum different dt"></center>
 <p>I was actually surprised to see that for only 3 points per second (and even 2), we still manage to get the general shape of the solution. <code class="article-code-inline">N=1</code> is another story...</p>
-        </article>
-    </main>
+    </article>
     <div class="article-hr"></div>
     <div class="site-footer">
         <div class="site-footer-content"></div>

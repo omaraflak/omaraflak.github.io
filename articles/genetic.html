@@ -29,9 +29,8 @@
             
         </div>
     </div>
-    <main class="article-main">
-        <article class="article-body">
-            <p>These particles are born in the left half of the screen, and are left to wander around... After some number of iterations, those who are in the right half of the canvas, <span class="article-bold">survive</span>, the others, are <span class="article-bold">killed</span>. Admittedly it's a rough world to live in, but that's life.</p>
+    <article class="article-body">
+        <p>These particles are born in the left half of the screen, and are left to wander around... After some number of iterations, those who are in the right half of the canvas, <span class="article-bold">survive</span>, the others, are <span class="article-bold">killed</span>. Admittedly it's a rough world to live in, but that's life.</p>
 <p>Each particle has a small neural network brain that takes 4 inputs: the distance from the particle to each wall. The neural network outputs 4 numbers that we use to compute a displacement in the x axis [begin-latex-inline]dx[end-latex-inline] and a displacement in the y axis [begin-latex-inline]dy[end-latex-inline].</p>
 <div class="article-latex">[begin-latex]\tanh \left(
 \begin{bmatrix}
@@ -77,8 +76,7 @@
 <script src="/scripts/plot.js"></script>
 <script src="/scripts/matrix.js"></script>
 <script src="/assets/genetic/genetic.js"></script>
-        </article>
-    </main>
+    </article>
     <div class="article-hr"></div>
     <div class="site-footer">
         <div class="site-footer-content"></div>
