@@ -4,6 +4,7 @@
 :month: 2
 :day: 21
 :pinned: true
+:math: true
 
 # Information
 

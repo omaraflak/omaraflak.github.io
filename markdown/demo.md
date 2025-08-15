@@ -3,6 +3,9 @@
 :year: 2025
 :month: 7
 :day: 26
+:math: true
+:code: true
+:dot: true
 
 This is a demo file for all features available.
 

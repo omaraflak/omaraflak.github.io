@@ -3,6 +3,7 @@
 :year: 2025
 :month: 7
 :day: 28
+:math: true
 
 These particles are following a random walk, or brownian motion. At each time step, we get a random direction in space for each particle and move it towards that direction.
 

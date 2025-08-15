@@ -3,6 +3,7 @@
 :year: 2022
 :month: 10
 :day: 8
+:math: true
 
 Although this spinning donut is pretty impressive, it is quite easy to obtain using basic linear algebra. I'm going to show you how.
 

@@ -7,6 +7,9 @@
 :updated_month: 8
 :updated_day: 3
 :pinned: true
+:math: true
+:code: true
+:dot: true
 
 In this post we will go through the mathematics of neural networks and code from scratch, in Python, a small modular library to build and train such models. The only import we'll ever need is NumPy for dealing with n-dimensional arrays:
 

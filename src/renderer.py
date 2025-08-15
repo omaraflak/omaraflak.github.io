@@ -115,6 +115,26 @@ class Renderer(markdown.MarkdownRenderer):
         return '<div class="article-hr"></div>'
 
 
+def _get_styles(meta: metadata.Metadata) -> str:
+    styles = []
+    if meta.math:
+        styles.append(templates.KATEX_STYLES)
+    if meta.code:
+        styles.append(templates.HIGHLIGHT_STYLES)
+    return "\n".join(styles)
+
+
+def _get_scripts(meta: metadata.Metadata) -> str:
+    scripts = []
+    if meta.math:
+        scripts.append(templates.KATEX_SCRIPTS)
+    if meta.code:
+        scripts.append(templates.HIGHLIGHT_SCRIPTS)
+    if meta.dot:
+        scripts.append(templates.GRAPHVIZ_SCRIPTS)
+    return "\n".join(scripts)
+
+
 def make_article(markdown_text: str) -> str:
     md = markdown.Markdown(Renderer())
     meta = metadata.parse_metadata(markdown_text)
@@ -131,6 +151,8 @@ def make_article(markdown_text: str) -> str:
     html = html.replace("{{date}}", _format_date(meta))
     html = html.replace("{{updated_date}}", updated_date_html)
     html = html.replace("{{content}}", generated_html)
+    html = html.replace("{{styles}}", _get_styles(meta))
+    html = html.replace("{{scripts}}", _get_scripts(meta))
     html = html.strip()
     return html
 

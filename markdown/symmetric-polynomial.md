@@ -3,6 +3,7 @@
 :year: 2021
 :month: 11
 :day: 3
+:math: true
 
 Can you solve the following equation?
 

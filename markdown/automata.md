@@ -3,6 +3,7 @@
 :year: 2024
 :month: 1
 :day: 27
+:math: true
 
 Wolfram elementary cellular automata are a fascinating piece of mathematics. We start with a grid of cells, where all cells are in an ***off*** state, except the middle cell of the first row, which is ***on***. Then, we proceed and apply the following rule to compute the state of all cells below the first row.
 

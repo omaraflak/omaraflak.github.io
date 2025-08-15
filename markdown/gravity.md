@@ -3,6 +3,7 @@
 :year: 2022
 :month: 10
 :day: 8
+:math: true
 
 This is a simulation of gravity using Newton's law of motion:
 

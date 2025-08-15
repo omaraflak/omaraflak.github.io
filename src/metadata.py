@@ -16,7 +16,11 @@ class Metadata:
         "updated_year",
         "updated_month",
         "updated_day",
-        "pinned"
+        "pinned",
+        # -- libs
+        "math",
+        "code",
+        "dot",
     ]
 
     metadata: dict[str, str]
@@ -66,6 +70,18 @@ class Metadata:
     @property
     def pinned(self) -> bool:
         return self.metadata.get("pinned", "false").lower() in ["true", "1"]
+
+    @property
+    def math(self) -> bool:
+        return self.metadata.get("math", "false").lower() in ["true", "1"]
+
+    @property
+    def code(self) -> bool:
+        return self.metadata.get("code", "false").lower() in ["true", "1"]
+
+    @property
+    def dot(self) -> bool:
+        return self.metadata.get("dot", "false").lower() in ["true", "1"]
 
 
 def _int_or_none(s: str | None) -> int | None:

@@ -3,6 +3,8 @@
 :year: 2022
 :month: 10
 :day: 9
+:math: true
+:code: true
 
 These particles are born in the left half of the screen, and are left to wander around... After some number of iterations, those who are in the right half of the canvas, **survive**, the others, are **killed**. Admittedly it's a rough world to live in, but that's life.
 

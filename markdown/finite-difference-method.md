@@ -3,7 +3,8 @@
 :year: 2021
 :month: 2
 :day: 1
-
+:math: true
+:code: true
 
 In this article we will see how to use the finite difference method to solve non-linear differential equations numerically. We will practice on the pendulum equation, taking air resistance into account, and solve it in Python.
 

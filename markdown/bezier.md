@@ -3,6 +3,8 @@
 :year: 2020
 :month: 5
 :day: 2
+:math: true
+:code: true
 
 Bézier curves are used extensively in computer graphics, often to produce smooth curves. If you have ever used Photoshop you might have stumbled upon that tool called "Anchor" where you can put anchor points and draw some curves with them... These are Bézier curves. Or if you have used vector-based graphic, SVG, these too use Bézier curves. Let's see how it works.
 

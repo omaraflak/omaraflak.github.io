@@ -4,6 +4,8 @@
 :month: 8
 :day: 11
 :pinned: true
+:code: true
+:dot: true
 
 Virtual machines are a truely fascinating piece of software, and yet suprisingly simple. As you start understanding how they work and write your own, it will feel like you're discovering computers all over again. In this article I will explain what a virtual machine is and how to bulid one, we will write some code that runs on our virtual machine, and see how simple constructs build up to create complex logic.
 
