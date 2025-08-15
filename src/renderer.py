@@ -1,5 +1,6 @@
 import re
 import os
+import datetime
 import metadata
 import templates
 import unicodedata
@@ -7,40 +8,14 @@ import markdown
 import links
 
 
-_LINKS = links.LinkPreview()
-
-
-def _make_tag(title: str) -> str:
-    s = title.lower()
-    s = unicodedata.normalize("NFKD", s).encode(
-        "ascii", "ignore").decode("utf-8")
-    s = re.sub(r"[^a-z0-9\s-]", "", s)
-    s = re.sub(r"\s+", "-", s)
-    s = re.sub(r"-+", "-", s)
-    s = s.strip("-")
-    return s
-
-
-def _format_date(meta: metadata.Metadata) -> str:
-    return meta.date.strftime("%b %d, %Y")
-
-
-def _format_updated_date(meta: metadata.Metadata) -> str:
-    return meta.updated_date.strftime("%b %d, %Y")
-
-
-def _parse_image_data(location: str) -> tuple[str, str, str]:
-    parts = location.split(";")
-    mapping = dict(part.split("=") for part in parts[1:])
-    return parts[0], mapping.get("h", ""), mapping.get("w", "")
-
-
 class Renderer(markdown.MarkdownRenderer):
+    _LINKS = links.LinkPreview()
+
     def render_heading(self, text: str, level: int) -> str:
         if level == 1:
-            return f'<h2 id={_make_tag(text)} class="article-section">{text}</h2>'
+            return f'<h2 id={Renderer._make_tag(text)} class="article-section">{text}</h2>'
         elif level == 2:
-            return f'<h3 id={_make_tag(text)} class="article-small-section">{text}</h3>'
+            return f'<h3 id={Renderer._make_tag(text)} class="article-small-section">{text}</h3>'
         else:
             print(f"Heading with level {level} is not supported!")
 
@@ -77,7 +52,7 @@ class Renderer(markdown.MarkdownRenderer):
 
     def render_link(self, title: str, url: str) -> str:
         if title == '':
-            preview = _LINKS.get_link_preview(url)
+            preview = Renderer._LINKS.get_link_preview(url)
             if preview:
                 return f'''
                     <div class="article-link-preview-container">
@@ -108,11 +83,32 @@ class Renderer(markdown.MarkdownRenderer):
             return f'<a class="article-link" target="_blank" href="{url}">{title}</a>'
 
     def render_image(self, alt: str, url: str) -> str:
-        url, height, width = _parse_image_data(url)
+        url, height, width = Renderer._parse_image_data(url)
         return f'<center><img class="article-image" height="{height}" width="{width}" src="{url}" alt="{alt}"></center>'
 
     def render_separator(self) -> str:
         return '<div class="article-hr"></div>'
+
+    @staticmethod
+    def _make_tag(title: str) -> str:
+        s = title.lower()
+        s = unicodedata.normalize("NFKD", s).encode(
+            "ascii", "ignore").decode("utf-8")
+        s = re.sub(r"[^a-z0-9\s-]", "", s)
+        s = re.sub(r"\s+", "-", s)
+        s = re.sub(r"-+", "-", s)
+        s = s.strip("-")
+        return s
+
+    @staticmethod
+    def _parse_image_data(location: str) -> tuple[str, str, str]:
+        parts = location.split(";")
+        mapping = dict(part.split("=") for part in parts[1:])
+        return parts[0], mapping.get("h", ""), mapping.get("w", "")
+
+
+def _format_date(date: datetime.date) -> str:
+    return date.strftime("%b %d, %Y")
 
 
 def _get_styles(meta: metadata.Metadata) -> str:
@@ -141,14 +137,15 @@ def make_article(markdown_text: str) -> str:
     text = metadata.strip_metadata(markdown_text)
     generated_html = md.convert(text)
     updated_date_html = (
-        templates.UPDATED_DATE.replace("{{date}}", _format_updated_date(meta))
+        templates.UPDATED_DATE.replace(
+            "{{date}}", _format_date(meta.updated_date))
         if meta.updated_date
         else ""
     )
     html = templates.ARTICLE
     html = html.replace("{{title}}", meta.title)
     html = html.replace("{{description}}", meta.description)
-    html = html.replace("{{date}}", _format_date(meta))
+    html = html.replace("{{date}}", _format_date(meta.date))
     html = html.replace("{{updated_date}}", updated_date_html)
     html = html.replace("{{content}}", generated_html)
     html = html.replace("{{styles}}", _get_styles(meta))
@@ -162,7 +159,7 @@ def make_article_entry(meta: metadata.Metadata, filename: str) -> str:
     html = html.replace("{{filename}}", filename)
     html = html.replace("{{title}}", meta.title)
     html = html.replace("{{description}}", meta.description)
-    html = html.replace("{{date}}", _format_date(meta))
+    html = html.replace("{{date}}", _format_date(meta.date))
     html = html.replace("{{pin}}", templates.PIN if meta.pinned else "")
     html = html.strip()
     return html
