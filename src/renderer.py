@@ -51,36 +51,37 @@ class Renderer(markdown.MarkdownRenderer):
             return f'<code class="article-code-inline">{text}</code>'
 
     def render_link(self, title: str, url: str) -> str:
-        if title == '':
-            preview = Renderer._LINKS.get_link_preview(url)
-            if preview:
-                return f'''
-                    <div class="article-link-preview-container">
-                        <a class="article-link-preview-link" target="_blank" href="{url}">
-                            <span class="article-link-preview-title">{preview.title}</span>
-                            <span class="article-link-preview-description">{preview.description}</span>
-                            <span class="article-link-preview-website">{preview.website}</span>
-                        </a>
-                    </div>
-                '''
-            else:
-                print("Could not fetch link preview: ", url)
-                title = '<span style="color:red;">ERROR NO INTERNET TO FETCH LINK PREVIEW</span>'
-                return f'<a class="article-link" target="_blank" href="{url}">{title}</a>'
-        elif title == '#download':
-            filename = os.path.basename(url)
-            return f'''
-                <center>
-                    <div class="article-file-download-container">
-                        <a class="article-file-download-link" href="{url}" download>
-                            <img src="/images/download.svg" alt="download" height="30" width="30">
-                            <span class="article-file-download-title">{filename}</span>
-                        </a>
-                    </div>
-                </center>
-            '''
-        else:
+        return f'<a class="article-link" target="_blank" href="{url}">{title}</a>'
+
+    def render_link_preview(self, url: str) -> str:
+        preview = Renderer._LINKS.get_link_preview(url)
+        if not preview:
+            print("Could not fetch link preview: ", url)
+            title = '<span style="color:red;">ERROR NO INTERNET TO FETCH LINK PREVIEW</span>'
             return f'<a class="article-link" target="_blank" href="{url}">{title}</a>'
+
+        return f'''
+            <div class="article-link-preview-container">
+                <a class="article-link-preview-link" target="_blank" href="{url}">
+                    <span class="article-link-preview-title">{preview.title}</span>
+                    <span class="article-link-preview-description">{preview.description}</span>
+                    <span class="article-link-preview-website">{preview.website}</span>
+                </a>
+            </div>
+        '''
+
+    def render_download(self, path: str) -> str:
+        filename = os.path.basename(path)
+        return f'''
+            <center>
+                <div class="article-file-download-container">
+                    <a class="article-file-download-link" href="{path}" download>
+                        <img src="/images/download.svg" alt="download" height="30" width="30">
+                        <span class="article-file-download-title">{filename}</span>
+                    </a>
+                </div>
+            </center>
+        '''
 
     def render_image(self, alt: str, url: str) -> str:
         url, height, width = Renderer._parse_image_data(url)
@@ -155,7 +156,7 @@ def make_article(markdown_text: str) -> str:
 
 
 def make_article_entry(meta: metadata.Metadata, filename: str) -> str:
-    html = templates.ENTRY
+    html = templates.ARTICLE_ENTRY
     html = html.replace("{{filename}}", filename)
     html = html.replace("{{title}}", meta.title)
     html = html.replace("{{description}}", meta.description)

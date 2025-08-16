@@ -44,7 +44,7 @@ ARTICLE = """
 
 UPDATED_DATE = """<span class="article-updated-date">Updated on {{date}}</span>"""
 
-ENTRY = """
+ARTICLE_ENTRY = """
 <article class="articles-preview">
     <div class="articles-preview-title-container">
         <a href="articles/{{filename}}" class="articles-preview-title">{{title}}</a>

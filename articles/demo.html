@@ -43,14 +43,14 @@
 <p>Links are also supported. Check out my <span class="article-bold"><a class="article-link" target="_blank" href="https://github.com/omaraflak">github</a></span>. Use the following formatting <code class="article-code-inline">[title](https://example.com)</code>.</p>
 <p>If no title is provided, then the link will be in preview mode <code class="article-code-inline">[](https://example.com)</code>:</p>
 
-                    <div class="article-link-preview-container">
-                        <a class="article-link-preview-link" target="_blank" href="https://github.com/omaraflak">
-                            <span class="article-link-preview-title">omaraflak - Overview</span>
-                            <span class="article-link-preview-description">Keep learning . omaraflak has 124 repositories available. Follow their code on GitHub.</span>
-                            <span class="article-link-preview-website">github.com</span>
-                        </a>
-                    </div>
-                
+            <div class="article-link-preview-container">
+                <a class="article-link-preview-link" target="_blank" href="https://github.com/omaraflak">
+                    <span class="article-link-preview-title">omaraflak - Overview</span>
+                    <span class="article-link-preview-description">Keep learning . omaraflak has 124 repositories available. Follow their code on GitHub.</span>
+                    <span class="article-link-preview-website">github.com</span>
+                </a>
+            </div>
+        
 <p>You can include images as well with <code class="article-code-inline">![alt](/image/path)</code>:</p>
 <center><img class="article-image" height="" width="" src="/assets/demo/image.svg" alt="svg"></center>
 <p>The height and/or width of the image can be specified in pixels or percentage using the following syntax:</p>
@@ -129,16 +129,16 @@ plt.show()</code></pre>
     NodeF -> NodeA [label="Retry" color="#8B4513" style=dotted]; // Saddle brown, dotted
 }</div></center>
 <p>Put file download links using <code class="article-code-inline">[#download](/path/to/filename.whatever)</code>:</p>
-
-                <center>
-                    <div class="article-file-download-container">
-                        <a class="article-file-download-link" href="/assets/demo/image.svg" download>
-                            <img src="/images/download.svg" alt="download" height="30" width="30">
-                            <span class="article-file-download-title">image.svg</span>
-                        </a>
-                    </div>
-                </center>
-            
+<p>
+            <center>
+                <div class="article-file-download-container">
+                    <a class="article-file-download-link" href="/assets/demo/image.svg" download>
+                        <img src="/images/download.svg" alt="download" height="30" width="30">
+                        <span class="article-file-download-title">image.svg</span>
+                    </a>
+                </div>
+            </center>
+        </p>
 <p>You can include content using <code class="article-code-inline">#include</code>:</p>
 <pre class="article-code-block python"><code>def main():
     print('hello world')

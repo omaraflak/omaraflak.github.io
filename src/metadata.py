@@ -17,7 +17,7 @@ class Metadata:
         "updated_month",
         "updated_day",
         "pinned",
-        # -- libs
+        # Optional libs
         "math",
         "code",
         "dot",

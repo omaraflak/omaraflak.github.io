@@ -38,14 +38,14 @@
 <p>I can understand how this ending may not be very satisfying given the efforts made to build the library. Thus, in part 2, we extend that library with 2 additional components: <span class="article-bold">Softmax</span> layer, and <span class="article-bold">Cross-Entropy</span> loss, and train a neural network to recognize hand-written digits.</p>
 <p>You can find the entire code of the article on my GitHub:</p>
 
-                    <div class="article-link-preview-container">
-                        <a class="article-link-preview-link" target="_blank" href="https://github.com/omaraflak/neural-network-from-scratch">
-                            <span class="article-link-preview-title">GitHub - omaraflak/neural-network-from-scratch: Code for my article on omaraflak.github.io</span>
-                            <span class="article-link-preview-description">Code for my article on omaraflak.github.io. Contribute to omaraflak/neural-network-from-scratch development by creating an account on GitHub.</span>
-                            <span class="article-link-preview-website">github.com</span>
-                        </a>
-                    </div>
-                
+            <div class="article-link-preview-container">
+                <a class="article-link-preview-link" target="_blank" href="https://github.com/omaraflak/neural-network-from-scratch">
+                    <span class="article-link-preview-title">GitHub - omaraflak/neural-network-from-scratch: Code for my article on omaraflak.github.io</span>
+                    <span class="article-link-preview-description">Code for my article on omaraflak.github.io. Contribute to omaraflak/neural-network-from-scratch development by creating an account on GitHub.</span>
+                    <span class="article-link-preview-website">github.com</span>
+                </a>
+            </div>
+        
 <h2 id=mnist class="article-section">MNIST</h2>
 <p>The MNIST dataset contains images of hand-written digits from 0 to 9. More precisely, it has 60k training images and 10k test images. Each image is 28x28 pixels, greyscale (0-255). I provide a helper function <code class="article-code-inline">download_mnist()</code> in the GitHub repository to load the dataset.</p>
 <pre class="article-code-block python"><code>>>> x_train, y_train, x_test, y_test = download_mnist()
@@ -238,14 +238,14 @@ array([0.00473036, 0.25826895, 0.0349529 , 0.70204779])</code></pre>
 <p>We now have have a way to force the neural network to output a probability distribution by adding this layer <span class="article-bold">at the end</span> of the network. We could theoretically start training the neural network like we did with XOR using MSE, but in practice this won't work well.</p>
 <p>Whenever we have <span class="article-bold">classification</span> tasks, i.e. the network outputs a probability distribution over the possible labels, <span class="article-bold">Cross-Entropy</span> is the go-to loss function. To understand why, I invite you to look at a deepr explanation of the concepts of <span class="article-italic">entropy</span>, <span class="article-italic">cross-entropy</span>, and <span class="article-italic">relative entropy</span>:</p>
 
-                    <div class="article-link-preview-container">
-                        <a class="article-link-preview-link" target="_blank" href="https://omaraflak.github.io/articles/entropy.html">
-                            <span class="article-link-preview-title">Information & Entropy</span>
-                            <span class="article-link-preview-description">What is information and how is it measured? What is entropy? Cross entropy? Relative entropy (aka KL Divergence)?</span>
-                            <span class="article-link-preview-website">omaraflak.github.io</span>
-                        </a>
-                    </div>
-                
+            <div class="article-link-preview-container">
+                <a class="article-link-preview-link" target="_blank" href="https://omaraflak.github.io/articles/entropy.html">
+                    <span class="article-link-preview-title">Information & Entropy</span>
+                    <span class="article-link-preview-description">What is information and how is it measured? What is entropy? Cross entropy? Relative entropy (aka KL Divergence)?</span>
+                    <span class="article-link-preview-website">omaraflak.github.io</span>
+                </a>
+            </div>
+        
 <h2 id=cross-entropy class="article-section">Cross-Entropy</h2>
 <p>The cross-entropy loss is a way to measure the difference between two probability distributions. We are exactly in that case, where the network outputs a certain distribution due to Softmax, but we want to compare that against the actual distribution which is our labels.</p>
 <p>If [begin-latex-inline]y^*[end-latex-inline] is the <span class="article-bold"><span class="article-italic">true</span></span> ditribution, and [begin-latex-inline]y[end-latex-inline] is the <span class="article-bold"><span class="article-italic">predicted</span></span> distribution, then the cross-entropy loss is:</p>

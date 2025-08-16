@@ -1,3 +1,4 @@
+import os
 import re
 import html
 import random
@@ -38,6 +39,9 @@ class MarkdownRenderer:
     def render_link(self, title: str, url: str) -> str:
         return f'<a href="{url}">{title}</a>'
 
+    def render_link_preview(self, url: str) -> str:
+        return f'<a href="{url}">{url}</a>'
+
     def render_image(self, alt: str, url: str) -> str:
         return f'<img src="{url}" alt="{alt}">'
 
@@ -46,6 +50,10 @@ class MarkdownRenderer:
 
     def render_include(self, path: str) -> str:
         return open(path, "r").read()
+
+    def render_download(self, url: str) -> str:
+        filename = os.path.basename(url)
+        return f'<a href="{url}" download>{filename}</a>'
 
 
 class Markdown:
@@ -59,8 +67,10 @@ class Markdown:
     INLINE_BLOCK_ALT = re.compile(r'``\s(?P<text>.+?)\s``')
     LINK = re.compile(r'\[(?P<title>.*)\]\((?P<url>.+)\)')
     IMAGE = re.compile(r'!\[(?P<alt>.*)\]\((?P<url>.+)\)')
-    SEPARATOR = re.compile(r'^---$')
     INCLUDE = re.compile(r'\[#include\]\((?P<path>.*?)\)')
+    DOWNLOAD = re.compile(r'\[#download\]\((?P<url>.*?)\)')
+    LINK_PREVIEW = re.compile(r'\[\]\((?P<url>.*?)\)')
+    SEPARATOR = re.compile(r'^---$')
     UUID = re.compile(r'(?P<uid><uid>[a-z]{5}-[a-z]{3}</uid>)')
     HTML = re.compile(r'^<(\w+).*>(.*</\1>)?$')
 
@@ -128,6 +138,11 @@ class Markdown:
         return self.renderer.render_link(title, url)
 
     @_immutable
+    def _render_link_preview(self, match: re.Match[str]) -> str:
+        url = self._plain(match.group('url'))
+        return self.renderer.render_link_preview(url)
+
+    @_immutable
     def _render_image(self, match: re.Match[str]) -> str:
         alt = self._plain(match.group('alt'))
         url = self._plain(match.group('url'))
@@ -140,11 +155,17 @@ class Markdown:
         path = match.group('path')
         return self.renderer.render_include(path)
 
+    def _render_download(self, match: re.Match[str]) -> str:
+        url = match.group('url')
+        return self.renderer.render_download(url)
+
     def _render_inlines(self, text: str) -> str:
         text = Markdown.HEADINGS.sub(self._render_header, text)
         text = Markdown.INLINE_BLOCK_ALT.sub(self._render_inline_code, text)
         text = Markdown.INLINE_BLOCK.sub(self._render_inline_code, text)
         text = Markdown.IMAGE.sub(self._render_image, text)
+        text = Markdown.DOWNLOAD.sub(self._render_download, text)
+        text = Markdown.LINK_PREVIEW.sub(self._render_link_preview, text)
         text = Markdown.LINK.sub(self._render_link, text)
         text = Markdown.BOLD.sub(self._render_bold, text)
         text = Markdown.ITALIC.sub(self._render_italic, text)
