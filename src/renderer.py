@@ -90,6 +90,9 @@ class Renderer(markdown.MarkdownRenderer):
     def render_separator(self) -> str:
         return '<div class="article-hr"></div>'
 
+    def render_include(self, path: str) -> str:
+        return open(path, "r").read()
+
     @staticmethod
     def _make_tag(title: str) -> str:
         s = title.lower()

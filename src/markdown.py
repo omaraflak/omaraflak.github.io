@@ -1,59 +1,67 @@
-import os
 import re
+import abc
 import html
 import random
 import string
 from typing import Callable
 
 
-class MarkdownRenderer:
+class MarkdownRenderer(abc.ABC):
+    @abc.abstractmethod
     def render_heading(self, text: str, level: int) -> str:
-        return f'<h{level}>{text}</h{level}>'
+        return
 
+    @abc.abstractmethod
     def render_bold(self, text: str) -> str:
-        return f'<strong>{text}</strong>'
+        return
 
+    @abc.abstractmethod
     def render_italic(self, text: str) -> str:
-        return f'<em>{text}</em>'
+        return
 
+    @abc.abstractmethod
     def render_paragraph(self, text: str) -> str:
-        return f'<p>{text}</p>'
+        return
 
+    @abc.abstractmethod
     def render_code_block(self, text: str, lang: str) -> str:
-        if lang:
-            return f'<pre><code class="language-{lang}">{text}</code></pre>'
-        else:
-            return f'<pre><code>{text}</code></pre>'
+        return
 
+    @abc.abstractmethod
     def render_quote(self, lines: list[str]) -> str:
-        quote = '</br>'.join(lines)
-        return f'<span>{quote}</span>'
+        return
 
+    @abc.abstractmethod
     def render_unordered_list(self, items: list[str]) -> str:
-        li = '\n'.join(f'<li>{i}</li>' for i in items)
-        return f'<ul>{li}</ul>'
+        return
 
+    @abc.abstractmethod
     def render_inline_code(self, text: str) -> str:
-        return f'<pre>{text}</pre>'
+        return
 
+    @abc.abstractmethod
     def render_link(self, title: str, url: str) -> str:
-        return f'<a href="{url}">{title}</a>'
+        return
 
+    @abc.abstractmethod
     def render_link_preview(self, url: str) -> str:
-        return f'<a href="{url}">{url}</a>'
+        return
 
+    @abc.abstractmethod
     def render_image(self, alt: str, url: str) -> str:
-        return f'<img src="{url}" alt="{alt}">'
+        return
 
+    @abc.abstractmethod
     def render_separator(self) -> str:
-        return '<hr>'
+        return
 
+    @abc.abstractmethod
     def render_include(self, path: str) -> str:
-        return open(path, "r").read()
+        return
 
+    @abc.abstractmethod
     def render_download(self, url: str) -> str:
-        filename = os.path.basename(url)
-        return f'<a href="{url}" download>{filename}</a>'
+        return
 
 
 class Markdown:
@@ -74,8 +82,8 @@ class Markdown:
     UUID = re.compile(r'(?P<uid><uid>[a-z]{5}-[a-z]{3}</uid>)')
     HTML = re.compile(r'^<(\w+).*>(.*</\1>)?$')
 
-    def __init__(self, renderer: MarkdownRenderer | None = None):
-        self.renderer = renderer or MarkdownRenderer()
+    def __init__(self, renderer: MarkdownRenderer):
+        self.renderer = renderer
         self.immutables: dict[str, str] = dict()
 
     def _immutable(render: Callable[[re.Match[str]], str]) -> Callable[[re.Match[str]], str]:
