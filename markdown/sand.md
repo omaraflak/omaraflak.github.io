@@ -10,6 +10,6 @@ This is a sand simulation based on a cellular automata. Each grain of sand is up
 2. If the bottom cell contains another grain of sand, then the grain of sand will either stay where it is, or fall on either side of that other grain of sand if any of the two cells are empty.
 
 
-<canvas class="article-canvas" id="canvas"></canvas>
+<canvas class="article-block" id="canvas"></canvas>
 <script src="/scripts/canvas.js"></script>
 <script src="/assets/sand/sand.js"></script>

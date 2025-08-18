@@ -30,7 +30,7 @@ If we need this mapping function to be continuous, which seems like a natural ch
 
 More precisely, the negative logarithms:
 
-<center><div id="negative-log"></div></center>
+<div class="article-center-row"><div id="negative-log"></div></div>
 
 We define information mathematically as:
 

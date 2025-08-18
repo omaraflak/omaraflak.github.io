@@ -385,12 +385,6 @@ p {
     overflow-x: auto;
 }
 
-.article-canvas {
-    width: 100%;
-    margin: 30px 0px;
-    background-color: black;
-}
-
 .article-file-download-container {
     width: fit-content;
     display: flex;
@@ -442,4 +436,31 @@ p {
     &:not(:empty) {
         padding: 5px 8px;
     }
+}
+
+.article-center-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.article-center-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+canvas {
+    width: 100%;
+}
+
+.article-block {
+    margin-top: 30px;
+    margin-bottom: 30px;
 }

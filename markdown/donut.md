@@ -7,7 +7,7 @@
 
 Although this spinning donut is pretty impressive, it is quite easy to obtain using basic linear algebra. I'm going to show you how.
 
-<center><canvas class="article-canvas" id="canvas" style="width: 200px; height: 200px;"></canvas></center>
+<div class="article-center-row article-block"><canvas id="canvas" style="width: 50%"></canvas></div>
 
 The first step is to sample points from the surface of a 3D donut. We can do this by rotating a circle sitting on the plane `$(x, y)$` centered at `$(c,0,0)$` around the `$y$` axis.
 

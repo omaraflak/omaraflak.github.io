@@ -19,18 +19,16 @@ and Newton's law of gravity:
 
 To make things interesting, I've set the particles to repulse themselves if they come too close together. You can play with that parameter using the slider below.
 
-<center><canvas class="article-canvas" id="canvas" style="width: 50%;"></canvas></center>
-<div>
-    <div style="display: flex;">
-        <span>Number of particles: </span>
-        <input type="range" min="100" max="1000" value="500" id="total_particles">
-        <span id="total_particles_placeholder">500</span>
-    </div>
-    <div style="display: flex;">
-        <span>Repulsion distance: </span>
-        <input type="range" min="0" max="200" value="50" id="min_distance">
-        <span id="min_distance_placeholder">50</span>
-    </div>
+<div class="article-center-row article-block"><canvas id="canvas" style="width: 50%;"></canvas></div>
+<div style="display: flex; align-items: center;">
+    <span>Number of particles: </span>
+    <input type="range" min="100" max="1000" value="500" id="total_particles">
+    <span id="total_particles_placeholder">500</span>
+</div>
+<div style="display: flex; align-items: center;">
+    <span>Repulsion distance: </span>
+    <input type="range" min="0" max="200" value="50" id="min_distance">
+    <span id="min_distance_placeholder">50</span>
 </div>
 <script src="/scripts/canvas.js"></script>
 <script src="/scripts/matrix.js"></script>

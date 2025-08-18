@@ -19,12 +19,7 @@ You can read more about this simple cellular automata on Wolfram's website:
 
 Below is a simulation of the above rule, and somehow this very simple rule creates those intricate patterns that seem regular but also chaotic! Enter a rule number below to see them all!
 
-<canvas class="article-canvas" id="canvas"></canvas>
-<center>
-<div>
-    <span class="text">Rule: </span>
-    <input type="number" min="0" max="255" value="30" id="rule">
-</div>
-</center>
+<canvas class="article-block" id="canvas"></canvas>
+<div class="article-center-row"><div><span class="text">Rule: </span><input type="number" min="0" max="255" value="30" id="rule"></div></div>
 <script src="/scripts/canvas.js"></script>
 <script src="/assets/automata/automata.js"></script>
