@@ -102,3 +102,24 @@ HIGHLIGHT_SCRIPTS = """
 HIGHLIGHT_STYLES = """
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css" integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 """
+
+SITEMAP = """
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://omaraflak.github.io/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+{{entries}}
+</urlset>
+"""
+
+SITEMAP_ENTRY = """
+<url>
+    <loc>https://omaraflak.github.io/articles/{{filename}}</loc>
+    <lastmod>{{date}}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+</url>
+"""

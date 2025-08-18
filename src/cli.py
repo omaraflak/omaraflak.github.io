@@ -2,6 +2,7 @@ import os
 import fire
 import renderer
 import metadata
+import sitemap
 
 
 def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = None):
@@ -12,6 +13,7 @@ def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = N
     ]
 
     entries: list[tuple[str, metadata.Metadata]] = []
+    sitemap_entries: list[str] = []
 
     for file in files:
         input_path = os.path.join(markdown_input_dir, file)
@@ -24,6 +26,8 @@ def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = N
                 meta = metadata.parse_metadata(markdown)
                 entry = renderer.make_article_entry(meta, filename)
                 entries.append((entry, meta))
+                sitemap_entries.append(
+                    sitemap.make_sitemap_entry(meta, filename))
 
             if not only or file == only:
                 with open(output_path, "w") as fout:
@@ -39,8 +43,11 @@ def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = N
     entries_path = os.path.join(html_output_dir, "all.html")
     with open(entries_path, "w") as fout:
         fout.write(entries_html)
-
     print(">", entries_path)
+
+    with open("sitemap.xml", "w") as fout:
+        fout.write(sitemap.make_sitemap("\n".join(sitemap_entries)))
+    print("> sitemap.xml")
 
 
 if __name__ == "__main__":

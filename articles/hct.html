@@ -104,10 +104,8 @@
                 row.appendChild(square);
                 square.onclick = function () {
                     navigator.clipboard.writeText(color);
-                    // tooltip.style.visibility = 'hidden'
                     tooltipCopy.style.visibility = 'visible'
                     setTimeout(() => {
-                        // tooltip.style.visibility = 'visible'
                         tooltipCopy.style.visibility = 'hidden'
                     }, 1000)
                 };
