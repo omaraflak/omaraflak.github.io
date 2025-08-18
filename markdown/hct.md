@@ -22,6 +22,6 @@ Another feature of HCT is that it is [accessible](https://developer.mozilla.org/
 
 # 3D
 
-we can visualize those three components on a color wheel.
+We can visualize those three components on a color wheel.
 
 [#include](assets/hct/hct-3d.html)
