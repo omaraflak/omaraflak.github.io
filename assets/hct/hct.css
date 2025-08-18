@@ -1,0 +1,53 @@
+.container {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#grid {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#row {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+#square {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#chroma-input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#tooltip-container {
+    visibility: hidden;
+    display: flex;
+    padding: 5px;
+    background-color: rgb(206, 206, 206);
+    position: absolute;
+    border-radius: 5px;
+    transform: translate(50%, -100%);
+    z-index: 1;
+}
+
+#tooltip-text {
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#square:hover #tooltip-container {
+    visibility: visible;
+}

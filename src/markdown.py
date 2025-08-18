@@ -73,8 +73,8 @@ class Markdown:
     UNORDERED_LIST = re.compile(r'(?m)^(?P<list>(?:\s+-[^-].*\n?)+)$')
     INLINE_BLOCK = re.compile(r'`(?P<text>.+?)`')
     INLINE_BLOCK_ALT = re.compile(r'``\s(?P<text>.+?)\s``')
-    LINK = re.compile(r'\[(?P<title>.*)\]\((?P<url>.+)\)')
-    IMAGE = re.compile(r'!\[(?P<alt>.*)\]\((?P<url>.+)\)')
+    LINK = re.compile(r'\[(?P<title>.*)\]\((?P<url>.+?)\)')
+    IMAGE = re.compile(r'!\[(?P<alt>.*)\]\((?P<url>.+?)\)')
     INCLUDE = re.compile(r'\[#include\]\((?P<path>.*?)\)')
     DOWNLOAD = re.compile(r'\[#download\]\((?P<url>.*?)\)')
     LINK_PREVIEW = re.compile(r'\[\]\((?P<url>.*?)\)')
@@ -159,6 +159,7 @@ class Markdown:
     def _render_separator(self, _: re.Match[str]) -> str:
         return self.renderer.render_separator()
 
+    @_immutable
     def _render_include(self, match: re.Match[str]) -> str:
         path = match.group('path')
         return self.renderer.render_include(path)

@@ -1,0 +1,88 @@
+<div id="canvas" style="display: flex; width: 100%; height: 500px;"></div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
+<script type="module">
+    import { Hct } from 'https://cdn.jsdelivr.net/npm/@material/material-color-utilities@0.3.0/index.min.js';
+
+    // Set up scene, camera, renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.domElement.style.width = '100%';
+    renderer.domElement.style.height = '100%';
+    renderer.domElement.style.display = 'flex';
+
+    // Add renderer to the page
+    const div = document.getElementById('canvas');
+    div.appendChild(renderer.domElement);
+
+
+    function resizeRendererToDiv() {
+        const width = div.clientWidth;
+        const height = div.clientHeight;
+        renderer.setSize(width, height, false);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+    }
+
+    resizeRendererToDiv();
+    window.addEventListener('resize', resizeRendererToDiv);
+    const resizeObserver = new ResizeObserver(resizeRendererToDiv);
+    resizeObserver.observe(div);
+
+
+    const chroma = 150;
+    const step = 1;
+    const radStep = step * Math.PI / 180
+    let y = -1
+
+    for (let tone = 50; tone <= 70; tone += 10) {
+        for (let hue = 0; hue <= 360; hue += step) {
+            const hct = Hct.from(hue, chroma, tone);
+            const rgb = hct.argb & 0xffffff
+
+            const thetaStart = hue * Math.PI / 180
+            const geometry = new THREE.CylinderGeometry(
+                /* radiusTop = */ 1,
+                /* radiusBottom = */ 1,
+                /* height = */ 0.3,
+                /* radialSegments = */ 4,
+                /* heightSegments = */ 1,
+                /* openEnded = */ false,
+                /* thetaStart = */ thetaStart,
+                /* thetaLength = */ radStep
+            );
+            const material = new THREE.MeshStandardMaterial({ color: rgb });
+            const cylinder = new THREE.Mesh(geometry, material);
+            cylinder.translateY(y)
+            scene.add(cylinder);
+        }
+        y += 1
+    }
+
+    const lightPositions = [
+        [10, 0, 0],   // +X
+        [-10, 0, 0],  // -X
+        [0, 10, 0],   // +Y
+        [0, -10, 0],  // -Y
+        [0, 0, 10],   // +Z
+        [0, 0, -10],  // -Z
+    ];
+    lightPositions.forEach(pos => {
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(...pos);
+        scene.add(light);
+    });
+
+    camera.position.z = 5;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        scene.rotation.x += 0.01
+        scene.rotation.y += 0.01
+        scene.rotation.z += 0.01
+        renderer.render(scene, camera);
+    }
+    animate();
+</script>
