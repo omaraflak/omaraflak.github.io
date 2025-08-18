@@ -12,10 +12,12 @@ def make_sitemap_entry(meta: metadata.Metadata, filename: str) -> str:
     xml = templates.SITEMAP_ENTRY
     xml = xml.replace("{{date}}", _format_date(date))
     xml = xml.replace("{{filename}}", filename)
+    xml = xml.strip()
     return xml
 
 
 def make_sitemap(entries: str) -> str:
     xml = templates.SITEMAP
     xml = xml.replace("{{entries}}", entries)
+    xml = xml.strip()
     return xml
