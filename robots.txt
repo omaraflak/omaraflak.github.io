@@ -1,0 +1,7 @@
+User-agent: Googlebot
+Disallow: /articles/demo.html
+
+User-agent: *
+Allow: /
+
+Sitemap: https://omaraflak.github.io/sitemap.xml
