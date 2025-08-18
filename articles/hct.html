@@ -73,6 +73,18 @@
         return tooltip
     }
 
+    function makeTooltipCopy() {
+        const tooltip = document.createElement('div');
+        tooltip.id = "tooltip-copy-container"
+
+        const span = document.createElement('span')
+        span.id = 'tooltip-copy-text'
+        span.innerText = 'Copied! ✅'
+
+        tooltip.appendChild(span)
+        return tooltip
+    }
+
     function renderGrid(chroma) {
         grid.innerHTML = '';
         for (let hue = 0; hue <= 360; hue += 5) {
@@ -86,11 +98,18 @@
                 square.id = "square";
                 square.style.background = color;
                 const tooltip = makeTooltip(color)
-                row.appendChild(square);
+                const tooltipCopy = makeTooltipCopy()
                 square.appendChild(tooltip)
-
+                square.appendChild(tooltipCopy)
+                row.appendChild(square);
                 square.onclick = function () {
                     navigator.clipboard.writeText(color);
+                    // tooltip.style.visibility = 'hidden'
+                    tooltipCopy.style.visibility = 'visible'
+                    setTimeout(() => {
+                        // tooltip.style.visibility = 'visible'
+                        tooltipCopy.style.visibility = 'hidden'
+                    }, 1000)
                 };
             }
             grid.appendChild(row);
@@ -108,7 +127,7 @@
 <p>What's interesting with this color system is that it tries to be as <span class="article-bold">perceptually accurate</span> as possible: for a given hue and chroma, all tones <span class="article-italic">seem</span> to belong to the same family of colors. This makes it very easy to create a color palette starting with a seed color.</p>
 <p>Another feature of HCT is that it is <a class="article-link" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/Accessibility">accessible</a> (in this case, compatible with people with visual impairements): it guarantees that 2 colors picked 40-50 tones appart will always have high enough contrast, e.g. such that one could be a background color, and the other a text color above it.</p>
 <h2 id=3d class="article-section">3D</h2>
-<p>we can visualize those three components on a color wheel.</p>
+<p>We can visualize those three components on a color wheel.</p>
 <div id="canvas" style="display: flex; width: 100%; height: 500px;"></div>
 <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
 <script type="module">

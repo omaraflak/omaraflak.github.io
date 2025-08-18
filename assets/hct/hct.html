@@ -28,6 +28,18 @@
         return tooltip
     }
 
+    function makeTooltipCopy() {
+        const tooltip = document.createElement('div');
+        tooltip.id = "tooltip-copy-container"
+
+        const span = document.createElement('span')
+        span.id = 'tooltip-copy-text'
+        span.innerText = 'Copied! ✅'
+
+        tooltip.appendChild(span)
+        return tooltip
+    }
+
     function renderGrid(chroma) {
         grid.innerHTML = '';
         for (let hue = 0; hue <= 360; hue += 5) {
@@ -41,11 +53,16 @@
                 square.id = "square";
                 square.style.background = color;
                 const tooltip = makeTooltip(color)
-                row.appendChild(square);
+                const tooltipCopy = makeTooltipCopy()
                 square.appendChild(tooltip)
-
+                square.appendChild(tooltipCopy)
+                row.appendChild(square);
                 square.onclick = function () {
                     navigator.clipboard.writeText(color);
+                    tooltipCopy.style.visibility = 'visible'
+                    setTimeout(() => {
+                        tooltipCopy.style.visibility = 'hidden'
+                    }, 1000)
                 };
             }
             grid.appendChild(row);

@@ -51,3 +51,19 @@
 #square:hover #tooltip-container {
     visibility: visible;
 }
+
+#tooltip-copy-container {
+    visibility: hidden;
+    display: flex;
+    padding: 5px;
+    background-color: rgb(206, 206, 206);
+    position: absolute;
+    border-radius: 5px;
+    transform: translate(50%, -100%);
+    z-index: 1;
+}
+
+#tooltip-copy-text {
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
+}
