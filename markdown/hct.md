@@ -18,7 +18,7 @@ In the grid below, the horizontal axis represents variations of *tone*, while th
 
 What's interesting with this color system is that it tries to be as **perceptually accurate** as possible: for a given hue and chroma, all tones *seem* to belong to the same family of colors. This makes it very easy to create a color palette starting with a seed color.
 
-Another feature of HCT is that it is [accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility) (in this case, compatible with people with visual impairements): it guarantees that 2 colors picked 40-50 tones appart will always have high enough contrast, e.g. such that one could be a background color, and the other a text color above it.
+Another feature of HCT is that it is [accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility) (in this case, compatible with people with visual impairements): it guarantees that 2 colors picked 40-50 tones appart will always have high enough contrast, e.g. such that one could be a background color, and the other a text color on top of it.
 
 # 3D
 
