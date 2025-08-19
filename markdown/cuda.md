@@ -2,7 +2,7 @@
 :description: How to write CUDA kernels
 :year: 2025
 :month: 8
-:day: 18
+:day: 19
 :code: true
 :math: true
 :pinned: true
