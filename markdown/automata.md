@@ -1,5 +1,5 @@
 :title: Wolfram Cellular Automata
-:description: A demo of Wolfram's elementary cellular automata.
+:description: A demo of Wolfram's elementary cellular automata
 :year: 2024
 :month: 1
 :day: 27

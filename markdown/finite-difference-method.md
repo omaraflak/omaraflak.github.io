@@ -1,5 +1,5 @@
 :title: Finite Difference Method
-:description: How to solve a non-linear differential equation numerically using the finite difference method.
+:description: How to solve a non-linear differential equation numerically using the finite difference method
 :year: 2021
 :month: 2
 :day: 1

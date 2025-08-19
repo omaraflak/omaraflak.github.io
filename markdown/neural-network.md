@@ -1,5 +1,5 @@
 :title: Neural Network From Scratch
-:description: Build your own machine learning library in Python.
+:description: Build your own machine learning library in Python
 :year: 2018
 :month: 11
 :day: 15

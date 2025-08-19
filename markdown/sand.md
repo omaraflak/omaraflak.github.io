@@ -1,5 +1,5 @@
 :title: Sand Cellular Automata
-:description: A sand simulation using a cellular automata.
+:description: A sand simulation using a cellular automata
 :year: 2024
 :month: 1
 :day: 25

@@ -1,5 +1,5 @@
 :title: Brownian Motion
-:description: Particles performing a random walk.
+:description: Particles performing a random walk
 :year: 2025
 :month: 7
 :day: 28

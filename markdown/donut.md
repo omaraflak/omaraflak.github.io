@@ -1,5 +1,5 @@
 :title: Donut
-:description: How to create a spinning donut with math.
+:description: How to create a spinning donut with math
 :year: 2022
 :month: 10
 :day: 8

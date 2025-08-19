@@ -1,5 +1,5 @@
 :title: Genetic Algorithms
-:description: A genetic algorithm running in the browser.
+:description: A genetic algorithm running in the browser
 :year: 2022
 :month: 10
 :day: 9

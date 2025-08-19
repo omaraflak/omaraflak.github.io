@@ -1,5 +1,5 @@
 :title: Gravity
-:description: Simulation of gravity with moving particles.
+:description: Simulation of gravity with moving particles
 :year: 2022
 :month: 10
 :day: 8

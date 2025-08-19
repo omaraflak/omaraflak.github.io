@@ -1,5 +1,5 @@
 :title: Neural Network From Scratch — Part 2
-:description: Train a model to recognize hand written digits.
+:description: Train a model to recognize hand written digits
 :year: 2018
 :month: 11
 :day: 16
