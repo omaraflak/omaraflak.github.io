@@ -390,7 +390,7 @@ Now, let's actually bump this number to 1 million and do some profiling!
 
 # Summary and Profiling on 1M elements
 
-We can actually use the same kernel code and simply change the number of blocks and threads used to run the kernel.
+We can actually use the grid-stride loop version of our kernel for all tests, since this adapts to any number of threads and blocks.
 
 ```cpp
 __global__ void add_kernel(float *array1, float *array2, float *result, int size)
@@ -447,7 +447,7 @@ Time(%)      Time     Calls       Avg       Min       Max  Name
   2.46%  76.127us         1  76.127us  76.127us  76.127us  add_kernel(float*, float*, float*, int)
 ```
 
-This runs 1657x faster than doing the sum sequentially!
+This runs **1657x** faster than doing the sum sequentially!
 
 # Dim3
 

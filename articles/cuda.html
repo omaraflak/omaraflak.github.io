@@ -349,7 +349,7 @@ Errors = 0
 <p>It took 3 micro seconds to run the add_kernel on 1000 elements.</p>
 <p>Now, let's actually bump this number to 1 million and do some profiling!</p>
 <h2 id=summary-and-profiling-on-1m-elements class="article-section">Summary and Profiling on 1M elements</h2>
-<p>We can actually use the same kernel code and simply change the number of blocks and threads used to run the kernel.</p>
+<p>We can actually use the grid-stride loop version of our kernel for all tests, since this adapts to any number of threads and blocks.</p>
 <pre class="article-code-block cpp"><code>__global__ void add_kernel(float *array1, float *array2, float *result, int size)
 {
     int start = blockDim.x * blockIdx.x + threadIdx.x;
@@ -377,7 +377,7 @@ add_kernel&lt;&lt;&lt;grid_dim, block_dim&gt;&gt;&gt;(cuda_array1, cuda_array2, 
 <p>Profiling gives us:</p>
 <pre class="article-code-block shell"><code>Time(%)      Time     Calls       Avg       Min       Max  Name
   2.46%  76.127us         1  76.127us  76.127us  76.127us  add_kernel(float*, float*, float*, int)</code></pre>
-<p>This runs 1657x faster than doing the sum sequentially!</p>
+<p>This runs <span class="article-bold">1657x</span> faster than doing the sum sequentially!</p>
 <h2 id=dim3 class="article-section">Dim3</h2>
 <p>I will conclude this article by explaining why <code class="article-code-inline">gridDim</code> and <code class="article-code-inline">blockDim</code> are <code class="article-code-inline">dim3</code> objects with <code class="article-code-inline">x, y, z</code> components.</p>
 <p>These are abstractions over the idea of threads and blocks. So far we've used threads and blocks available in the <code class="article-code-inline">x</code> dimension, but you actually have 2 more to use. You would typically use those if your <span class="article-bold">problem is intrinsically 2d or 3d</span>.</p>
