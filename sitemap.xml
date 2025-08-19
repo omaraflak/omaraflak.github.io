@@ -36,6 +36,12 @@
     <priority>1.0</priority>
 </url>
 <url>
+    <loc>https://omaraflak.github.io/articles/cuda.html</loc>
+    <lastmod>2025-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+</url>
+<url>
     <loc>https://omaraflak.github.io/articles/entropy.html</loc>
     <lastmod>2025-02-21</lastmod>
     <changefreq>weekly</changefreq>

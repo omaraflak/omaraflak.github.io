@@ -85,8 +85,8 @@ for i in range(N * T):
     theta.append(theta_dot[-1] * dt + theta[-1])
     t.append((i + 1) * dt)
 
-plt.plot(t, theta, label='theta')
-plt.plot(t, theta_dot, label='theta dot')
+plt.plot(t, theta, label=&#x27;theta&#x27;)
+plt.plot(t, theta_dot, label=&#x27;theta dot&#x27;)
 plt.legend()
 plt.show()</code></pre>
 <p>If the language specified is <code class="article-code-inline">latex</code>, i.e. <code class="article-code-inline">```latex</code>, then the renderer will show [begin-latex-inline]\LaTeX[end-latex-inline] in display mode.</p>
@@ -139,10 +139,6 @@ plt.show()</code></pre>
                 </div>
             </center>
         </p>
-<p>You can include content using <code class="article-code-inline">#include</code>:</p>
-<pre class="article-code-block python"><code>def main():
-    print('hello world')
-</code></pre>
 <h3 id=custom-html-js class="article-small-section">Custom HTML & JS</h3>
 <p>You can put HTML tags and render something completely custom too.</p>
 <div id="plotDiv" style="width: 100%"></div>

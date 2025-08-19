@@ -1,5 +1,6 @@
 import re
 import os
+import html
 import datetime
 import metadata
 import templates
@@ -34,6 +35,7 @@ class Renderer(markdown.MarkdownRenderer):
         elif lang == "dot":
             return f'<center><div class="article-graphviz">{text}</div></center>'
         else:
+            text = html.escape(text)
             return f'<pre class="article-code-block {lang}"><code>{text}</code></pre>'
 
     def render_quote(self, lines: list[str]) -> str:

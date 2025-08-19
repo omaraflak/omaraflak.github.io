@@ -164,8 +164,8 @@ for i in range(N * T):
     theta.append(theta_dot[-1] * dt + theta[-1])
     t.append((i + 1) * dt)
 
-plt.plot(t, theta, label='theta')
-plt.plot(t, theta_dot, label='theta dot')
+plt.plot(t, theta, label=&#x27;theta&#x27;)
+plt.plot(t, theta_dot, label=&#x27;theta dot&#x27;)
 plt.legend()
 plt.show()</code></pre>
 <p>We iteratively compute [begin-latex-inline]\theta(t)[end-latex-inline] and [begin-latex-inline]\dot{\theta}(t)[end-latex-inline] using the formulas we found, and put the results in two separate lists. Running the code produces the following plot.</p>

@@ -93,10 +93,10 @@ points = np.array([Z(t) for t in np.linspace(0, 1, 50)])
 x, y = points[:,0], points[:,1]
 
 # plot
-plt.plot(x, y, 'b-')
-plt.plot(*P0, 'r.')
-plt.plot(*P1, 'r.')
-plt.plot(*P2, 'r.')
+plt.plot(x, y, &#x27;b-&#x27;)
+plt.plot(*P0, &#x27;r.&#x27;)
+plt.plot(*P1, &#x27;r.&#x27;)
+plt.plot(*P2, &#x27;r.&#x27;)
 plt.show()</code></pre>
 <center><img class="article-image" height="" width="80%" src="/assets/bezier/bezier_1.webp" alt="bezier"></center>
 <p>Notice that the curve does indeed start and end at the first and last control points. Because of that, if you fix [begin-latex-inline]P_0[end-latex-inline] and [begin-latex-inline]P_2[end-latex-inline], the [begin-latex-inline]P1[end-latex-inline] entirely determines the shape of the curve. Moving [begin-latex-inline]P1[end-latex-inline] around you might notice something:</p>
@@ -129,7 +129,7 @@ k = 0, ..., i
 \right.[end-latex]</div>
 <pre class="article-code-block python"><code>from math import comb
 
-def get_bezier_matrix(n: int) -> list[list[float]]:
+def get_bezier_matrix(n: int) -&gt; list[list[float]]:
     coef = [[0] * (n + 1) for _ in range(n + 1)]
     for i in range(n + 1):
         for k in range(i + 1):
@@ -163,8 +163,8 @@ points = np.array([
 
 x, y = points[:,0], points[:,1]
 bx, by = evaluate_bezier(points, 50)
-plt.plot(bx, by, 'b-')
-plt.plot(x, y, 'r.')
+plt.plot(bx, by, &#x27;b-&#x27;)
+plt.plot(x, y, &#x27;r.&#x27;)
 plt.show()</code></pre>
     </article>
     <div class="article-hr"></div>

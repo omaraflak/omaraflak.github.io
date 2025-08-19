@@ -131,12 +131,6 @@ Put file download links using `[#download](/path/to/filename.whatever)`:
 
 [#download](/assets/demo/image.svg)
 
-You can include content using `#include`:
-
-```python
-[#include](./assets/demo/main.py)
-```
-
 ## Custom HTML & JS
 
 You can put HTML tags and render something completely custom too.

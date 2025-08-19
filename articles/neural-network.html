@@ -97,22 +97,22 @@ f_W: \quad &\R^n \rightarrow \R^m \\
 <div class="article-latex">[begin-latex]\xleftarrow{\frac{\partial E}{\partial X_{}}} \boxed{\text{Layer 1}} \xleftarrow{\frac{\partial E}{\partial H_1}} \boxed{\text{Layer 2}} \xleftarrow{\frac{\partial E}{\partial H_2}} \boxed{\text{Layer 3}} \xleftarrow{\frac{\partial E}{\partial Y_{}}}[end-latex]</div>
 <h3 id=abstract-base-class-module class="article-small-section">Abstract Base Class: Module</h3>
 <pre class="article-code-block python"><code>class Module:
-    """Abstract class for a module in a neural network."""
+    &quot;&quot;&quot;Abstract class for a module in a neural network.&quot;&quot;&quot;
 
     def __init__(self):
         self.inputs: np.ndarray = None
         self.outputs: np.ndarray = None
 
-    def forward(self, inputs: np.ndarray) -> np.ndarray:
+    def forward(self, inputs: np.ndarray) -&gt; np.ndarray:
         raise NotImplementedError()
 
-    def backward(self, output_grad: np.ndarray) -> np.ndarray:
+    def backward(self, output_grad: np.ndarray) -&gt; np.ndarray:
         raise NotImplementedError()
 
-    def parameters(self) -> list[np.ndarray]:
+    def parameters(self) -&gt; list[np.ndarray]:
         return []
 
-    def gradients(self) -> list[np.ndarray]:
+    def gradients(self) -&gt; list[np.ndarray]:
         return []</code></pre>
 <p>As expected we have a <code class="article-code-inline">forward()</code> and a <code class="article-code-inline">backward()</code> method, but we also have two extra methods for the <code class="article-code-inline">parameters()</code> and the <code class="article-code-inline">gradients()</code> of those parameters. This is because it won't be layer itself that will do the update, but a dedicated training routine. The layer will simply <span class="article-bold">accumulated</span> the weight gradients during the backward method (<code class="article-code-inline">+=</code>) and should return gradient in the same order as it provides the parameters.</p>
 <p>Now let's implement some layers!</p>
@@ -310,7 +310,7 @@ W^{\top} \frac{\partial E}{\partial Y}
 <h3 id=dense-layer-code class="article-small-section">Dense Layer Code</h3>
 <p>We can now create a Python class for the Dense layer:</p>
 <pre class="article-code-block python"><code>class Linear(Module):
-    """Linear transformation applied to input column vector."""
+    &quot;&quot;&quot;Linear transformation applied to input column vector.&quot;&quot;&quot;
 
     def __init__(self, input_size: int, output_size: int):
         super().__init__()
@@ -319,20 +319,20 @@ W^{\top} \frac{\partial E}{\partial Y}
         self.weights_grad = np.zeros_like(self.weights)
         self.bias_grad = np.zeros_like(self.bias)
 
-    def forward(self, inputs: np.ndarray) -> np.ndarray:
+    def forward(self, inputs: np.ndarray) -&gt; np.ndarray:
         self.inputs = inputs
         self.outputs = np.dot(self.weights, inputs) + self.bias
         return self.outputs
 
-    def backward(self, output_grad: np.ndarray) -> np.ndarray:
+    def backward(self, output_grad: np.ndarray) -&gt; np.ndarray:
         self.weights_grad += np.dot(output_grad, self.inputs.T)
         self.bias_grad += output_grad
         return np.dot(self.weights.T, output_grad)
 
-    def parameters(self) -> list[np.ndarray]:
+    def parameters(self) -&gt; list[np.ndarray]:
         return [self.weights, self.bias]
 
-    def gradients(self) -> list[np.ndarray]:
+    def gradients(self) -&gt; list[np.ndarray]:
         return [self.weights_grad, self.bias_grad]</code></pre>
 <p>We have completed a milestone in our neural network library! The rest should be a lot easier!</p>
 <p>So far, we are able to perform linear transformation on our data. However, the effect of applying many linear transformations in a row is nothing but a linear transformation itself! We need to add non-linearity in the neural network by applying non-linear functions to the data. This is where <span class="article-italic">activation layers</span> come in the picture.</p>
@@ -458,56 +458,56 @@ f'(x_n)
 <h3 id=activation-layer-code class="article-small-section">Activation Layer Code</h3>
 <p>We can now create a Python class for the Activation layer:</p>
 <pre class="article-code-block python"><code>class Activation(Module):
-    """Applies an activation function to the input, element wise."""
+    &quot;&quot;&quot;Applies an activation function to the input, element wise.&quot;&quot;&quot;
 
-    def activation(self, inputs: np.ndarray) -> np.ndarray:
+    def activation(self, inputs: np.ndarray) -&gt; np.ndarray:
         raise NotImplementedError()
 
-    def activation_prime(self, inputs: np.ndarray) -> np.ndarray:
+    def activation_prime(self, inputs: np.ndarray) -&gt; np.ndarray:
         raise NotImplementedError()
 
-    def forward(self, inputs: np.ndarray) -> np.ndarray:
+    def forward(self, inputs: np.ndarray) -&gt; np.ndarray:
         self.inputs = inputs
         return self.activation(inputs)
 
-    def backward(self, output_grad: np.ndarray) -> np.ndarray:
+    def backward(self, output_grad: np.ndarray) -&gt; np.ndarray:
         return output_grad * self.activation_prime(self.inputs)</code></pre>
 <p>And implement one such activation, for example [begin-latex-inline]tanh(x)[end-latex-inline]:</p>
 <pre class="article-code-block python"><code>class Tanh(Activation):
-    """Hyperbolic tangent activation layer."""
+    &quot;&quot;&quot;Hyperbolic tangent activation layer.&quot;&quot;&quot;
 
-    def activation(self, inputs: np.ndarray) -> np.ndarray:
+    def activation(self, inputs: np.ndarray) -&gt; np.ndarray:
         return np.tanh(inputs)
 
-    def activation_prime(self, inputs: np.ndarray) -> np.ndarray:
+    def activation_prime(self, inputs: np.ndarray) -&gt; np.ndarray:
         return 1.0 - np.power(np.tanh(inputs), 2)</code></pre>
 <h2 id=sequential-layer class="article-section">Sequential Layer</h2>
 <p>Remember how we said that neural networks are often composition of functions?</p>
 <div class="article-latex">[begin-latex]X \rightarrow \boxed{\text{Layer 1}} \rightarrow H_1 \rightarrow \boxed{\text{Layer 2}} \rightarrow H_2 \rightarrow \boxed{\text{Layer 3}} \rightarrow Y \rightarrow E(Y^*, Y)[end-latex]</div>
 <p>The composition itself is of course also a function, so we could implement a <span class="article-italic">Sequential</span> layer who's only job is to do that composition! This will make the code super clean and will allow us to represent the entire neural network as a single layer.</p>
 <pre class="article-code-block python"><code>class Sequential(Module):
-    """Sequential neural network."""
+    &quot;&quot;&quot;Sequential neural network.&quot;&quot;&quot;
 
     def __init__(self, modules: list[Module]):
         super().__init__()
         self.modules = modules
 
-    def forward(self, inputs: np.ndarray) -> np.ndarray:
+    def forward(self, inputs: np.ndarray) -&gt; np.ndarray:
         outputs = inputs
         for module in self.modules:
             outputs = module.forward(outputs)
         return outputs
 
-    def backward(self, output_grad: np.ndarray) -> np.ndarray:
+    def backward(self, output_grad: np.ndarray) -&gt; np.ndarray:
         input_grad = output_grad
         for module in reversed(self.modules):
             input_grad = module.backward(input_grad)
         return input_grad
 
-    def parameters(self) -> list[np.ndarray]:
+    def parameters(self) -&gt; list[np.ndarray]:
         return [param for module in self.modules for param in module.parameters()]
 
-    def gradients(self) -> list[np.ndarray]:
+    def gradients(self) -&gt; list[np.ndarray]:
         return [grad for module in self.modules for grad in module.gradients()]</code></pre>
 <p>As you can see, we now wrote very explicitly two ideas:</p>
 <ul><li class="article-li">Forward propagation: the output of one layer is the input of the next one</li>
@@ -553,28 +553,28 @@ network = Sequential([
 <h3 id=mean-squared-error-code class="article-small-section">Mean Squared Error Code</h3>
 <p>Since the idea of a loss function is generic we'll have a base class and one implementation of it for MSE.</p>
 <pre class="article-code-block python"><code>class Loss:
-    """Abstract class for a loss function."""
+    &quot;&quot;&quot;Abstract class for a loss function.&quot;&quot;&quot;
 
-    def loss(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    def loss(self, y_true: np.ndarray, y_pred: np.ndarray) -&gt; float:
         raise NotImplementedError()
 
-    def loss_prime(self, y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:
+    def loss_prime(self, y_true: np.ndarray, y_pred: np.ndarray) -&gt; np.ndarray:
         raise NotImplementedError()
 
 
 class MSE(Loss):
-    """Mean squared error loss."""
+    &quot;&quot;&quot;Mean squared error loss.&quot;&quot;&quot;
 
-    def loss(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    def loss(self, y_true: np.ndarray, y_pred: np.ndarray) -&gt; float:
         return np.mean(np.power(y_true - y_pred, 2))
 
-    def loss_prime(self, y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:
+    def loss_prime(self, y_true: np.ndarray, y_pred: np.ndarray) -&gt; np.ndarray:
         return 2.0 * (y_pred - y_true) / np.size(y_true)</code></pre>
 <h2 id=optimizer class="article-section">Optimizer</h2>
 <p>So far we have built all the pieces that allow us to make predictions with our neural networks, compute gradients in the network, evaluate a given loss function, but we're never updating the parameters of the network to decrease the error. This too can be abstracted into a general concept: the <span class="article-bold"><span class="article-italic">optimizer</span></span>.</p>
 <p>The optimizer's job is to update the parameters of the network using their associated gradients. Since the network itself is abstracted away as a <code class="article-code-inline">Module</code>, the optimizer can take that as a parameter. The <code class="article-code-inline">step()</code> function is where the update logic happens.</p>
 <pre class="article-code-block python"><code>class Optimizer:
-    """Abstract class for updating the parameters of a module."""
+    &quot;&quot;&quot;Abstract class for updating the parameters of a module.&quot;&quot;&quot;
 
     def __init__(self, module: Module):
         self.module = module
@@ -613,8 +613,8 @@ class MSE(Loss):
     loss: Loss,
     optimizer: Optimizer,
     epochs: int,
-) -> list[float]:
-    """Trains the module on the given data, loss, and optimizer."""
+) -&gt; list[float]:
+    &quot;&quot;&quot;Trains the module on the given data, loss, and optimizer.&quot;&quot;&quot;
     errors = []
     for i in range(epochs):
         error = 0
@@ -627,7 +627,7 @@ class MSE(Loss):
 
         error /= len(x_train)
         errors.append(error)
-        print(f"{i+1}/{epochs} error={error:.5f}")
+        print(f&quot;{i+1}/{epochs} error={error:.5f}&quot;)
     return errors</code></pre>
 <h2 id=xor class="article-section">XOR</h2>
 <p>The <span class="article-italic">hello world</span> of neural networks is to solve XOR - Exclusive Or.</p>

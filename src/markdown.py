@@ -96,9 +96,6 @@ class Markdown:
             return uid
         return _render
 
-    def _plain(self, text: str) -> str:
-        return html.escape(text)
-
     def _render_uid(self, match: re.Match[str]) -> str:
         uid = match.group('uid')
         return self.immutables.pop(uid)
@@ -113,7 +110,7 @@ class Markdown:
 
     @_immutable
     def _render_inline_code(self, match: re.Match[str]) -> str:
-        text = self._plain(match.group('text'))
+        text = html.escape(match.group('text'))
         return self.renderer.render_inline_code(text)
 
     @_immutable
@@ -141,19 +138,19 @@ class Markdown:
 
     @_immutable
     def _render_link(self, match: re.Match[str]) -> str:
-        title = self._plain(match.group('title'))
-        url = self._plain(match.group('url'))
+        title = html.escape(match.group('title'))
+        url = html.escape(match.group('url'))
         return self.renderer.render_link(title, url)
 
     @_immutable
     def _render_link_preview(self, match: re.Match[str]) -> str:
-        url = self._plain(match.group('url'))
+        url = html.escape(match.group('url'))
         return self.renderer.render_link_preview(url)
 
     @_immutable
     def _render_image(self, match: re.Match[str]) -> str:
-        alt = self._plain(match.group('alt'))
-        url = self._plain(match.group('url'))
+        alt = html.escape(match.group('alt'))
+        url = html.escape(match.group('url'))
         return self.renderer.render_image(alt, url)
 
     def _render_separator(self, _: re.Match[str]) -> str:
@@ -208,7 +205,10 @@ class Markdown:
 
         # some uids might be nested under other uids...
         while self.immutables:
+            tmp = result
             result = Markdown.UUID.sub(self._render_uid, result)
+            if tmp == result:
+                raise ValueError("UIDs not found: ", self.immutables)
 
         return result
 

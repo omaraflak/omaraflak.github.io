@@ -85,7 +85,7 @@ class Vm:
     ip: int = 0
 
     def run(self):
-        while self.ip < len(self.program):
+        while self.ip &lt; len(self.program):
             instruction = self.program[self.ip]
             # TODO: process instruction
 
@@ -136,14 +136,14 @@ class Vm:
         self.stack.append(b - a)
 
     def jumpif(self, pointer: int):
-        if self.stack.pop() > 0:
+        if self.stack.pop() &gt; 0:
             self.ip = pointer
 
     def print(self):
         print(self.stack.pop())
 
     def run(self):
-        while self.ip < len(self.program):
+        while self.ip &lt; len(self.program):
             instruction = self.program[self.ip]
             self.ip += 1
 
@@ -164,12 +164,12 @@ class Vm:
             elif instruction == Op.HALT:
                 break
             else:
-                raise ValueError(f"Instruction not supported: {instruction}")
+                raise ValueError(f&quot;Instruction not supported: {instruction}&quot;)
 
-    def _read_int32(self) -> int:
+    def _read_int32(self) -&gt; int:
         return self._read_int(4)
 
-    def _read_int(self, size: int) -> int:
+    def _read_int(self, size: int) -&gt; int:
         data = self.program[self.ip: self.ip + size]
         self.ip += size
         return int.from_bytes(bytes(data))</code></pre>
@@ -208,7 +208,7 @@ for i in range(n):
 <h3 id=if-condition class="article-small-section">If Condition</h3>
 <p>An <code class="article-code-inline">if</code> condition is a construct that executes a code-block <span class="article-bold">if</span> a certain condition is true, otherwise the program should jump to the instruction after the code-block.</p>
 <pre class="article-code-block None"><code># evaluate a condition, push the result to the stack
-# stack=[...,x] with x>0 if the condition evaluated to `true`
+# stack=[...,x] with x&gt;0 if the condition evaluated to `true`
 jumpifnot .endif
 # if-block...
 .endif</code></pre>
@@ -217,7 +217,7 @@ jumpifnot .endif
 <p>A <code class="article-code-inline">while</code> loop is a construct that keeps executing a code-block <span class="article-bold">while</span> a certain condition is true. When the condition stops being true, then program should jump to the end of the code-block.</p>
 <pre class="article-code-block None"><code>.while
 # evaluate a condition, push the result to the stack
-# stack=[...,x] with x>0 if the condition evaluated to `true`
+# stack=[...,x] with x&gt;0 if the condition evaluated to `true`
 jumpifnot .endwhile
 # while-block...
 jump .while
