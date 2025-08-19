@@ -359,7 +359,7 @@ Errors = 0
         result[i] = array1[i] + array2[i];
     }
 }</code></pre>
-<p>I'm building <code class="article-code-inline">array1</code> and <code class="article-code-inline">array2</code> with <code class="article-code-inline">int size = 1 &lt;&lt; 20; // ~1M elements</code>.</p>
+<p>I'm building <code class="article-code-inline">array1</code> and <code class="article-code-inline">array2</code> with <code class="article-code-inline">int size = 1 &lt;&lt; 20</code>, which is approximately 1 million elements.</p>
 <h3 id=sequential-126ms class="article-small-section">Sequential ~126ms</h3>
 <pre class="article-code-block cpp"><code>add_kernel&lt;&lt;&lt;1, 1&gt;&gt;&gt;(cuda_array1, cuda_array2, cuda_result, size);</code></pre>
 <p>Profiling this gives us:</p>

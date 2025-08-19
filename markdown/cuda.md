@@ -404,7 +404,7 @@ __global__ void add_kernel(float *array1, float *array2, float *result, int size
 }
 ```
 
-I'm building `array1` and `array2` with `int size = 1 << 20; // ~1M elements`.
+I'm building `array1` and `array2` with `int size = 1 << 20`, which is approximately 1 million elements.
 
 ## Sequential ~126ms
 
