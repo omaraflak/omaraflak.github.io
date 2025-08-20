@@ -7,19 +7,19 @@
 :math: true
 :pinned: true
 
-When I first learned about GPU programming with CUDA I was very confused with certain terms like *kernels*, *thread blocks*, *grids*, etc. I felt that articles online assumed the reader would already know about those and did not explain properly the concepts.
+When I first learned about GPU programming with CUDA I was very confused with certain terms like *kernels*, *thread blocks*, and *grids*, or even just *how* does code run on the GPU.
 
 In this article we'll go through the fundamentals of CUDA and write code that runs on GPU. We'll use *Google Colab* to run our code, but of course you can use your own CUDA device if you have one.
 
 # CUDA In Google Colab
 
-To run GPU code, you must have the CUDA libraries and compiler installed. You can use Google Colab to have everything out of the box for free.
+To run GPU code, you must have the CUDA libraries installed. Google Colab gives you everything out of the box for free.
 
-On [Google Colab](https://colab.research.google.com) create a new notebook and change the runtime using the top-right menu:
+Create a new notebook in [Google Colab](https://colab.research.google.com) and change the runtime using the top-right menu:
 
 ![Google Colab runtime](/assets/cuda/colab.png;w=100%)
 
-Select any runtime with a GPU or TPU. In my case I have "T4 GPU" available so I'll pick that.
+Select any runtime with a GPU or TPU. In my case I selected "T4 GPU".
 
 Colab has a special instruction `%%writefile filename` which you can put at the beginning of a cell. Such cells, when executed, will write their content in a file named `filename`.
 
@@ -67,7 +67,9 @@ In a second cell, compile and run the file:
 !nvcc cuda_check.cu -o cuda_check && ./cuda_check
 ```
 
-Run both cells and you should see various GPU specs printed out. You're all set up!
+> Mind the `!` at the beginning of the line.
+
+Run both cells and you should see various GPU specs printed out. You're all set!
 
 # Kernels, Threads, Blocks, Grids
 
@@ -83,7 +85,7 @@ A kernel always runs in a ***single grid***, but you get to decide how many *blo
 
 ## GPU Specs 
 
-Running the code I showed above, I get the following output:
+Running the code above, I get the following output:
 
 ```shell
 # Device 0: Tesla T4
@@ -101,9 +103,9 @@ Running the code I showed above, I get the following output:
 
 Some comments:
 
-- `Compute capability: 7.5` is important: when running kernels later you'll need to compile the code with `nvcc -arch=sm_75`. Modify the flag accordingly.
-- `Max threads per multiprocessor: 1024` refers to the number of ***Streaming Multiprocessors***, or SMs, which are the GPU cores. A streaming multiprocessor is what picks on up on **blocks** and runs the threads in them. It does not necessarily pick all blocks of a grid, which is why threads in a single block share memory, but not threads across multiple blocks. This GPU has `40` multiprocessors that can process `1024` threads each. That is a total of `40960` concurrent threads!
-- `Warp size: 32`: when a block is executed on an SM, it is divided into ***warps***, and it's the warp that is actually sent to the SM. This GPU has `32` threads per warp. The *warp scheduler* is responsible for picking up threads to run, and send them as a warp to the SM for execution. This is not so important for us here, but it's good to know.
+- `Compute capability: 7.5` is important: when running kernels later, you'll need to compile the code with `nvcc -arch=sm_75`. Modify the flag accordingly.
+- `Max threads per multiprocessor: 1024` refers to the number of ***Streaming Multiprocessors***, or SMs. Those are the GPU cores. A streaming multiprocessor is what picks on up on **blocks** and runs the threads in them. One SM does not necessarily pick up all blocks of a grid, which is why threads in a single block share memory, but not threads across multiple blocks. This GPU has `40` multiprocessors that can process `1024` threads each. That is a total of `40,960` concurrent threads!
+- `Warp size: 32`: when a block is executed on an SM, it is divided into ***warps***, and it's the warp that is actually sent to the SM. This GPU has `32` threads per warp. The *warp scheduler* is responsible for picking up threads to run, and send them as a warp to the SM. That said, this is more of a hardware detail.
 - We'll get back to `Max block dimensions: [1024, 1024, 64]` and `Max grid dimensions: [2147483647, 65535, 65535]` later.
 
 For now, the single most important number is `Max threads per block: 1024`.
@@ -112,17 +114,17 @@ For now, the single most important number is `Max threads per block: 1024`.
 
 Before we bury our head in the code, I'd like to explain the big picture.
 
-In GPU programming, the kernel (function) we write is going to be called **many times** by different threads; and a single call to the function is expected to process **a subset** of our problem.
+In GPU programming, the kernel (function) we write is going to be called **many times** by different threads; a single call to the function is expected to process **a subset** of our problem.
 
-Let's supposed we want to add together two arrays of 1 million elements each. You **won't** see a loop over 1 million elements in the code. Instead, you might design the kernel to process 2 elements per call, and let CUDA call your function 500,000 times. Thus, each call to the kernel must know **which elements to process**. Keep that in mind for the next part.
+Let's supposed we want to add together two arrays of 1 million elements each. You **won't** write a loop over 1 million elements directly. Instead, you might design the kernel to process 2 elements per call, and let CUDA call your function 500,000 times. Thus, each call to the kernel must be able to determine **which elements to process**.
 
-The GPU is its own device with its own memory. This means data must be moved/copied to and fro the CPU/GPU. This also means we'll have to deal with pointers to CPU addresses and pointers to GPU addresses, and we must not try to dereference (access) those pointers on the wrong device!
+The GPU has its own memory. This means data must be moved/copied to and fro the CPU/GPU. This also means we'll have to deal with pointers to CPU addresses and pointers to GPU addresses, and we must not try to dereference (access) those pointers on the wrong device!
 
 In a nutshell, if we wanted to add 2 arrays on the GPU, we would:
 
 - Allocate and fill the arrays on the CPU
 - Allocate memory on the GPU
-- Copy the array from the CPU to the GPU
+- Copy the arrays from the CPU to the GPU
 - Run the kernel
 - Copy the result from the GPU to the CPU
 - Free the GPU memory
@@ -130,7 +132,7 @@ In a nutshell, if we wanted to add 2 arrays on the GPU, we would:
 
 # Writing A Kernel
 
-We'll now write our first kernel and all the surrounding code to make it run. Let's continue with the example we took earlier, adding two arrays together:
+We'll now write our first kernel. Let's continue with the example we took earlier, adding two arrays together:
 
 ```cpp
 #include <stdio.h>
@@ -212,7 +214,7 @@ There's a lot of boilerplate, but the important bits are the kernel itself and t
 
 > What are those `__global__`, `blockDim`, `blockIdx`, `gridDim`, `<<<...>>>` ?
 
-First, `__global__` is how we define a kernel in CUDA. The function `add_kernel` will now be executed on the GPU. As I said earlier, the GPU has its own memory which you need to allocate using `cudaMalloc` and to which you can copy data with `cudaMemcpy`. When the data is processed and you want to read it, you need to move it from the GPU back to the CPU. This is most of the boilerplate which I commented.
+First, `__global__` is how we define a kernel in CUDA. The function `add_kernel` will now be executed on the GPU. As I said earlier, the GPU has its own memory which you need to allocate using `cudaMalloc` (and free using `cudaFree`) and to which you can copy data with `cudaMemcpy`. When the data is processed and you want to read it, you need to move it from the GPU **back** to the CPU. This is most of the boilerplate which I commented.
 
 ## Kernel Call
 
@@ -227,7 +229,7 @@ When calling the kernel, we use the CUDA triple chevron syntax `<<<...>>>`. This
 - `grid_dim`: the number of blocks in the grid executing the kernel
 - `block_dim`: the number of threads in each of those blocks
 
-Those two variables are of type `dim3` which can take 3 arguments (`x`, `y`, `z`). When specifying a single number, it is assigned to `x`. For now ignore those 3 dimensions, and do as if it was a single number, we will get back to this in a bit.
+Those two variables are of type `dim3` which can take 3 arguments (`x`, `y`, `z`). When specifying a single number, it is assigned to `x` (in that case you could pass an `int` directly). For now ignore those 3 dimensions, and do as if it was a single number, we will get back to this at the end.
 
 > In essence, you are giving the dimension of a matrix of `grid_dim` rows and `block_dim` columns, containing the threads that will run the kernel.
 
@@ -247,19 +249,19 @@ __global__ void add_kernel(float *array1, float *array2, float *result, int size
 }
 ```
 
-In the kernel you see those special variables not declared anywhere. Those are `dim3` objects like `block_dim` and `grid_dim`, and they are given to us by CUDA. Those variables give us information on ***which thread*** is running the kernel *instance*.
+In the kernel you can see those special variables not declared anywhere. Those are `dim3` objects like `block_dim` and `grid_dim`, and they are given to us by CUDA. Those variables give us information on ***which thread*** is running the kernel *instance*.
 
 - `threadIdx` is the index of the thread (running the kernel) in the block it belongs to
 - `blockIdx` is the index of the block (running the thread) in the grid it belongs to
 - `blockDim` is the number of threads in the block, which is what we passed to the kernel call as `block_dim`
 
-> `(blockIdx, threadIdx)` constitute the `(row, col)` position of the thread in the matrix running the kernel.
+> `(blockIdx, threadIdx)` constitutes the `(row, col)` position in the matrix of the thread running the kernel.
 
 [#include](assets/cuda/grid.html)
 
 This is a representation of the threads running your kernel if you had called it with `add_kernel<<<3, 4>>>(...)` (3 blocks of 4 threads, so 12 threads in total). Each row represents a *block*, and each cell in a block is a *thread* running your kernel.
 
-We can assign a global index to each thread by flattening the grid in row major order. The thread in position `(1, 2)` has index `4 * 1 + 2 = 6`.
+We can assign a global index to each thread by flattening the grid in row-major order. The thread in position `(1, 2)` has a flat index of `4 * 1 + 2 = 6`.
 
 This is exactly what you see in the kernel code:
 
@@ -267,7 +269,7 @@ This is exactly what you see in the kernel code:
 int i = blockDim.x * blockIdx.x + threadIdx.x;
 ```
 
-However in our code `blockDim=1`, which means `blockIdx=0`, so this simplifies to `1 * 0 + threadIdx = threadIdx`.
+In our code however, `blockDim=1` therefore `blockIdx=0`, so this simplifies to `1 * 0 + threadIdx = threadIdx`.
 
 ## Why <<<1, 1000>>> or <<<3, 4>>> ?
 
@@ -275,13 +277,13 @@ So this triple chevron syntax is in fact just specifying the size of a matrix (g
 
 > How to choose the dimension of the matrix?
 
-It depends on the problem. If you have 1000 elements to process, you can use a single block of 1000 threads `<<<1, 1000>>>` to process your data. But remember each block has a limit of 1024 threads. So if you wanted to process 2000 elements at once, you would have to split those over 2 blocks. For example by using 2 blocks of 1000 threads `<<<2, 1000>>>`.
+It depends on the problem. If you have 1000 elements to process, you can use a single block of 1000 threads `<<<1, 1000>>>`. But remember each block has a limit of 1024 threads. If you wanted to process 2000 elements at once, you would have to split those over 2 blocks. For example by using 2 blocks of 1000 threads `<<<2, 1000>>>`.
 
-> What if we have more threads than elements to process?
+## What if we have more threads than elements to process ?
 
 Say you want to process 1049 elements (that's a prime number). The best you can do is start the kernel with `<<<2, 525>>>`. This will leave a single **unused** thread (1050 threads vs 1049 elements to process).
 
-Of course, since CUDA doesn't know this thread is unused, it will still run. It is your job to make it a no-operation. This is why we have this line in the kernel:
+Of course, since CUDA doesn't know this thread is unused, it will run regardless. It is your job to make it a no-operation. This is why we have this line in the kernel:
 
 ```cpp
 if (i < size) {
@@ -289,13 +291,13 @@ if (i < size) {
 }
 ```
 
-## What if we have more elements than threads ?
+## What if we have more elements to process than threads ?
 
-As we saw earlier, our GPU has about 40k threads that can run in parallel. How can we then process, say, 100,000 elements?
+As we saw earlier, our GPU has about 40k threads that can run in parallel. How can we process, say, 100k elements? You don't even need to get to that extreme, you might simply want to split the GPU usage across different calculations, so you'll have a certain number of threads allocated to a certain task.
 
 > Vertical scaling!
 
-A thread doesn't have to process only a single element, it can process multiple. For example, if the GPU had 1000 threads available, and we wanted to process 5000 elements. We could run 1000 threads and have each thread process 5 elements.
+A thread doesn't have to process only a single element, it can process multiple. For example, if the GPU had 1000 threads available and we wanted to process 5000 elements, we could run 1000 threads and have each thread process 5 elements.
 
 A common way to do that is to use a *grid-stride loop*:
 
