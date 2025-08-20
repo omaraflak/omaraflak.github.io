@@ -1,4 +1,5 @@
 import os
+import traceback
 import dataclasses
 import dataclasses_json
 import link_preview.link_preview
@@ -41,7 +42,8 @@ class LinkPreview:
             )
             self._add_to_cache(link)
             return link
-        except:
+        except Exception:
+            traceback.print_exc()
             return None
 
     def _add_to_cache(self, link: Link):

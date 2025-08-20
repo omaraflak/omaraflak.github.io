@@ -7,6 +7,7 @@ setuptools.setup(
     install_requires=[
         "fire",
         "link_preview",
-        "dataclasses_json"
+        "dataclasses_json",
+        "pip-system-certs"
     ],
 )
