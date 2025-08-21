@@ -34,13 +34,13 @@
         </div>
     </div>
     <article class="article-body">
-        <p>When I first learned about GPU programming with CUDA I was very confused with certain terms like <span class="article-italic">kernels</span>, <span class="article-italic">thread blocks</span>, <span class="article-italic">grids</span>, etc. I felt that articles online assumed the reader would already know about those and did not explain properly the concepts.</p>
+        <p>When I first learned about GPU programming with CUDA I was very confused with certain terms like <span class="article-italic">kernels</span>, <span class="article-italic">thread blocks</span>, and <span class="article-italic">grids</span>, or even just <span class="article-italic">how</span> does code run on the GPU.</p>
 <p>In this article we'll go through the fundamentals of CUDA and write code that runs on GPU. We'll use <span class="article-italic">Google Colab</span> to run our code, but of course you can use your own CUDA device if you have one.</p>
 <h2 id=cuda-in-google-colab class="article-section">CUDA In Google Colab</h2>
-<p>To run GPU code, you must have the CUDA libraries and compiler installed. You can use Google Colab to have everything out of the box for free.</p>
-<p>On <a class="article-link" target="_blank" href="https://colab.research.google.com">Google Colab</a> create a new notebook and change the runtime using the top-right menu:</p>
+<p>To run GPU code, you must have the CUDA libraries installed. Google Colab gives you everything out of the box for free.</p>
+<p>Create a new notebook in <a class="article-link" target="_blank" href="https://colab.research.google.com">Google Colab</a> and change the runtime using the top-right menu:</p>
 <center><img class="article-image" height="" width="100%" src="/assets/cuda/colab.png" alt="Google Colab runtime"></center>
-<p>Select any runtime with a GPU or TPU. In my case I have "T4 GPU" available so I'll pick that.</p>
+<p>Select any runtime with a GPU or TPU. In my case I selected "T4 GPU".</p>
 <p>Colab has a special instruction <code class="article-code-inline">%%writefile filename</code> which you can put at the beginning of a cell. Such cells, when executed, will write their content in a file named <code class="article-code-inline">filename</code>.</p>
 <p>Create a first cell:</p>
 <pre class="article-code-block cpp"><code>%%writefile cuda_check.cu
@@ -78,7 +78,8 @@ int main() {
 }</code></pre>
 <p>In a second cell, compile and run the file:</p>
 <pre class="article-code-block shell"><code>!nvcc cuda_check.cu -o cuda_check &amp;&amp; ./cuda_check</code></pre>
-<p>Run both cells and you should see various GPU specs printed out. You're all set up!</p>
+<div class="article-quote">Mind the <code class="article-code-inline">!</code> at the beginning of the line.</div>
+<p>Run both cells and you should see various GPU specs printed out. You're all set!</p>
 <h2 id=kernels-threads-blocks-grids class="article-section">Kernels, Threads, Blocks, Grids</h2>
 <p>A <span class="article-bold"><span class="article-italic">kernel</span></span> is nothing more but a <span class="article-bold">function</span> that runs on the GPU. CUDA allows you to write those functions in C/C++ and it gives you control over the parallelization.</p>
 <p>A <span class="article-bold"><span class="article-italic">thread</span></span> is like a mini process that runs an <span class="article-bold"><span class="article-italic">instance</span></span> of your kernel (more on that later), it is ultimately what runs your code. A GPU may have thousands of threads running in parallel.</p>
@@ -86,7 +87,7 @@ int main() {
 <p>A <span class="article-bold"><span class="article-italic">grid</span></span> is a collection of blocks, however threads in different blocks don't share any memory space and cannot be synchronized.</p>
 <p>A kernel always runs in a <span class="article-bold"><span class="article-italic">single grid</span></span>, but you get to decide how many <span class="article-italic">blocks</span> that grid contains, and how many <span class="article-italic">threads</span> each of those blocks contain.</p>
 <h3 id=gpu-specs class="article-small-section">GPU Specs</h3>
-<p>Running the code I showed above, I get the following output:</p>
+<p>Running the code above, I get the following output:</p>
 <pre class="article-code-block shell"><code># Device 0: Tesla T4
 #   Compute capability: 7.5
 #   Total global memory: 15095 MB
@@ -99,26 +100,26 @@ int main() {
 #   Max block dimensions: [1024, 1024, 64]
 #   Max grid dimensions: [2147483647, 65535, 65535]</code></pre>
 <p>Some comments:</p>
-<ul><li class="article-li"><code class="article-code-inline">Compute capability: 7.5</code> is important: when running kernels later you'll need to compile the code with <code class="article-code-inline">nvcc -arch=sm_75</code>. Modify the flag accordingly.</li>
-<li class="article-li"><code class="article-code-inline">Max threads per multiprocessor: 1024</code> refers to the number of <span class="article-bold"><span class="article-italic">Streaming Multiprocessors</span></span>, or SMs, which are the GPU cores. A streaming multiprocessor is what picks on up on <span class="article-bold">blocks</span> and runs the threads in them. It does not necessarily pick all blocks of a grid, which is why threads in a single block share memory, but not threads across multiple blocks. This GPU has <code class="article-code-inline">40</code> multiprocessors that can process <code class="article-code-inline">1024</code> threads each. That is a total of <code class="article-code-inline">40960</code> concurrent threads!</li>
-<li class="article-li"><code class="article-code-inline">Warp size: 32</code>: when a block is executed on an SM, it is divided into <span class="article-bold"><span class="article-italic">warps</span></span>, and it's the warp that is actually sent to the SM. This GPU has <code class="article-code-inline">32</code> threads per warp. The <span class="article-italic">warp scheduler</span> is responsible for picking up threads to run, and send them as a warp to the SM for execution. This is not so important for us here, but it's good to know.</li>
+<ul><li class="article-li"><code class="article-code-inline">Compute capability: 7.5</code> is important: when running kernels later, you'll need to compile the code with <code class="article-code-inline">nvcc -arch=sm_75</code>. Modify the flag accordingly.</li>
+<li class="article-li"><code class="article-code-inline">Max threads per multiprocessor: 1024</code> refers to the number of <span class="article-bold"><span class="article-italic">Streaming Multiprocessors</span></span>, or SMs. Those are the GPU cores. A streaming multiprocessor is what picks on up on <span class="article-bold">blocks</span> and runs the threads in them. One SM does not necessarily pick up all blocks of a grid, which is why threads in a single block share memory, but not threads across multiple blocks. This GPU has <code class="article-code-inline">40</code> multiprocessors that can process <code class="article-code-inline">1024</code> threads each. That is a total of <code class="article-code-inline">40,960</code> concurrent threads!</li>
+<li class="article-li"><code class="article-code-inline">Warp size: 32</code>: when a block is executed on an SM, it is divided into <span class="article-bold"><span class="article-italic">warps</span></span>, and it's the warp that is actually sent to the SM. This GPU has <code class="article-code-inline">32</code> threads per warp. The <span class="article-italic">warp scheduler</span> is responsible for picking up threads to run, and send them as a warp to the SM. That said, this is more of a hardware detail.</li>
 <li class="article-li">We'll get back to <code class="article-code-inline">Max block dimensions: [1024, 1024, 64]</code> and <code class="article-code-inline">Max grid dimensions: [2147483647, 65535, 65535]</code> later.</li></ul>
 <p>For now, the single most important number is <code class="article-code-inline">Max threads per block: 1024</code>.</p>
 <h2 id=overview class="article-section">Overview</h2>
 <p>Before we bury our head in the code, I'd like to explain the big picture.</p>
-<p>In GPU programming, the kernel (function) we write is going to be called <span class="article-bold">many times</span> by different threads; and a single call to the function is expected to process <span class="article-bold">a subset</span> of our problem.</p>
-<p>Let's supposed we want to add together two arrays of 1 million elements each. You <span class="article-bold">won't</span> see a loop over 1 million elements in the code. Instead, you might design the kernel to process 2 elements per call, and let CUDA call your function 500,000 times. Thus, each call to the kernel must know <span class="article-bold">which elements to process</span>. Keep that in mind for the next part.</p>
-<p>The GPU is its own device with its own memory. This means data must be moved/copied to and fro the CPU/GPU. This also means we'll have to deal with pointers to CPU addresses and pointers to GPU addresses, and we must not try to dereference (access) those pointers on the wrong device!</p>
+<p>In GPU programming, the kernel (function) we write is going to be called <span class="article-bold">many times</span> by different threads; a single call to the function is expected to process <span class="article-bold">a subset</span> of our problem.</p>
+<p>Let's supposed we want to add together two arrays of 1 million elements each. You <span class="article-bold">won't</span> write a loop over 1 million elements directly. Instead, you might design the kernel to process 2 elements per call, and let CUDA call your function 500,000 times. Thus, each call to the kernel must be able to determine <span class="article-bold">which elements to process</span>.</p>
+<p>The GPU has its own memory. This means data must be moved/copied to and fro the CPU/GPU. This also means we'll have to deal with pointers to CPU addresses and pointers to GPU addresses, and we must not try to dereference (access) those pointers on the wrong device!</p>
 <p>In a nutshell, if we wanted to add 2 arrays on the GPU, we would:</p>
 <ul><li class="article-li">Allocate and fill the arrays on the CPU</li>
 <li class="article-li">Allocate memory on the GPU</li>
-<li class="article-li">Copy the array from the CPU to the GPU</li>
+<li class="article-li">Copy the arrays from the CPU to the GPU</li>
 <li class="article-li">Run the kernel</li>
 <li class="article-li">Copy the result from the GPU to the CPU</li>
 <li class="article-li">Free the GPU memory</li>
 <li class="article-li">Free the CPU memory</li></ul>
 <h2 id=writing-a-kernel class="article-section">Writing A Kernel</h2>
-<p>We'll now write our first kernel and all the surrounding code to make it run. Let's continue with the example we took earlier, adding two arrays together:</p>
+<p>We'll now write our first kernel. Let's continue with the example we took earlier, adding two arrays together:</p>
 <pre class="article-code-block cpp"><code>#include &lt;stdio.h&gt;
 #include &lt;cuda_runtime.h&gt;
 
@@ -193,7 +194,7 @@ int main() {
 <div class="article-quote">I compiled and ran this with <code class="article-code-inline">nvcc -arch=sm_75 main.cu -o main &amp;&amp; ./main</code>.</div>
 <p>There's a lot of boilerplate, but the important bits are the kernel itself and the call to the kernel.</p>
 <div class="article-quote">What are those <code class="article-code-inline">__global__</code>, <code class="article-code-inline">blockDim</code>, <code class="article-code-inline">blockIdx</code>, <code class="article-code-inline">gridDim</code>, <code class="article-code-inline">&lt;&lt;&lt;...&gt;&gt;&gt;</code> ?</div>
-<p>First, <code class="article-code-inline">__global__</code> is how we define a kernel in CUDA. The function <code class="article-code-inline">add_kernel</code> will now be executed on the GPU. As I said earlier, the GPU has its own memory which you need to allocate using <code class="article-code-inline">cudaMalloc</code> and to which you can copy data with <code class="article-code-inline">cudaMemcpy</code>. When the data is processed and you want to read it, you need to move it from the GPU back to the CPU. This is most of the boilerplate which I commented.</p>
+<p>First, <code class="article-code-inline">__global__</code> is how we define a kernel in CUDA. The function <code class="article-code-inline">add_kernel</code> will now be executed on the GPU. As I said earlier, the GPU has its own memory which you need to allocate using <code class="article-code-inline">cudaMalloc</code> (and free using <code class="article-code-inline">cudaFree</code>) and to which you can copy data with <code class="article-code-inline">cudaMemcpy</code>. When the data is processed and you want to read it, you need to move it from the GPU <span class="article-bold">back</span> to the CPU. This is most of the boilerplate which I commented.</p>
 <h3 id=kernel-call class="article-small-section">Kernel Call</h3>
 <pre class="article-code-block cpp"><code>dim3 block_dim(size);
 dim3 grid_dim(1);
@@ -201,7 +202,7 @@ add_kernel&lt;&lt;&lt;grid_dim, block_dim&gt;&gt;&gt;(cuda_array1, cuda_array2, 
 <p>When calling the kernel, we use the CUDA triple chevron syntax <code class="article-code-inline">&lt;&lt;&lt;...&gt;&gt;&gt;</code>. This syntax takes 2 arguments:</p>
 <ul><li class="article-li"><code class="article-code-inline">grid_dim</code>: the number of blocks in the grid executing the kernel</li>
 <li class="article-li"><code class="article-code-inline">block_dim</code>: the number of threads in each of those blocks</li></ul>
-<p>Those two variables are of type <code class="article-code-inline">dim3</code> which can take 3 arguments (<code class="article-code-inline">x</code>, <code class="article-code-inline">y</code>, <code class="article-code-inline">z</code>). When specifying a single number, it is assigned to <code class="article-code-inline">x</code>. For now ignore those 3 dimensions, and do as if it was a single number, we will get back to this in a bit.</p>
+<p>Those two variables are of type <code class="article-code-inline">dim3</code> which can take 3 arguments (<code class="article-code-inline">x</code>, <code class="article-code-inline">y</code>, <code class="article-code-inline">z</code>). When specifying a single number, it is assigned to <code class="article-code-inline">x</code> (in that case you could pass an <code class="article-code-inline">int</code> directly). For now ignore those 3 dimensions, and do as if it was a single number, we will get back to this at the end.</p>
 <div class="article-quote">In essence, you are giving the dimension of a matrix of <code class="article-code-inline">grid_dim</code> rows and <code class="article-code-inline">block_dim</code> columns, containing the threads that will run the kernel.</div>
 <p>So here, we are running the kernel on a single block which has <code class="article-code-inline">size=1000</code> threads. Note that our GPU has a maximum of <code class="article-code-inline">1024</code> threads per block, so this will fail if <code class="article-code-inline">size &gt; 1024</code>. We will see how to deal with that later.</p>
 <p>Remember that I wrote earlier: a thread executes an <span class="article-bold"><span class="article-italic">instance</span></span> of your kernel. So <code class="article-code-inline">add_kernel&lt;&lt;&lt;grid_dim, block_dim&gt;&gt;&gt;(...)</code> will in fact trigger <code class="article-code-inline">grid_dim * block_dim = 1 * 1000 = 1000</code> calls to your function, one from each thread.</p>
@@ -213,11 +214,11 @@ add_kernel&lt;&lt;&lt;grid_dim, block_dim&gt;&gt;&gt;(cuda_array1, cuda_array2, 
         result[i] = array1[i] + array2[i];
     }
 }</code></pre>
-<p>In the kernel you see those special variables not declared anywhere. Those are <code class="article-code-inline">dim3</code> objects like <code class="article-code-inline">block_dim</code> and <code class="article-code-inline">grid_dim</code>, and they are given to us by CUDA. Those variables give us information on <span class="article-bold"><span class="article-italic">which thread</span></span> is running the kernel <span class="article-italic">instance</span>.</p>
+<p>In the kernel you can see those special variables not declared anywhere. Those are <code class="article-code-inline">dim3</code> objects like <code class="article-code-inline">block_dim</code> and <code class="article-code-inline">grid_dim</code>, and they are given to us by CUDA. Those variables give us information on <span class="article-bold"><span class="article-italic">which thread</span></span> is running the kernel <span class="article-italic">instance</span>.</p>
 <ul><li class="article-li"><code class="article-code-inline">threadIdx</code> is the index of the thread (running the kernel) in the block it belongs to</li>
 <li class="article-li"><code class="article-code-inline">blockIdx</code> is the index of the block (running the thread) in the grid it belongs to</li>
 <li class="article-li"><code class="article-code-inline">blockDim</code> is the number of threads in the block, which is what we passed to the kernel call as <code class="article-code-inline">block_dim</code></li></ul>
-<div class="article-quote"><code class="article-code-inline">(blockIdx, threadIdx)</code> constitute the <code class="article-code-inline">(row, col)</code> position of the thread in the matrix running the kernel.</div>
+<div class="article-quote"><code class="article-code-inline">(blockIdx, threadIdx)</code> constitutes the <code class="article-code-inline">(row, col)</code> position in the matrix of the thread running the kernel.</div>
 <style>
     .grid-container {
         display: block;
@@ -270,24 +271,24 @@ add_kernel&lt;&lt;&lt;grid_dim, block_dim&gt;&gt;&gt;(cuda_array1, cuda_array2, 
     </div>
 </div>
 <p>This is a representation of the threads running your kernel if you had called it with <code class="article-code-inline">add_kernel&lt;&lt;&lt;3, 4&gt;&gt;&gt;(...)</code> (3 blocks of 4 threads, so 12 threads in total). Each row represents a <span class="article-italic">block</span>, and each cell in a block is a <span class="article-italic">thread</span> running your kernel.</p>
-<p>We can assign a global index to each thread by flattening the grid in row major order. The thread in position <code class="article-code-inline">(1, 2)</code> has index <code class="article-code-inline">4 * 1 + 2 = 6</code>.</p>
+<p>We can assign a global index to each thread by flattening the grid in row-major order. The thread in position <code class="article-code-inline">(1, 2)</code> has a flat index of <code class="article-code-inline">4 * 1 + 2 = 6</code>.</p>
 <p>This is exactly what you see in the kernel code:</p>
 <pre class="article-code-block cpp"><code>int i = blockDim.x * blockIdx.x + threadIdx.x;</code></pre>
-<p>However in our code <code class="article-code-inline">blockDim=1</code>, which means <code class="article-code-inline">blockIdx=0</code>, so this simplifies to <code class="article-code-inline">1 * 0 + threadIdx = threadIdx</code>.</p>
+<p>In our code however, <code class="article-code-inline">blockDim=1</code> therefore <code class="article-code-inline">blockIdx=0</code>, so this simplifies to <code class="article-code-inline">1 * 0 + threadIdx = threadIdx</code>.</p>
 <h3 id=why-1-1000-or-3-4 class="article-small-section">Why <<<1, 1000>>> or <<<3, 4>>> ?</h3>
 <p>So this triple chevron syntax is in fact just specifying the size of a matrix (grid). A matrix of threads that will run the kernel.</p>
 <div class="article-quote">How to choose the dimension of the matrix?</div>
-<p>It depends on the problem. If you have 1000 elements to process, you can use a single block of 1000 threads <code class="article-code-inline">&lt;&lt;&lt;1, 1000&gt;&gt;&gt;</code> to process your data. But remember each block has a limit of 1024 threads. So if you wanted to process 2000 elements at once, you would have to split those over 2 blocks. For example by using 2 blocks of 1000 threads <code class="article-code-inline">&lt;&lt;&lt;2, 1000&gt;&gt;&gt;</code>.</p>
-<div class="article-quote">What if we have more threads than elements to process?</div>
+<p>It depends on the problem. If you have 1000 elements to process, you can use a single block of 1000 threads <code class="article-code-inline">&lt;&lt;&lt;1, 1000&gt;&gt;&gt;</code>. But remember each block has a limit of 1024 threads. If you wanted to process 2000 elements at once, you would have to split those over 2 blocks. For example by using 2 blocks of 1000 threads <code class="article-code-inline">&lt;&lt;&lt;2, 1000&gt;&gt;&gt;</code>.</p>
+<h3 id=what-if-we-have-more-threads-than-elements-to-process class="article-small-section">What if we have more threads than elements to process ?</h3>
 <p>Say you want to process 1049 elements (that's a prime number). The best you can do is start the kernel with <code class="article-code-inline">&lt;&lt;&lt;2, 525&gt;&gt;&gt;</code>. This will leave a single <span class="article-bold">unused</span> thread (1050 threads vs 1049 elements to process).</p>
-<p>Of course, since CUDA doesn't know this thread is unused, it will still run. It is your job to make it a no-operation. This is why we have this line in the kernel:</p>
+<p>Of course, since CUDA doesn't know this thread is unused, it will run regardless. It is your job to make it a no-operation. This is why we have this line in the kernel:</p>
 <pre class="article-code-block cpp"><code>if (i &lt; size) {
     // add arrays
 }</code></pre>
-<h3 id=what-if-we-have-more-elements-than-threads class="article-small-section">What if we have more elements than threads ?</h3>
-<p>As we saw earlier, our GPU has about 40k threads that can run in parallel. How can we then process, say, 100,000 elements?</p>
+<h3 id=what-if-we-have-more-elements-to-process-than-threads class="article-small-section">What if we have more elements to process than threads ?</h3>
+<p>As we saw earlier, our GPU has about 40k threads that can run in parallel. How can we process, say, 100k elements? You don't even need to get to that extreme, you might simply want to split the GPU usage across different calculations, so you'll have a certain number of threads allocated to a certain task.</p>
 <div class="article-quote">Vertical scaling!</div>
-<p>A thread doesn't have to process only a single element, it can process multiple. For example, if the GPU had 1000 threads available, and we wanted to process 5000 elements. We could run 1000 threads and have each thread process 5 elements.</p>
+<p>A thread doesn't have to process only a single element, it can process multiple. For example, if the GPU had 1000 threads available and we wanted to process 5000 elements, we could run 1000 threads and have each thread process 5 elements.</p>
 <p>A common way to do that is to use a <span class="article-italic">grid-stride loop</span>:</p>
 <ul><li class="article-li">Thread <code class="article-code-inline">0</code> will process elements <code class="article-code-inline">0, 1000, 2000, 3000, 4000</code></li>
 <li class="article-li">Thread <code class="article-code-inline">1</code> will process elements <code class="article-code-inline">1, 1001, 2001, 3001, 4001</code></li>
