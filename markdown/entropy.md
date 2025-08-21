@@ -8,17 +8,17 @@
 
 # Information
 
-Information is tied to the field of **probabilities**, and it can be seen as a measure of **uncertainty** or **suprise**. To avoid extrapolation and misuse of this concept, you need to remember that it only makes sense to talk about information (in the mathematical sense) when you are studying a **probabilistic event**.
+Information is tied to the field of **probabilities**, and it can be seen as a measure of **uncertainty** or **surprise**. To avoid extrapolation and misuse of this concept, you need to remember that it only makes sense to talk about information (in the mathematical sense) when you are studying a **probabilistic event**.
 
-> Information relates to probabilities in that the realisation of an event with low probability brings a lot of information, and the realisation of an event with high probability brings little information.
+> Information relates to probabilities in that the realization of an event with low probability brings a lot of information, and the realization of an event with high probability brings little information.
 
-So the information gained by knowing an event has realised relates to probability of the event realisation. Therefore it has to be a function of the form `$I(p)$`, but what is it ***exactly***?
+So the information gained by knowing an event has realized relates to probability of the event realization. Therefore it has to be a function of the form `$I(p)$`, but what is it ***exactly***?
 
 Let's explore the properties we would like such a mapping to have:
 
 1. Low probability `$\implies$` high information
 2. High probability `$\implies$` low information
-3. `$p=1 \implies I=0$` (if an event is certain to be realised, then knowing about it doesn't bring about any information)
+3. `$p=1 \implies I=0$` (if an event is certain to be realized, then knowing about it doesn't bring about any information)
 4. `$ p \to 0 \implies I \to \inf$` (the opposite of 3 must be true)
 5. Information should be additive for independent events, i.e. learning about two independent events should give you the amount of information equal to the sum of the information gained from each event separately:
 
@@ -26,7 +26,7 @@ Let's explore the properties we would like such a mapping to have:
 p(E_1 \cap E_2) = p(E_1) * p(E_2) \implies I(p(E_1 \cap E_2)) = I(p(E_1)) + I(p(E_2))
 ```
 
-If we need this mapping function to be continuous, which seems like a natural choice given that probabilities are continues and that information should not *jump* suddently, then there's only one family of functions that respects those properties: ***logarithms**.
+If we need this mapping function to be continuous, which we do since probabilities themselves are continuous and that information should not *jump* suddenly, then there's only one family of functions that meets those requirements: ***logarithms***.
 
 More precisely, the negative logarithms:
 
@@ -42,7 +42,7 @@ I(p) = -log(p)
 
 *I might use either notation depending on the context to make the equations lighter.*
 
-We said ***the family of functions*** earlier — indeed, logarithms of *all* bases respect the properties listed above. You can use any of them, the difference will be in the **unit** of the information:
+We said ***the family of functions*** — indeed, logarithms of *all* bases meet the requirements listed above. Any base is valid, the difference will be in the **unit** of the information:
 
 - `$log_2(x)$` will give ***bits***
 - `$log_{10}(x)$` will give ***dits***
@@ -54,7 +54,7 @@ All of those are valid ways of expressing information. In practice, we often use
 
 ## Example 1
 
-I flip a fair coin `$p(\text{heads}) = p(\text{tails}) = \frac{1}{2}$` and tell you the result. I have just given you: `$-log_2(\frac{1}{2}) = log_2(2) = 1$` **bit** of information! In other words, I have given you the information content gained with ***1 binary choice***.
+I flip a fair coin `$p(\text{heads}) = p(\text{tails}) = \frac{1}{2}$` and tell you the result. I have just given you: `$-log_2(\frac{1}{2}) = log_2(2) = 1$` **bit** of information! In other words, I have given you the information content gained with ***1 binary choice***, i.e. one *yes/no* question.
 
 Recall that `$log(\frac{1}{x}) = -log(x)$`.
 
@@ -70,13 +70,13 @@ I have to pick one fruit amongst 8 different fruits (assume each is equally like
 
 # Entropy
 
-In the previous examples, you'll notice that I used **uniform probability distributions**. This means the probability of each outcome was equally likely (`$p=\frac{1}{2}$` for the coin toss, and `$p=\frac{1}{8}$` for the fruit pick). Then I asked:
+In the previous examples, you'll notice that I used **uniform probability distributions**. The probability of each outcome was equally likely (`$p=\frac{1}{2}$` for the coin toss, and `$p=\frac{1}{8}$` for the fruit pick). Then I asked:
 
 > What is the information gained for observing one of those events?
 
 Since the probability was the same for all events, then the answer to that question would be the **same regardless of the outcome** of the random experiment.
 
-> What if each outcome had a different probability of realisation?
+> What if each outcome had a different probability of realization?
 
 What if I had to pick between 3 fruits, each with a different probability according to my preferences:
 
@@ -86,7 +86,7 @@ What if I had to pick between 3 fruits, each with a different probability accord
 
 A natural question is: ***on average***, what is the information gained for observing an event from that random experiment? We are asking the same question as before, but of course since each outcome has a different probability, and since the information depends on the probability, the result will change for different outcomes. Therefore we ask about the ***average*** outcome.
 
-One way is to sum the information gained by each event ***weighted*** by the probability of realisation.
+One way is to sum the information gained by each event ***weighted*** by the probability of realization.
 
 ```latex
 \begin{align*}
@@ -116,13 +116,13 @@ We can try to intuitively answer. Give it a thought!
 
 ## Minimal Entropy
 
-Since entropy is the expected information to be gained from observing a random variable, and since information is minimal when events are certain to be realised, the absolute minimum would be reached if a random variable could be predictable every time, i.e. if it had an event with probability `$p=1$` and the rest `$p=0$` (in which case `$H(X)=0$`). Any other probability distribution would yield some amount of information.
+Since entropy is the expected information to be gained from observing a random variable, and since information is minimal when events are certain to be realized, the absolute minimum would be reached if a random variable could be predictable every time, i.e. if it had an event with probability `$p=1$` and the rest `$p=0$` (in which case `$H(X)=0$`). Any other probability distribution would yield some amount of information.
 
 ## Maximum Entropy
 
-Entropy is maximised if the average information is maximal. We know information is highest for most improbable events (`$p \to 0$`). If we have multiple events, each with a certain probability, and we want those probabilities to be as low as possible, then the lowest we can go on average is when we spread the probability space over all events equally, that is `$p=\frac{1}{n}$` with `$n$` the number of events. In other words: a ***uniform probability distribution***.
+Entropy is maximized if the average information is maximal. We know information is highest for most improbable events (`$p \to 0$`). If we have multiple events, each with a certain probability, and we want those probabilities to be as **low** as possible, then the lowest we can go on average is when we spread the probability space over all events equally, that is `$p=\frac{1}{n}$` with `$n$` the number of events. In other words: a ***uniform probability distribution***.
 
-> You can see the uniform distribution as the most ***"unpredictable"*** — the one for which each event brings the maximum amount of information content.
+> You can see the uniform distribution as the most ***"unpredictable"*** — the one for which each event brings the maximum amount of information content upon realization.
 
 ---
 
@@ -184,9 +184,9 @@ Consider this final encoder:
 
 This uses less bits than the previous too, but it is also **ambiguous**!
 
-The bits string `$00$` could be either `$AA$` or `$C$`, and there's no way to go around this.
+The bit string `$00$` could be either `$AA$` or `$C$`, and there's no way to go around this.
 
-> An encoder must be unambiguous, i.e. decodeable in a single way.
+> An encoder must be unambiguous, i.e. decodable in a single way.
 
 ## Encoders & Entropy
 
@@ -240,7 +240,7 @@ You will be using `$Q$` to encode events coming from the machine, therefore the 
 
 > Notice that `$H(P, Q) \neq H(Q, P)$`.
 
-Also, notice that if you had guessed `$P$` perfectly well (`$Q=P$`), then the result should be the theoretical minimum number of bits possible to encode events from `$P$`, that is the **entropy**:
+Also, notice that if you had guessed `$P$` perfectly well (`$Q=P$`), then the result should be the theoretical minimum number of bits possible to encode events from `$P$`, which is the **entropy**:
 
 ```latex
 \begin{align*}
@@ -257,7 +257,7 @@ If you've understood the *cross entropy*, then this should be a piece of cake!
 
 The ***cross entropy*** is the average number of bits used if you encode events drawn from a distribution `$P$` while expecting the events to come from a distribution `$Q$`. We said this number must be higher or equal to `$H(P)$` since that would be the number of bits used by a perfect encoder for `$P$`. `$H(P)$` is a **lower bound** for `$H(P, Q)$`.
 
-The number of *extra* bits used **relative to** `$H(P)$` is what we call the ***relative entropy*** and we denote it `$KL(P||Q)$`! That is, not the entire entropy but just the extra you used due to the error in guessing `$P$`.
+The number of ***extra*** bits used ***relative to*** `$H(P)$` is what we call the ***relative entropy*** and we denote it `$KL(P||Q)$`! That is, not the entire entropy but just the extra you used due to the error in guessing `$P$`.
 
 > The relative entropy is the difference in information used by a suboptimal encoder and an optimal encoder: `$H(P, Q) - H(P)$`.
 
@@ -272,17 +272,17 @@ KL(P || Q) &= H(P, Q) - H(P) \\
 
 Like the cross entropy, the *relative entropy* is not commutative: `$KL(P||Q) \neq KL(Q||P)$`. You can understand it as a measure of ***relative difference*** between two probability distributions, the minimum being `$0$` when `$Q=P$`.
 
-## Last Note
+# Last Note
 
-In machine learning, we try to minimise the cross entropy:
+In machine learning, we try to minimize the cross entropy:
 
 ```latex
 H(P, Q) = KL(P || Q) + H(P)
 ```
 
-Where `$P$` is the distribution of the **data**, and `$Q$` is the distribution of the **model**. Since the data doesn't change during the training, `$H(P)$` is a constant, we are essentially **minimising the relative entropy**, i.e. the difference between `$P$` and `$Q$`.
+Where `$P$` is the distribution of the **data**, and `$Q$` is the distribution of the **model**. Since the data doesn't change during the training, `$H(P)$` is a constant, we are essentially **minimizing the relative entropy**, i.e. the difference between `$P$` and `$Q$`.
 
-Interestingly, in the context of LLMs (Large Language Models), when we minimise the cross entropy and therefore minimise the relative entropy, the loss we end up with after training is an approximation (as KL goes to 0) of the entropy of the data distribution, that is, the entropy of language.
+Interestingly, in the context of LLMs (Large Language Models), when we minimize the cross entropy and therefore minimize the relative entropy, the loss we end up with after training is an approximation (as KL goes to 0) of the entropy of the data distribution, that is, the ***entropy of language***.
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/function-plot/1.25.1/function-plot.min.js" integrity="sha512-fsvE52IC5bx7NhuaGLoNE+Sq3EKFQ+fcvaJPE5hGemvMwQudqQuNXC4eG/8CjU2a90P88NzYPRl77iOcXerCHg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="/assets/entropy/log.js"></script>

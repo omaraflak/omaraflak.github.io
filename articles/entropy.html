@@ -32,17 +32,17 @@
     </div>
     <article class="article-body">
         <h2 id=information class="article-section">Information</h2>
-<p>Information is tied to the field of <span class="article-bold">probabilities</span>, and it can be seen as a measure of <span class="article-bold">uncertainty</span> or <span class="article-bold">suprise</span>. To avoid extrapolation and misuse of this concept, you need to remember that it only makes sense to talk about information (in the mathematical sense) when you are studying a <span class="article-bold">probabilistic event</span>.</p>
-<div class="article-quote">Information relates to probabilities in that the realisation of an event with low probability brings a lot of information, and the realisation of an event with high probability brings little information.</div>
-<p>So the information gained by knowing an event has realised relates to probability of the event realisation. Therefore it has to be a function of the form [begin-latex-inline]I(p)[end-latex-inline], but what is it <span class="article-bold"><span class="article-italic">exactly</span></span>?</p>
+<p>Information is tied to the field of <span class="article-bold">probabilities</span>, and it can be seen as a measure of <span class="article-bold">uncertainty</span> or <span class="article-bold">surprise</span>. To avoid extrapolation and misuse of this concept, you need to remember that it only makes sense to talk about information (in the mathematical sense) when you are studying a <span class="article-bold">probabilistic event</span>.</p>
+<div class="article-quote">Information relates to probabilities in that the realization of an event with low probability brings a lot of information, and the realization of an event with high probability brings little information.</div>
+<p>So the information gained by knowing an event has realized relates to probability of the event realization. Therefore it has to be a function of the form [begin-latex-inline]I(p)[end-latex-inline], but what is it <span class="article-bold"><span class="article-italic">exactly</span></span>?</p>
 <p>Let's explore the properties we would like such a mapping to have:</p>
 <p>1. Low probability [begin-latex-inline]\implies[end-latex-inline] high information</p>
 <p>2. High probability [begin-latex-inline]\implies[end-latex-inline] low information</p>
-<p>3. [begin-latex-inline]p=1 \implies I=0[end-latex-inline] (if an event is certain to be realised, then knowing about it doesn't bring about any information)</p>
+<p>3. [begin-latex-inline]p=1 \implies I=0[end-latex-inline] (if an event is certain to be realized, then knowing about it doesn't bring about any information)</p>
 <p>4. [begin-latex-inline] p \to 0 \implies I \to \inf[end-latex-inline] (the opposite of 3 must be true)</p>
 <p>5. Information should be additive for independent events, i.e. learning about two independent events should give you the amount of information equal to the sum of the information gained from each event separately:</p>
 <div class="article-latex">[begin-latex]p(E_1 \cap E_2) = p(E_1) * p(E_2) \implies I(p(E_1 \cap E_2)) = I(p(E_1)) + I(p(E_2))[end-latex]</div>
-<p>If we need this mapping function to be continuous, which seems like a natural choice given that probabilities are continues and that information should not <span class="article-italic">jump</span> suddently, then there's only one family of functions that respects those properties: <span class="article-bold">*logarithms</span>.</p>
+<p>If we need this mapping function to be continuous, which we do since probabilities themselves are continuous and that information should not <span class="article-italic">jump</span> suddenly, then there's only one family of functions that meets those requirements: <span class="article-bold"><span class="article-italic">logarithms</span></span>.</p>
 <p>More precisely, the negative logarithms:</p>
 <div class="article-center-row"><div id="negative-log"></div></div>
 <p>We define information mathematically as:</p>
@@ -50,30 +50,30 @@
 \text{or} \\
 I(p) = -log(p)[end-latex]</div>
 <span class="article-italic">I might use either notation depending on the context to make the equations lighter.</span>
-<p>We said <span class="article-bold"><span class="article-italic">the family of functions</span></span> earlier — indeed, logarithms of <span class="article-italic">all</span> bases respect the properties listed above. You can use any of them, the difference will be in the <span class="article-bold">unit</span> of the information:</p>
+<p>We said <span class="article-bold"><span class="article-italic">the family of functions</span></span> — indeed, logarithms of <span class="article-italic">all</span> bases meet the requirements listed above. Any base is valid, the difference will be in the <span class="article-bold">unit</span> of the information:</p>
 <ul><li class="article-li">[begin-latex-inline]log_2(x)[end-latex-inline] will give <span class="article-bold"><span class="article-italic">bits</span></span></li>
 <li class="article-li">[begin-latex-inline]log_{10}(x)[end-latex-inline] will give <span class="article-bold"><span class="article-italic">dits</span></span></li>
 <li class="article-li">[begin-latex-inline]log_e(x)[end-latex-inline] will give <span class="article-bold"><span class="article-italic">nats</span></span></li></ul>
 <p>All of those are valid ways of expressing information. In practice, we often use the base 2 logarithm.</p>
 <div class="article-quote"><span class="article-bold">Bit</span>: represents the amount of information content gained with a binary choice.</div>
 <h3 id=example-1 class="article-small-section">Example 1</h3>
-<p>I flip a fair coin [begin-latex-inline]p(\text{heads}) = p(\text{tails}) = \frac{1}{2}[end-latex-inline] and tell you the result. I have just given you: [begin-latex-inline]-log_2(\frac{1}{2}) = log_2(2) = 1[end-latex-inline] <span class="article-bold">bit</span> of information! In other words, I have given you the information content gained with <span class="article-bold"><span class="article-italic">1 binary choice</span></span>.</p>
+<p>I flip a fair coin [begin-latex-inline]p(\text{heads}) = p(\text{tails}) = \frac{1}{2}[end-latex-inline] and tell you the result. I have just given you: [begin-latex-inline]-log_2(\frac{1}{2}) = log_2(2) = 1[end-latex-inline] <span class="article-bold">bit</span> of information! In other words, I have given you the information content gained with <span class="article-bold"><span class="article-italic">1 binary choice</span></span>, i.e. one <span class="article-italic">yes/no</span> question.</p>
 <p>Recall that [begin-latex-inline]log(\frac{1}{x}) = -log(x)[end-latex-inline].</p>
 <div class="article-quote">Logarithm in base 2 answers the question: "how many times do I have to divide x by 2 to get 1 (or less) ?". In other words, how many <span class="article-bold">binary choices</span> do I have to make on my input space to be left with 1 element (or less). Each of these binary choices (divisions) represent one bit of information.</div>
 <h3 id=example-2 class="article-small-section">Example 2</h3>
 <p>I have to pick one fruit amongst 8 different fruits (assume each is equally likely to be picked). I pick one and tell you which: I have just given you [begin-latex-inline]-log_2(\frac{1}{8}) = log_2(8) = 3[end-latex-inline] <span class="article-bold">bits</span> of information. In other words, I have given you the information content gained with <span class="article-bold"><span class="article-italic">3 binary choices</span></span> (divide 8 by two 3 times).</p>
 <div class="article-quote">I could have measured information in <span class="article-italic">dits</span> instead. It is equally correct to say that I would have given you [begin-latex-inline]-log_{10}(\frac{1}{8}) = log_{10}(8) = 0.9[end-latex-inline] <span class="article-bold">dits</span> of information.</br></br>[begin-latex-inline]3 \text{ bits} = 0.9 \text{ dits}[end-latex-inline]</div>
 <h2 id=entropy class="article-section">Entropy</h2>
-<p>In the previous examples, you'll notice that I used <span class="article-bold">uniform probability distributions</span>. This means the probability of each outcome was equally likely ([begin-latex-inline]p=\frac{1}{2}[end-latex-inline] for the coin toss, and [begin-latex-inline]p=\frac{1}{8}[end-latex-inline] for the fruit pick). Then I asked:</p>
+<p>In the previous examples, you'll notice that I used <span class="article-bold">uniform probability distributions</span>. The probability of each outcome was equally likely ([begin-latex-inline]p=\frac{1}{2}[end-latex-inline] for the coin toss, and [begin-latex-inline]p=\frac{1}{8}[end-latex-inline] for the fruit pick). Then I asked:</p>
 <div class="article-quote">What is the information gained for observing one of those events?</div>
 <p>Since the probability was the same for all events, then the answer to that question would be the <span class="article-bold">same regardless of the outcome</span> of the random experiment.</p>
-<div class="article-quote">What if each outcome had a different probability of realisation?</div>
+<div class="article-quote">What if each outcome had a different probability of realization?</div>
 <p>What if I had to pick between 3 fruits, each with a different probability according to my preferences:</p>
 <ul><li class="article-li"><span class="article-bold">M</span>ango [begin-latex-inline]p=0.7[end-latex-inline]</li>
 <li class="article-li"><span class="article-bold">A</span>pples [begin-latex-inline]p=0.2[end-latex-inline]</li>
 <li class="article-li"><span class="article-bold">O</span>range [begin-latex-inline]p=0.1[end-latex-inline]</li></ul>
 <p>A natural question is: <span class="article-bold"><span class="article-italic">on average</span></span>, what is the information gained for observing an event from that random experiment? We are asking the same question as before, but of course since each outcome has a different probability, and since the information depends on the probability, the result will change for different outcomes. Therefore we ask about the <span class="article-bold"><span class="article-italic">average</span></span> outcome.</p>
-<p>One way is to sum the information gained by each event <span class="article-bold"><span class="article-italic">weighted</span></span> by the probability of realisation.</p>
+<p>One way is to sum the information gained by each event <span class="article-bold"><span class="article-italic">weighted</span></span> by the probability of realization.</p>
 <div class="article-latex">[begin-latex]\begin{align*}
 \mathbb{E}[I] &= p(M) * I(M) + p(A) * I(A) + p(O) * I(O) \\
 &= -p(M)*log(p(M)) -p(A)*log(p(A)) -p(O)*log(p(O)) \\
@@ -90,10 +90,10 @@ H(X) &= \sum_x p(x) * I(x) \\
 <div class="article-quote">An interesting follow up question is: when is the entropy minimal/maximal ?</div>
 <p>We can try to intuitively answer. Give it a thought!</p>
 <h3 id=minimal-entropy class="article-small-section">Minimal Entropy</h3>
-<p>Since entropy is the expected information to be gained from observing a random variable, and since information is minimal when events are certain to be realised, the absolute minimum would be reached if a random variable could be predictable every time, i.e. if it had an event with probability [begin-latex-inline]p=1[end-latex-inline] and the rest [begin-latex-inline]p=0[end-latex-inline] (in which case [begin-latex-inline]H(X)=0[end-latex-inline]). Any other probability distribution would yield some amount of information.</p>
+<p>Since entropy is the expected information to be gained from observing a random variable, and since information is minimal when events are certain to be realized, the absolute minimum would be reached if a random variable could be predictable every time, i.e. if it had an event with probability [begin-latex-inline]p=1[end-latex-inline] and the rest [begin-latex-inline]p=0[end-latex-inline] (in which case [begin-latex-inline]H(X)=0[end-latex-inline]). Any other probability distribution would yield some amount of information.</p>
 <h3 id=maximum-entropy class="article-small-section">Maximum Entropy</h3>
-<p>Entropy is maximised if the average information is maximal. We know information is highest for most improbable events ([begin-latex-inline]p \to 0[end-latex-inline]). If we have multiple events, each with a certain probability, and we want those probabilities to be as low as possible, then the lowest we can go on average is when we spread the probability space over all events equally, that is [begin-latex-inline]p=\frac{1}{n}[end-latex-inline] with [begin-latex-inline]n[end-latex-inline] the number of events. In other words: a <span class="article-bold"><span class="article-italic">uniform probability distribution</span></span>.</p>
-<div class="article-quote">You can see the uniform distribution as the most <span class="article-bold"><span class="article-italic">"unpredictable"</span></span> — the one for which each event brings the maximum amount of information content.</div>
+<p>Entropy is maximized if the average information is maximal. We know information is highest for most improbable events ([begin-latex-inline]p \to 0[end-latex-inline]). If we have multiple events, each with a certain probability, and we want those probabilities to be as <span class="article-bold">low</span> as possible, then the lowest we can go on average is when we spread the probability space over all events equally, that is [begin-latex-inline]p=\frac{1}{n}[end-latex-inline] with [begin-latex-inline]n[end-latex-inline] the number of events. In other words: a <span class="article-bold"><span class="article-italic">uniform probability distribution</span></span>.</p>
+<div class="article-quote">You can see the uniform distribution as the most <span class="article-bold"><span class="article-italic">"unpredictable"</span></span> — the one for which each event brings the maximum amount of information content upon realization.</div>
 <div class="article-hr"></div>
 <p>I highly advise checking out 3B1B video on how to solve the game Wordle using the concept of entropy.</p>
 
@@ -136,8 +136,8 @@ H(X) &= \sum_x p(x) * I(x) \\
 <li class="article-li">[begin-latex-inline]B \coloneqq 1[end-latex-inline]</li>
 <li class="article-li">[begin-latex-inline]C \coloneqq 00[end-latex-inline]</li></ul>
 <p>This uses less bits than the previous too, but it is also <span class="article-bold">ambiguous</span>!</p>
-<p>The bits string [begin-latex-inline]00[end-latex-inline] could be either [begin-latex-inline]AA[end-latex-inline] or [begin-latex-inline]C[end-latex-inline], and there's no way to go around this.</p>
-<div class="article-quote">An encoder must be unambiguous, i.e. decodeable in a single way.</div>
+<p>The bit string [begin-latex-inline]00[end-latex-inline] could be either [begin-latex-inline]AA[end-latex-inline] or [begin-latex-inline]C[end-latex-inline], and there's no way to go around this.</p>
+<div class="article-quote">An encoder must be unambiguous, i.e. decodable in a single way.</div>
 <h3 id=encoders-entropy class="article-small-section">Encoders & Entropy</h3>
 <p>How does that relate to entropy?</p>
 <p>Think about the optimal encoder: that will be the encoder that assigns, <span class="article-bold"><span class="article-italic">on average</span></span>, the <span class="article-bold"><span class="article-italic">least amount of bits</span></span> possible to an event of your distribution.</p>
@@ -173,7 +173,7 @@ H(P, Q) &= p(x_1) * I(q(x_1)) + p(x_2) * I(q(x_2)) + \ldots \\
 <p>This looks very much like [begin-latex-inline]H(Q)[end-latex-inline], but the information is weighted by the probabilities coming from [begin-latex-inline]P[end-latex-inline]. This makes sense:</p>
 <p>You will be using [begin-latex-inline]Q[end-latex-inline] to encode events coming from the machine, therefore the information content will be calculated using [begin-latex-inline]q(x)[end-latex-inline]. However, the <span class="article-bold"><span class="article-italic">actual weighting</span></span> of the information for each event comes from [begin-latex-inline]P[end-latex-inline] since that is the <span class="article-bold">true frequency</span> of the events.</p>
 <div class="article-quote">Notice that [begin-latex-inline]H(P, Q) \neq H(Q, P)[end-latex-inline].</div>
-<p>Also, notice that if you had guessed [begin-latex-inline]P[end-latex-inline] perfectly well ([begin-latex-inline]Q=P[end-latex-inline]), then the result should be the theoretical minimum number of bits possible to encode events from [begin-latex-inline]P[end-latex-inline], that is the <span class="article-bold">entropy</span>:</p>
+<p>Also, notice that if you had guessed [begin-latex-inline]P[end-latex-inline] perfectly well ([begin-latex-inline]Q=P[end-latex-inline]), then the result should be the theoretical minimum number of bits possible to encode events from [begin-latex-inline]P[end-latex-inline], which is the <span class="article-bold">entropy</span>:</p>
 <div class="article-latex">[begin-latex]\begin{align*}
 H(P, P) &= - \sum_x p(x) * log(p(x)) \\
 &= H(P)
@@ -182,7 +182,7 @@ H(P, P) &= - \sum_x p(x) * log(p(x)) \\
 <p>Lastly, the <span class="article-bold"><span class="article-italic">relative entropy</span></span>, also known as the <span class="article-bold"><span class="article-italic">KL divergence</span></span>.</p>
 <p>If you've understood the <span class="article-italic">cross entropy</span>, then this should be a piece of cake!</p>
 <p>The <span class="article-bold"><span class="article-italic">cross entropy</span></span> is the average number of bits used if you encode events drawn from a distribution [begin-latex-inline]P[end-latex-inline] while expecting the events to come from a distribution [begin-latex-inline]Q[end-latex-inline]. We said this number must be higher or equal to [begin-latex-inline]H(P)[end-latex-inline] since that would be the number of bits used by a perfect encoder for [begin-latex-inline]P[end-latex-inline]. [begin-latex-inline]H(P)[end-latex-inline] is a <span class="article-bold">lower bound</span> for [begin-latex-inline]H(P, Q)[end-latex-inline].</p>
-<p>The number of <span class="article-italic">extra</span> bits used <span class="article-bold">relative to</span> [begin-latex-inline]H(P)[end-latex-inline] is what we call the <span class="article-bold"><span class="article-italic">relative entropy</span></span> and we denote it [begin-latex-inline]KL(P||Q)[end-latex-inline]! That is, not the entire entropy but just the extra you used due to the error in guessing [begin-latex-inline]P[end-latex-inline].</p>
+<p>The number of <span class="article-bold"><span class="article-italic">extra</span></span> bits used <span class="article-bold"><span class="article-italic">relative to</span></span> [begin-latex-inline]H(P)[end-latex-inline] is what we call the <span class="article-bold"><span class="article-italic">relative entropy</span></span> and we denote it [begin-latex-inline]KL(P||Q)[end-latex-inline]! That is, not the entire entropy but just the extra you used due to the error in guessing [begin-latex-inline]P[end-latex-inline].</p>
 <div class="article-quote">The relative entropy is the difference in information used by a suboptimal encoder and an optimal encoder: [begin-latex-inline]H(P, Q) - H(P)[end-latex-inline].</div>
 <div class="article-latex">[begin-latex]\begin{align*}
 KL(P || Q) &= H(P, Q) - H(P) \\
@@ -191,11 +191,11 @@ KL(P || Q) &= H(P, Q) - H(P) \\
 &= \sum_x p(x) * log\left(\frac{p(x)}{q(x)}\right) \\
 \end{align*}[end-latex]</div>
 <p>Like the cross entropy, the <span class="article-italic">relative entropy</span> is not commutative: [begin-latex-inline]KL(P||Q) \neq KL(Q||P)[end-latex-inline]. You can understand it as a measure of <span class="article-bold"><span class="article-italic">relative difference</span></span> between two probability distributions, the minimum being [begin-latex-inline]0[end-latex-inline] when [begin-latex-inline]Q=P[end-latex-inline].</p>
-<h3 id=last-note class="article-small-section">Last Note</h3>
-<p>In machine learning, we try to minimise the cross entropy:</p>
+<h2 id=last-note class="article-section">Last Note</h2>
+<p>In machine learning, we try to minimize the cross entropy:</p>
 <div class="article-latex">[begin-latex]H(P, Q) = KL(P || Q) + H(P)[end-latex]</div>
-<p>Where [begin-latex-inline]P[end-latex-inline] is the distribution of the <span class="article-bold">data</span>, and [begin-latex-inline]Q[end-latex-inline] is the distribution of the <span class="article-bold">model</span>. Since the data doesn't change during the training, [begin-latex-inline]H(P)[end-latex-inline] is a constant, we are essentially <span class="article-bold">minimising the relative entropy</span>, i.e. the difference between [begin-latex-inline]P[end-latex-inline] and [begin-latex-inline]Q[end-latex-inline].</p>
-<p>Interestingly, in the context of LLMs (Large Language Models), when we minimise the cross entropy and therefore minimise the relative entropy, the loss we end up with after training is an approximation (as KL goes to 0) of the entropy of the data distribution, that is, the entropy of language.</p>
+<p>Where [begin-latex-inline]P[end-latex-inline] is the distribution of the <span class="article-bold">data</span>, and [begin-latex-inline]Q[end-latex-inline] is the distribution of the <span class="article-bold">model</span>. Since the data doesn't change during the training, [begin-latex-inline]H(P)[end-latex-inline] is a constant, we are essentially <span class="article-bold">minimizing the relative entropy</span>, i.e. the difference between [begin-latex-inline]P[end-latex-inline] and [begin-latex-inline]Q[end-latex-inline].</p>
+<p>Interestingly, in the context of LLMs (Large Language Models), when we minimize the cross entropy and therefore minimize the relative entropy, the loss we end up with after training is an approximation (as KL goes to 0) of the entropy of the data distribution, that is, the <span class="article-bold"><span class="article-italic">entropy of language</span></span>.</p>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/function-plot/1.25.1/function-plot.min.js" integrity="sha512-fsvE52IC5bx7NhuaGLoNE+Sq3EKFQ+fcvaJPE5hGemvMwQudqQuNXC4eG/8CjU2a90P88NzYPRl77iOcXerCHg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="/assets/entropy/log.js"></script>
     </article>

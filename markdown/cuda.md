@@ -1,5 +1,5 @@
 :title: CUDA Kernels
-:description: How to write CUDA kernels
+:description: Gain a 1650x speed up by writing CUDA kernels
 :year: 2025
 :month: 8
 :day: 19

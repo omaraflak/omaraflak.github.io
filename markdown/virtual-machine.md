@@ -7,7 +7,7 @@
 :code: true
 :dot: true
 
-Virtual machines are a truely fascinating piece of software, and yet suprisingly simple. As you start understanding how they work and write your own, it will feel like you're discovering computers all over again. In this article I will explain what a virtual machine is and how to bulid one, we will write some code that runs on our virtual machine, and see how simple constructs build up to create complex logic.
+Virtual machines are a truly fascinating piece of software, and yet surprisingly simple. As you start understanding how they work and write your own, it will feel like you're discovering computers all over again. In this article I will explain what a virtual machine is and how to build one, we will write some code that runs on our virtual machine, and see how simple constructs build up to create complex logic.
 
 # Preamble
 
@@ -15,13 +15,13 @@ Your computer has a processor, or CPU (central processing unit), which is respon
 
 > A CPU is a machine that takes **instructions** as input, and executes **actions** as output.
 
-Those *instructions* are very basic. An instruction might add two numbers, multiply two numbers, read from a memory location, write to a memory location, etc.
+Those *instructions* are very basic. An instruction may add two numbers, multiply two numbers, read from a memory location, write to a memory location, etc.
 
-When a program executes on your computer, it can go through convoluted paths involving various optimizations and pre-processing, but evenutally it **must** be transformed into instructions for the CPU to understand and execute.
+When a program executes on your computer, it can go through convoluted paths involving various optimizations and pre-processing, but eventually it **must** be transformed into instructions for the CPU to understand and execute.
 
 > A virtual machine, VM, is a simulation of a CPU.
 
-This simulation can be more or less complex, support more or less instructions, but the main idea stays the same.
+This simulation can be more or less complex, support more or less instructions, but the main idea stays the same: a machine that reads instructions and performs actions.
 
 There are multiple types of VM architectures, mainly: stack-based, register-based, or hybrid. In this article we will be playing around with a *hybrid* model.
 
@@ -31,12 +31,12 @@ CPUs come in various kinds and architectures (for example because of their brand
 
 Languages such as C or C++ compile directly into machine code (CPU instructions), which is why they run very fast, but it also means you have to write **one compiler per CPU architecture to target**.
 
-Other languages, like Java, are based on virtual machines. For Java it's the **Java Virtual Machine**, or JVM. Code written in Java does not compile into CPU instructions directly, but instead it compiles into **VM instructions** (here, the JVM)! It is then the job of the JVM (which is just another piece of software) to read and execute the instructions. This means it is slower to execute since we've introduced a "middle-man" between the code and the CPU, which is the VM (the code runs on the JVM, which runs on the CPU).
+Other languages, like Java, are based on virtual machines. For Java it's the **Java Virtual Machine**, or JVM. Code written in Java does not compile into CPU instructions directly, but instead it compiles into **VM instructions** (here, the JVM)! It is then the job of the JVM (which is just another piece of software) to read and execute the instructions. This means it is slower to execute since we've introduced a "middle-man" between the code and the CPU: the VM. The code runs on the VM, which itself runs on the CPU.
 
 In return, the advantages of this approach are multiple:
 
 - Any system that has the VM can run your code (so you don't have to write a compiler for each CPU architecture)
-- Anyone can create a new progamming language syntax and compile their code into your VM's instruction set (e.g. Scala, Kotlin, and more, run on the JVM)
+- Anyone can create a new programming language syntax and compile their code into your VM's instruction set (e.g. Scala, Kotlin, and more, run on the JVM)
 - Easier to maintain, extend, and debug
 
 # Virtual Machine
@@ -44,8 +44,8 @@ In return, the advantages of this approach are multiple:
 Our virtual machine will have those components:
 
 - A **stack** which holds temporary values for calculations
-- A **memory** which holds persistent values in a given scope
-- A **program** which it has to run (a set of instructions)
+- A **memory** which holds persistent values
+- A **program** which the VM has to run (a set of instructions)
 - An **instruction pointer** which points to the current instruction in the *program* that is being executed
 
 This will be our instruction set:
@@ -55,7 +55,7 @@ This will be our instruction set:
 - **`load <address>`** reads a value at the given address from the memory and pushes it onto the stack
 - **`add`** pops two elements from the stack, computes the sum, and pushes the result onto the stack
 - **`sub`** pops two elements from the stack, computes the difference between the second and the first, and pushes the result onto the stack
-- **`jumpif <address>`** pops an element stack, and moves the instruction pointer to the given address if the value is greater than zero
+- **`jumpif <address>`** pops an element from the stack, and moves the instruction pointer to the given address if the popped value is greater than zero
 - **`print`** pops an element from the stack and prints it to stdout
 - **`halt`** stops the virtual machine
 
@@ -210,7 +210,7 @@ Can you guess what this example does?
 
 ## Fibonacci
 
-Earlier, I simply translated the following logic into bytecode for our VM:
+Earlier, I simply translated the following logic into byte-code for our VM:
 
 ```python
 a = 0
@@ -249,7 +249,7 @@ Where `jumpifnot` is the opposite of `jumpif`: it will jump if the top element i
 
 ## While Loop
 
-A `while` loop is a construct that keeps executing a code-block **while** a certain condition is true. When the condition stops being true, then program should jump to the end of the code-block.
+A `while` loop is a construct that keeps executing a code-block **while** a certain condition is true. When the condition stops being true, the program should jump to the end of the code-block.
 
 ```
 .while
@@ -265,7 +265,7 @@ Where `jump` is an unconditional jump: it moves the instruction pointer regardle
 
 ## Functions
 
-Functions are nothing but a section of the bytecode that we jump ***to and back***. The question is: how does the function code know where to ***jump back*** if it can be invoked from different places?
+Functions are nothing but a section of the byte-code that we jump ***to and back***. The question is: how does the function code know where to ***jump back*** if it can be invoked from different places?
 
 We can have a different stack for function calls in which we push the address of the caller before jumping to a function. Whenever the function ***returns***, it pops an element from the ***call stack*** and jumps to that address (so it *returns* to the caller).
 
@@ -301,7 +301,7 @@ You have access to: `jump`, `jumpifnot`, `call`, `return`, `mod` (modulo), `mul`
 
 # How To Build A Programming Language
 
-Building a VM-based programming language is really not that hard once you understand those concepts. As you implement more instructions in your VM and understand how to map the high-level constructs to those instructions, what remains is how to translate code written in a high-level syntax into the low-level bytecode for your VM.
+Building a VM-based programming language is really not that hard once you understand those concepts. As you implement more instructions in your VM and understand how to map the high-level constructs to those instructions, what remains is how to translate code written in a high-level syntax into the low-level byte-code for your VM.
 
 Although this deserves an entire series on its own, these are roughly the steps to take.
 
@@ -354,7 +354,7 @@ digraph AST {
 
 ## 3. Compiler
 
-Lastly, a *compiler* converts the AST into bytecode for your virtual machine, which can then run the code. This is great because any person who wants to create a new language syntax for your VM only has to compile it to your AST. In fact, you could use any existing AST builder, and then convert code to your VM's bytecode.
+Lastly, a *compiler* converts the AST into byte-code for your virtual machine, which can then run the code. This is great because any person who wants to create a new language syntax for your VM only has to compile it to your AST. In fact, you could use any existing AST builder, and then convert code to your VM's byte-code.
 
 ---
 
