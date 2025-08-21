@@ -470,3 +470,9 @@ Those three numbers correspond to the limits for the `x, y, z` dimensions. There
 
 - Total threads per block. We saw the limit was 1024; this limit applies **across dimensions**. Meaning you can use `[32, 32, 1]` threads for `x, y, z` and that would be a valid configuration since `32 * 32 * 1 = 1024` which does not exceed the limit. On the other hand `[32, 32, 32]` is invalid.
 - Per-dimension limit. Each of `x, y, z` must not contain more threads than the individual limits `[1024, 1024, 64]`. For example `[1025, 0, 0]` is invalid.
+
+---
+
+Download the Google Colab notebook I used and import it into your own account for testing!
+
+[#download](/assets/cuda/notebook.ipynb)

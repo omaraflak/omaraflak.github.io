@@ -389,6 +389,18 @@ add_kernel&lt;&lt;&lt;grid_dim, block_dim&gt;&gt;&gt;(cuda_array1, cuda_array2, 
 <p>Those three numbers correspond to the limits for the <code class="article-code-inline">x, y, z</code> dimensions. There are 2 important considerations:</p>
 <ul><li class="article-li">Total threads per block. We saw the limit was 1024; this limit applies <span class="article-bold">across dimensions</span>. Meaning you can use <code class="article-code-inline">[32, 32, 1]</code> threads for <code class="article-code-inline">x, y, z</code> and that would be a valid configuration since <code class="article-code-inline">32 * 32 * 1 = 1024</code> which does not exceed the limit. On the other hand <code class="article-code-inline">[32, 32, 32]</code> is invalid.</li>
 <li class="article-li">Per-dimension limit. Each of <code class="article-code-inline">x, y, z</code> must not contain more threads than the individual limits <code class="article-code-inline">[1024, 1024, 64]</code>. For example <code class="article-code-inline">[1025, 0, 0]</code> is invalid.</li></ul>
+<div class="article-hr"></div>
+<p>Download the Google Colab notebook I used and import it into your own account for testing!</p>
+<p>
+            <center>
+                <div class="article-file-download-container">
+                    <a class="article-file-download-link" href="/assets/cuda/notebook.ipynb" download>
+                        <img src="/images/download.svg" alt="download" height="30" width="30">
+                        <span class="article-file-download-title">notebook.ipynb</span>
+                    </a>
+                </div>
+            </center>
+        </p>
     </article>
     <div class="article-hr"></div>
     <div class="site-footer">
