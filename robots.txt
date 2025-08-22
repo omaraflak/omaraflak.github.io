@@ -1,6 +1,8 @@
 User-agent: *
+Disallow: /src
+Disallow: /markdown
+Disallow: /articles/demo.html
 Allow: /articles
 Allow: /assets
-Disallow: /articles/demo.html
 
 Sitemap: https://omaraflak.github.io/sitemap.xml
