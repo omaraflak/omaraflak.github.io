@@ -1,9 +1,0 @@
-{
-    "name": "blog",
-    "route": "omaraflak.com",
-    "env": {
-        "dev": {
-            "route": "dev.omaraflak.com"
-        }
-    }
-}
