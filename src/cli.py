@@ -45,9 +45,9 @@ def generate(markdown_input_dir: str, html_output_dir: str, only: str | None = N
         fout.write(entries_html)
     print(">", entries_path)
 
-    with open("sitemap.xml", "w") as fout:
+    with open("public/sitemap.xml", "w") as fout:
         fout.write(sitemap.make_sitemap("\n".join(sitemap_entries)))
-    print("> sitemap.xml")
+    print("> public/sitemap.xml")
 
 
 if __name__ == "__main__":

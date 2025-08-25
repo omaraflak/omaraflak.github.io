@@ -257,7 +257,7 @@ In the kernel you can see those special variables not declared anywhere. Those a
 
 > `(blockIdx, threadIdx)` constitutes the `(row, col)` position in the matrix of the thread running the kernel.
 
-[#include](assets/cuda/grid.html)
+[#include](public/assets/cuda/grid.html)
 
 This is a representation of the threads running your kernel if you had called it with `add_kernel<<<3, 4>>>(...)` (3 blocks of 4 threads, so 12 threads in total). Each row represents a *block*, and each cell in a block is a *thread* running your kernel.
 

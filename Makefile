@@ -1,8 +1,8 @@
 all:
-	python src/cli.py markdown articles
+	python src/cli.py markdown public/articles
 
 install:
 	pip install -e src/
 
 .DEFAULT:
-	python src/cli.py markdown articles --only="$@.md"
+	python src/cli.py markdown public/articles --only="$@.md"

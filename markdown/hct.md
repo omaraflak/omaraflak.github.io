@@ -14,7 +14,7 @@ Google's color system is called HCT:
 
 In the grid below, the horizontal axis represents variations of *tone*, while the vertical axis represents variations of *hue*. A tone of 0 is always black, and a tone of 100 is always white. When the *chroma* goes to zero it transforms all tones into shades of grey.
 
-[#include](assets/hct/hct.html)
+[#include](public/assets/hct/hct.html)
 
 What's interesting with this color system is that it tries to be as **perceptually accurate** as possible: for a given hue and chroma, all tones *seem* to belong to the same family of colors. This makes it very easy to create a color palette starting with a seed color.
 
@@ -24,4 +24,4 @@ Another feature of HCT is that it is [accessible](https://developer.mozilla.org/
 
 We can visualize those three components on a color wheel.
 
-[#include](assets/hct/hct-3d.html)
+[#include](public/assets/hct/hct-3d.html)
